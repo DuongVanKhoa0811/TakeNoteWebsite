@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "rQzb3S76tp0Kr3Y17qsR5sxlvABoX5nI9iZ/90cPmYQ09VA2WU270y1XSUE1SAaefvaWNxt/ZKMv3RCC8Wpbhg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\duong\\source\\repos\\TakeNoteWebsite\\TakeNoteWebsite.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\duong\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.15\\microsoft.netcore.app.host.win-x64.5.0.15.nupkg.sha512"
+  ],
+  "logs": []
+}
