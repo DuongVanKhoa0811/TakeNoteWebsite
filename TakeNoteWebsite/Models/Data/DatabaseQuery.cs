@@ -7,41 +7,41 @@ namespace TakeNoteWebsite.Models.Data
 {
     public class DatabaseQuery
     {
-        public Entry GetFirstEntry(int UserID)
+        public static Entry GetFirstEntry(int UserID)
         {
             return new Entry();
         }
-        public Entry GetEntry(int EntryID)
+        public static Entry GetEntry(int EntryID)
         {
             return new Entry();
         }
-        public List<Entry> GetListEntry(int UserID)
+        public static List<Entry> GetListEntry(int UserID)
         {
             List<Entry> results = new List<Entry>();
             return results;
         }
-        public bool NewEntry(int UserID, Entry entry)
+        public static bool NewEntry(int UserID, Entry entry)
         {
             return true;
         }
-        public bool DeleteEntry(int EntryID)
+        public static bool DeleteEntry(int EntryID)
         {
             return true;
         }
-        public bool SaveEntry(int UserID, Entry entry)
+        public static bool SaveEntry(int UserID, Entry entry)
         {
             return true;
         }
-        public List<Image> GetListImage(int UserID)
+        public static List<Image> GetListImage(int UserID)
         {
             List<Image> result = new List<Image>();
             return result;
         }
-        public bool NewImage(int UserID, Image image)
+        public static bool NewImage(int UserID, Image image)
         {
             return true;
         }
-        public bool DeleteImage(int ImageID)
+        public static bool DeleteImage(int ImageID)
         {
             return true;
         }

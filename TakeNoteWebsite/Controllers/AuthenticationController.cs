@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TakeNoteWebsite.Models.Data;
 
@@ -14,6 +15,10 @@ namespace TakeNoteWebsite.Controllers
             return new User();
         } 
         static bool SignIn(string UserName, string password)
+        {
+            return true;
+        }
+        static bool SignOut()
         {
             return true;
         }
