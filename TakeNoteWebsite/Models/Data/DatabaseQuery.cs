@@ -32,7 +32,7 @@ namespace TakeNoteWebsite.Models.Data
         {
             return true;
         }
-        public static List<Image> GetListImage(int UserID)
+        public static List<Image> GetListImage(int UserID, string Folder, Filter filter)
         {
             List<Image> result = new List<Image>();
             return result;
