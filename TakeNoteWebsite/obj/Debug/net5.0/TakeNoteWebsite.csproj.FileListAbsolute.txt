@@ -77,3 +77,4 @@ C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.Views.pdb
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.genruntimeconfig.cache
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.csproj.CopyComplete
+C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\Razor\Views\Main\SignIn.cshtml.g.cs
