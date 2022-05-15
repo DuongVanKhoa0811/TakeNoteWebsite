@@ -24,6 +24,10 @@ namespace TakeNoteWebsite.Controllers
         //---------------- GET --------------------------
         public IActionResult Index()
         {
+            if(DeepLearningModel.PositiveNegative("I am very sad."))
+                ViewData["Tit"] = "Positive";
+            else
+                ViewData["Tit"] = "Negative";
             return View();
         }
 

@@ -1,18 +1,23 @@
-﻿using System;
+﻿using Microsoft.ML;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TakeNoteWebsite.Models.DeepLearningModel.ImageClassification;
+using TakeNoteWebsite.Models.DeepLearningModel.SentimentAnalysis;
 
 namespace TakeNoteWebsite.Models.DeepLearningModel
 {
     public class ModelStorage
     {
-        static Dictionary<string, Model> modelDict = new Dictionary<string, Model>();
+        static MLContext mlContext = new MLContext();
+        static Dictionary<string, MyModel> modelDict = new Dictionary<string, MyModel>();
         static ModelStorage()
         {
-            /*Add all models to dictionary*/
+            modelDict.Add("Image classifcation model", new ImageClassifyModel(mlContext));
+            modelDict.Add("Sentiment analysis model", new SentimentAnalysisModel(mlContext));
         }
-        static Model GetModel(string name)
+        public static MyModel GetModel(string name)
         {
             return modelDict.ContainsKey(name) ? modelDict[name] : null;
         }
