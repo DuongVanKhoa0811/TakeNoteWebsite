@@ -5533,23 +5533,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vntua\\.nuget\\packages\\": {},
+    "C:\\Users\\duong\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vntua\\Documents\\GitHub\\TakeNoteWebsite\\TakeNoteWebsite\\TakeNoteWebsite.csproj",
+      "projectUniqueName": "C:\\Users\\duong\\OneDrive\\Documents\\GitHub\\TakeNoteWebsite\\TakeNoteWebsite\\TakeNoteWebsite.csproj",
       "projectName": "TakeNoteWebsite",
-      "projectPath": "C:\\Users\\vntua\\Documents\\GitHub\\TakeNoteWebsite\\TakeNoteWebsite\\TakeNoteWebsite.csproj",
-      "packagesPath": "C:\\Users\\vntua\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vntua\\Documents\\GitHub\\TakeNoteWebsite\\TakeNoteWebsite\\obj\\",
+      "projectPath": "C:\\Users\\duong\\OneDrive\\Documents\\GitHub\\TakeNoteWebsite\\TakeNoteWebsite\\TakeNoteWebsite.csproj",
+      "packagesPath": "C:\\Users\\duong\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\duong\\OneDrive\\Documents\\GitHub\\TakeNoteWebsite\\TakeNoteWebsite\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\vntua\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\duong\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5591,6 +5591,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[5.0.15, 5.0.15]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -5599,7 +5605,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
