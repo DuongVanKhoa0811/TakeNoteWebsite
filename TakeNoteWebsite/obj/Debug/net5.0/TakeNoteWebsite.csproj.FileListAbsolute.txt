@@ -134,4 +134,3 @@ C:\Users\duong\OneDrive\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Deb
 C:\Users\duong\OneDrive\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\ref\TakeNoteWebsite.dll
 C:\Users\duong\OneDrive\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.pdb
 C:\Users\duong\OneDrive\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.genruntimeconfig.cache
-C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\Razor\Views\Main\SignIn.cshtml.g.cs

@@ -11,8 +11,6 @@ namespace TakeNoteWebsite.Models.Data
         public int ID { get; set; }
 
         [DisplayName("User name")]
-        public string UserName { get; set; }
-        public string LastName { get; set; }
-        public string Firstname { get; set; }
+        public string Name { get; set; }
     }
 }

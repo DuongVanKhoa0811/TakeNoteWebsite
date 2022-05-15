@@ -8,7 +8,6 @@ namespace TakeNoteWebsite.Models.Data
     public class Entry
     {
         public int ID { get; set; }
-        public int UID {get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }
