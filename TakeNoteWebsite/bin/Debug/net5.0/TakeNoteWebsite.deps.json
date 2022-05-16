@@ -33,7 +33,7 @@
     ".NETCoreApp,Version=v5.0": {
       "TakeNoteWebsite/1.0.0": {
         "dependencies": {
-          "Microsoft.ML": "1.6.0",
+          "Microsoft.ML": "1.7.0",
           "Microsoft.ML.ImageAnalytics": "1.6.0",
           "Microsoft.ML.OnnxRuntime": "1.7.0",
           "Microsoft.ML.OnnxTransformer": "1.6.0",
@@ -365,10 +365,10 @@
           "System.Threading": "4.3.0"
         }
       },
-      "Microsoft.ML/1.6.0": {
+      "Microsoft.ML/1.7.0": {
         "dependencies": {
-          "Microsoft.ML.CpuMath": "1.6.0",
-          "Microsoft.ML.DataView": "1.6.0",
+          "Microsoft.ML.CpuMath": "1.7.0",
+          "Microsoft.ML.DataView": "1.7.0",
           "Newtonsoft.Json": "10.0.3",
           "System.CodeDom": "4.4.0",
           "System.Collections.Immutable": "1.5.0",
@@ -379,31 +379,31 @@
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.Core.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.600.21.36503"
+            "fileVersion": "1.700.21.55904"
           },
           "lib/netstandard2.0/Microsoft.ML.Data.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.600.21.36503"
+            "fileVersion": "1.700.21.55904"
           },
           "lib/netstandard2.0/Microsoft.ML.KMeansClustering.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.600.21.36503"
+            "fileVersion": "1.700.21.55904"
           },
           "lib/netstandard2.0/Microsoft.ML.PCA.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.600.21.36503"
+            "fileVersion": "1.700.21.55904"
           },
           "lib/netstandard2.0/Microsoft.ML.StandardTrainers.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.600.21.36503"
+            "fileVersion": "1.700.21.55904"
           },
           "lib/netstandard2.0/Microsoft.ML.Transforms.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.600.21.36503"
+            "fileVersion": "1.700.21.55904"
           },
           "lib/netstandard2.0/Microsoft.ML.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.600.21.36503"
+            "fileVersion": "1.700.21.55904"
           }
         },
         "runtimeTargets": {
@@ -435,12 +435,12 @@
           "runtimes/win-x64/native/LdaNative.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "0.1800.21.36503"
+            "fileVersion": "0.1900.21.55904"
           },
           "runtimes/win-x86/native/LdaNative.dll": {
             "rid": "win-x86",
             "assetType": "native",
-            "fileVersion": "0.1800.21.36503"
+            "fileVersion": "0.1900.21.55904"
           }
         },
         "compile": {
@@ -453,18 +453,18 @@
           "lib/netstandard2.0/Microsoft.ML.dll": {}
         }
       },
-      "Microsoft.ML.CpuMath/1.6.0": {
+      "Microsoft.ML.CpuMath/1.7.0": {
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.ML.CpuMath.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.600.21.36503"
+            "fileVersion": "1.700.21.55904"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.ML.CpuMath.dll": {}
         }
       },
-      "Microsoft.ML.DataView/1.6.0": {
+      "Microsoft.ML.DataView/1.7.0": {
         "dependencies": {
           "System.Collections.Immutable": "1.5.0",
           "System.Memory": "4.5.3"
@@ -472,7 +472,7 @@
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.DataView.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.600.21.36503"
+            "fileVersion": "1.700.21.55904"
           }
         },
         "compile": {
@@ -481,7 +481,7 @@
       },
       "Microsoft.ML.ImageAnalytics/1.6.0": {
         "dependencies": {
-          "Microsoft.ML": "1.6.0",
+          "Microsoft.ML": "1.7.0",
           "System.Buffers": "4.5.0",
           "System.Drawing.Common": "4.5.0"
         },
@@ -590,7 +590,7 @@
       "Microsoft.ML.OnnxTransformer/1.6.0": {
         "dependencies": {
           "Google.Protobuf": "3.11.4",
-          "Microsoft.ML": "1.6.0",
+          "Microsoft.ML": "1.7.0",
           "Microsoft.ML.OnnxRuntime.Managed": "1.7.0"
         },
         "runtime": {
@@ -605,7 +605,7 @@
       },
       "Microsoft.ML.TensorFlow/1.6.0": {
         "dependencies": {
-          "Microsoft.ML": "1.6.0",
+          "Microsoft.ML": "1.7.0",
           "System.IO.FileSystem.AccessControl": "4.5.0",
           "System.Security.Principal.Windows": "4.5.0",
           "TensorFlow.NET": "0.20.1"
@@ -2857,26 +2857,26 @@
       "path": "microsoft.csharp/4.3.0",
       "hashPath": "microsoft.csharp.4.3.0.nupkg.sha512"
     },
-    "Microsoft.ML/1.6.0": {
+    "Microsoft.ML/1.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zkDI36NE/xX076TRYT4IZ1bdHc5Sr0KVHeUeEANP1R4jOZpztJXTxHVK/izK+Jz1137Xszp5zdyzw7VOd+WsSA==",
-      "path": "microsoft.ml/1.6.0",
-      "hashPath": "microsoft.ml.1.6.0.nupkg.sha512"
+      "sha512": "sha512-VWNzTz3Owt7qBxsLD1cxjx3fN7YuyVKu26OIwKIF83r+3Fm8B/OkiXugP8rjIYg0c3+KK8G3ks96eiOfdzT26g==",
+      "path": "microsoft.ml/1.7.0",
+      "hashPath": "microsoft.ml.1.7.0.nupkg.sha512"
     },
-    "Microsoft.ML.CpuMath/1.6.0": {
+    "Microsoft.ML.CpuMath/1.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-tcDUQ84xG9D8VFgBgXcps/stBoefEK14+deMfftUms8vb9qUmc3A6yTQRZyaggL6Fxybi4LiHLn5DhGs0NvOBw==",
-      "path": "microsoft.ml.cpumath/1.6.0",
-      "hashPath": "microsoft.ml.cpumath.1.6.0.nupkg.sha512"
+      "sha512": "sha512-ibot+EJKOG21DE47YQCy8djLpSJ31hgbwkJPkG2a5KSieb2eEGySCzzMLBAcP2jR5vd8+5Gss3FuGYvfY9Bncw==",
+      "path": "microsoft.ml.cpumath/1.7.0",
+      "hashPath": "microsoft.ml.cpumath.1.7.0.nupkg.sha512"
     },
-    "Microsoft.ML.DataView/1.6.0": {
+    "Microsoft.ML.DataView/1.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-o32XTTTledXjrX8e14habbzk+WJhj+Zgs1UV1OiTwO+rVUwnT4KSROri4L/5kuWdSxMCcTFb5sE1JnjHb+y1Gg==",
-      "path": "microsoft.ml.dataview/1.6.0",
-      "hashPath": "microsoft.ml.dataview.1.6.0.nupkg.sha512"
+      "sha512": "sha512-pMfpOsoRcexVnsNqwRqcqRsdfzw2dN3kBu3QzmZ3YqPuiZLLoDHaB3ZYEAvnIUEhpnIe4wVD4UnUWvatzoVWcQ==",
+      "path": "microsoft.ml.dataview/1.7.0",
+      "hashPath": "microsoft.ml.dataview.1.7.0.nupkg.sha512"
     },
     "Microsoft.ML.ImageAnalytics/1.6.0": {
       "type": "package",
