@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model TakeNoteWebsite.Models.Data.User
+@{
+}
+<link rel="stylesheet" href="~/css/Authentication.css">
+<div class="SignUpFormContainer">
+    <h2 class="authenticateHeader">Welcome to Penzu! <br />Let’s create your free account.</h2>
+    <form asp-controller="Main" asp-action="SignUp" method="post">
+        <div class="authenticateErrorContainer">
+            <p class="authenticateError">@ViewData["Error"]</p>
+        </div>
+        <span>
+            <input asp-for="@Model.FirstName" type="text" class="authenticateFormInput" id="FirstNameInput">
+            <br />
+            <label class="authenticateFormLabel">FIRSTNAME </label>
+        </span>
+
+        <span>
+            <input asp-for="@Model.LastName" type="text" class="authenticateFormInput" id="LastNameInput">
+            <br />
+            <label class="authenticateFormLabel">LASTNAME </label>
+        </span>
+        <br />
+
+        <input asp-for="@Model.UserName" type="text" class="authenticateFormInput" id="signInUsernameInput">
+        <br />
+        <label class="authenticateFormLabel">USERNAME </label>
+        <br />
+
+        <input asp-for="@Model.Password" type="password" class="authenticateFormInput" id="signInPasswordInput">
+        <br />
+        <label class="authenticateFormLabel">PASSWORD </label>
+        <br />
+
+        <input asp-for="@Model.ConfirmPassword" type="password" class="authenticateFormInput" id="signInPasswordInput">
+        <br />
+        <label class="authenticateFormLabel">CONFIRM PASSWORD </label>
+        <br />
+        <button type="submit" class="authenticateFormSubmitButton"> <p class="authenticateFormSubmitButton"> Sign up</p></button>
+    </form>
+</div>

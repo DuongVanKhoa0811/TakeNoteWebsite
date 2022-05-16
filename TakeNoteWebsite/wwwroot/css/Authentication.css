@@ -1,0 +1,103 @@
+span {
+	display: inline-block;
+}
+.authenticateErrorContainer {
+	background-color: orangered;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.authenticateError {
+	font-size: 20px;
+}
+input:focus, textarea:focus
+{
+    border: 1px solid #1670BE;
+    box-shadow: 0 0 3px #1670BE;
+    outline-offset: 0px;
+    outline: none;
+}
+
+.SignInFormContainer {
+	margin-left:auto;
+	margin-right:auto;
+	margin-top: 30px;
+	position: relative;
+	border-color: black;
+	border-style: solid;
+	border-radius: 3px;
+	width: 500px;
+	height: 450px;
+	padding: 40px;
+	font-family: arial;
+}
+
+.SignUpFormContainer {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 30px;
+	border-color: black;
+	border-style: solid;
+	border-radius: 3px;
+	width: 500px;
+	height: 700px;
+	padding: 30px;
+	font-family: arial;
+}
+
+.authenticateFormInput {
+	font-size: 15px;
+	height: 35px;
+	border-radius: 3px;
+	border-color: grey;
+	border-width: 0.5px;
+}
+
+.authenticateFormLabel {
+	display:inline-block;
+	color: grey;
+	margin-bottom: 10px;
+}
+
+.authenticateFormSubmitButton{
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: 0px;
+	background-color: #3498DB;
+	border-radius: 3px;
+	border-width: 0px;
+	padding-top: 0px;
+	padding-bottom: 5px;
+	padding-right: 40px;
+	padding-left: 40px;
+}
+
+.authenticateHeader {
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 50px;
+	font-weight: normal;
+	text-decoration: none;
+	color: grey;
+}
+.authenticateFormSubmitButton p {
+	color: white;
+	font-weight: bolder;
+	font-size: 15px;
+}
+
+#signInUsernameInput {
+	width: 400px;
+}
+
+#signInPasswordInput {
+	width: 400px;
+}
+
+#FirstNameInput {
+	width: 195px;
+}
+
+#LastNameInput {
+	width: 195px;
+}
