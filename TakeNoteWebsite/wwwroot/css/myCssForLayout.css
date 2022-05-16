@@ -47,3 +47,7 @@ p {
 #settingButton:hover {
     cursor: pointer;
 }
+
+.hidden {
+    visibility: hidden;
+}
