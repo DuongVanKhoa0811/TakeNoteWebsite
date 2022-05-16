@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "J1y4L/Xbw5Ro6/Wb5onXQO2H1yBKjouccTL9Ma7A7Q3U3gX8GNG7GG9f3McVHChfI+1pJ8/ypmb78kwk+4wlpQ==",
+  "dgSpecHash": "Et86/lJg/RpR0M4lowaQ9BSoW3nqkyDmPevd2SwymCsJb2Od3Ww+3+6e1TuoP7mkQmLEpQkv00Hk80lg844TIQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\duong\\OneDrive\\Documents\\GitHub\\TakeNoteWebsite\\TakeNoteWebsite\\TakeNoteWebsite.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\duong\\.nuget\\packages\\google.protobuf\\3.11.4\\google.protobuf.3.11.4.nupkg.sha512",
     "C:\\Users\\duong\\.nuget\\packages\\microsoft.csharp\\4.3.0\\microsoft.csharp.4.3.0.nupkg.sha512",
-    "C:\\Users\\duong\\.nuget\\packages\\microsoft.ml\\1.6.0\\microsoft.ml.1.6.0.nupkg.sha512",
-    "C:\\Users\\duong\\.nuget\\packages\\microsoft.ml.cpumath\\1.6.0\\microsoft.ml.cpumath.1.6.0.nupkg.sha512",
-    "C:\\Users\\duong\\.nuget\\packages\\microsoft.ml.dataview\\1.6.0\\microsoft.ml.dataview.1.6.0.nupkg.sha512",
+    "C:\\Users\\duong\\.nuget\\packages\\microsoft.ml\\1.7.0\\microsoft.ml.1.7.0.nupkg.sha512",
+    "C:\\Users\\duong\\.nuget\\packages\\microsoft.ml.cpumath\\1.7.0\\microsoft.ml.cpumath.1.7.0.nupkg.sha512",
+    "C:\\Users\\duong\\.nuget\\packages\\microsoft.ml.dataview\\1.7.0\\microsoft.ml.dataview.1.7.0.nupkg.sha512",
     "C:\\Users\\duong\\.nuget\\packages\\microsoft.ml.imageanalytics\\1.6.0\\microsoft.ml.imageanalytics.1.6.0.nupkg.sha512",
     "C:\\Users\\duong\\.nuget\\packages\\microsoft.ml.onnxruntime\\1.7.0\\microsoft.ml.onnxruntime.1.7.0.nupkg.sha512",
     "C:\\Users\\duong\\.nuget\\packages\\microsoft.ml.onnxruntime.managed\\1.7.0\\microsoft.ml.onnxruntime.managed.1.7.0.nupkg.sha512",
