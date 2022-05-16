@@ -32,7 +32,7 @@ namespace TakeNoteWebsite.Models.Data
         {
             return true;
         }
-        public static List<Image> GetListImage(int UserID)
+        public static List<Image> GetListImage(int UserID, string Folder, Filter filter)
         {
             List<Image> result = new List<Image>();
             return result;
@@ -42,6 +42,30 @@ namespace TakeNoteWebsite.Models.Data
             return true;
         }
         public static bool DeleteImage(int ImageID)
+        {
+            return true;
+        }
+
+        public static bool newUser(User user)
+        {
+            return true;
+        }
+
+        public static int getUserID(string username)
+        {
+            return 0;
+        }
+        public static User GetUser(int UID)
+        {
+            return new User
+            {
+                FirstName = "Tony",
+                LastName = "Stark",
+                UserName = "TonyStark",
+                ID = 123
+            };
+        }
+        public static bool signIn(string username, string password)
         {
             return true;
         }
