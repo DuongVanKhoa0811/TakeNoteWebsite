@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TakeNoteWebsite.Models;
@@ -24,10 +25,15 @@ namespace TakeNoteWebsite.Controllers
         //---------------- GET --------------------------
         public IActionResult Index()
         {
-            if(DeepLearningModel.PositiveNegative("I am very sad."))
+            /*if (DeepLearningModel.PositiveNegative("I am very happy."))
                 ViewData["Tit"] = "Positive";
             else
-                ViewData["Tit"] = "Negative";
+                ViewData["Tit"] = "Negative";*/
+
+            ViewData["Tit"] = DeepLearningModel.SimilarFeature(
+                Path.Combine(Environment.CurrentDirectory, "Images", "download1.jpg")
+                , Path.Combine(Environment.CurrentDirectory, "Images", "download3.jpg"));
+
             return View();
         }
 

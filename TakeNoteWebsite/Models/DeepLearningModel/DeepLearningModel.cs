@@ -21,9 +21,19 @@ namespace TakeNoteWebsite.Models.DeepLearningModel
                 return false;
             return Convert.ToBoolean(result.Prediction);
         }
-        public static int SimilarFeature(string imagePath1, string imagePath2)
+        public static float SimilarFeature(string imagePath1, string imagePath2)
         {
-            return 0;
+            MyModel myModel = ModelStorage.GetModel("Image classifcation model");
+            if (myModel == null)
+                return 0;
+            VariableDictionary input = new VariableDictionary();
+            input["Image path 1"] = imagePath1;
+            input["Image path 2"] = imagePath2;
+            var tmp = myModel.Predict(input)["Similar between two images"];
+            float result = (float)tmp;
+            if (result == 0)
+                return 0;
+            return result;
         }
     }
 }
