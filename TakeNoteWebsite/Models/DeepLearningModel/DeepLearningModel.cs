@@ -31,8 +31,6 @@ namespace TakeNoteWebsite.Models.DeepLearningModel
             input["Image path 2"] = imagePath2;
             var tmp = myModel.Predict(input)["Similar between two images"];
             float result = (float)tmp;
-            if (result == 0)
-                return 0;
             return result;
         }
     }
