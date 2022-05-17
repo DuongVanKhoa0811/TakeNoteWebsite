@@ -1,0 +1,189 @@
+﻿.browseJournal {
+    padding-left: 5%;
+    height: 7%;
+    width: 100%;
+    background-color: #515861;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    margin-top: 2px;
+    color: white;
+    cursor: pointer;
+}
+
+.entryBrowse {
+    background-color: #3f454f;
+}
+
+.browseJournal:hover {
+    opacity: 0.7;
+}
+
+.toolbar {
+    height: 30px;
+    border-top: 3px solid gainsboro;
+    border-bottom: 3px solid gainsboro;
+    display: flex;
+    width: 100%;
+}
+
+    .toolbar:hover {
+        cursor: pointer;
+    }
+
+.border-left {
+    border-left: 5px solid gainsboro;
+}
+
+#diary {
+    height: 100%;
+    border: none;
+    width: 100%;
+    resize: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+    #diary:focus {
+        outline: none;
+    }
+
+.emotion:hover {
+    cursor: pointer;
+}
+
+#note {
+    width: 100%;
+    position: relative;
+    border: 2px solid gray;
+    height: 84%;
+}
+
+    #note:hover {
+        border: 3px solid orange;
+    }
+
+
+.tooltipText {
+    position: absolute;
+    color: white;
+    /* white-space: nowrap; */
+    padding: 2px 15px;
+    border-radius: 7px;
+    visibility: hidden;
+    z-index: 2;
+}
+
+    .tooltipText a {
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: block;
+        text-decoration: none;
+        color: black;
+        background-color: white;
+    }
+
+        .tooltipText a:hover {
+            color: white;
+            background-color: black;
+        }
+
+.font:hover .tooltipTextFont {
+    top: 100%;
+    visibility: visible;
+}
+
+.size:hover .tooltipTextSize {
+    top: 100%;
+    visibility: visible;
+}
+
+.text-colour:hover .tooltipTextColour {
+    top: 100%;
+    visibility: visible;
+}
+
+.tooltipTextColour a {
+    height: 30px;
+    width: 30px;
+}
+
+    .tooltipTextColour a:hover {
+        opacity: 0.5;
+    }
+
+.background-colour:hover .tooltipBackgroundColour {
+    top: 100%;
+    visibility: visible;
+}
+
+.tooltipBackgroundColour a {
+    height: 30px;
+    width: 30px;
+}
+
+    .tooltipBackgroundColour a:hover {
+        opacity: 0.5;
+    }
+
+.tooltipText span {
+    display: block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: red;
+}
+
+.bold:hover .tooltipTextBold {
+    top: 100%;
+    transform: translateX(-40%);
+    visibility: visible;
+}
+
+.italic:hover .tooltipTextItalic {
+    top: 100%;
+    transform: translateX(-40%);
+    visibility: visible;
+}
+
+.underline:hover .tooltipTextUnderline {
+    top: 100%;
+    transform: translateX(-40%);
+    visibility: visible;
+}
+
+.strikeThrough:hover .tooltipTextStrikeThrough {
+    top: 100%;
+    transform: translateX(-40%);
+    visibility: visible;
+}
+
+.align:hover .tooltipTextAlign {
+    top: 100%;
+    visibility: visible;
+}
+
+.numbered-list:hover .tooltipTextNumberedList {
+    top: 100%;
+    transform: translateX(-40%);
+    visibility: visible;
+}
+
+.bulleted-list:hover .tooltipTextBulletedList {
+    top: 100%;
+    transform: translateX(-40%);
+    visibility: visible;
+}
+
+.timestamp:hover .tooltipTextTimeStamp {
+    top: 100%;
+    transform: translateX(-60%);
+    visibility: visible;
+}
+
+div[data-placeholder]:not(:focus):empty:before {
+    content: attr(data-placeholder);
+    float: left;
+    margin-left: 2px;
+    color: #b3b3b3;
+}
