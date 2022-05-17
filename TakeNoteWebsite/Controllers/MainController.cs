@@ -33,7 +33,11 @@ namespace TakeNoteWebsite.Controllers
             ViewData["Tit"] = DeepLearningModel.SimilarFeature(
                 Path.Combine(Environment.CurrentDirectory, "Images", "download1.jpg")
                 , Path.Combine(Environment.CurrentDirectory, "Images", "download3.jpg"));
-            ViewData["Username"] = AuthenticationController.GetCurrentUser(HttpContext).UserName;
+            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
+            if (currentUser != null)
+                ViewData["Username"] = currentUser.UserName;
+            else
+                ViewData["Username"] = "";
             return View();
         }
 
@@ -52,6 +56,12 @@ namespace TakeNoteWebsite.Controllers
                 //Entry firstEntry = DatabaseQuery.GetFirstEntry(currentUser.ID);
                 return RedirectToAction("Index");//RedirectToAction("Entry", firstEntry.ID);
             }
+        }
+        
+        public async Task<IActionResult> signOut()
+        {
+            await AuthenticationController.SignOut(HttpContext);
+            return RedirectToAction("SignIn");
         }
 
         public IActionResult SignUp()
@@ -112,8 +122,19 @@ namespace TakeNoteWebsite.Controllers
         [HttpPost]
         public IActionResult SignUp(User user)
         {
-            return View();
+            string error = AuthenticationController.SignUp(user);
+            if (error == "success")
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewData["Error"] = error;
+                return View();
+            }
+            
         }
+
 
         [HttpPost]
         public IActionResult FilterEntry(Filter filter)

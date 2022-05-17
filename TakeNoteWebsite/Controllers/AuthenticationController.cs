@@ -109,9 +109,9 @@ namespace TakeNoteWebsite.Controllers
         {
             return true;
         }
-        public static bool SignUp(User user)
+        public static string SignUp(User user)
         {
-            return true;
+            return "Success";
         }
     }
 }

@@ -177,6 +177,7 @@ C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\osx-x64\native\libtensorflow.dylib
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\osx-x64\native\libtensorflow_framework.2.dylib
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win-x64\native\tensorflow.dll
+C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.csproj.AssemblyReference.cache
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.AssemblyInfoInputs.cache
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.AssemblyInfo.cs
