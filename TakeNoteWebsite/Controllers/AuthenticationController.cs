@@ -26,9 +26,14 @@ namespace TakeNoteWebsite.Controllers
         {
             if (!httpContext.User.Identity.IsAuthenticated)
                 return null;
-
-            string uid = httpContext.User.FindFirst("UID")?.Value; 
-            return DatabaseQuery.GetUser(Int32.Parse(uid));
+            User user = new User
+            {
+                FirstName = httpContext.User.FindFirst("FirstName")?.Value,
+                LastName = httpContext.User.FindFirst("LastName")?.Value,
+                UserName = httpContext.User.FindFirst("UserName")?.Value,
+                ID = Int32.Parse(httpContext.User.FindFirst("UID")?.Value)
+            };
+            return user;
         }
         public static async Task<bool> SignIn(HttpContext httpContext, string userName, string password)
         {
@@ -38,12 +43,22 @@ namespace TakeNoteWebsite.Controllers
                 return false;
             }
             //sign in if correct
-            int uid = DatabaseQuery.getUserID(userName);
-            User user = DatabaseQuery.GetUser(uid);
-            
+            //int uid = DatabaseQuery.getUserID(userName);
+            //User user = DatabaseQuery.getUser(uid);
+            User user = new User
+            {
+                FirstName = "Tony",
+                LastName = "Stark",
+                ID = 1,
+                UserName = userName
+            };
+            int uid = 1;
+
             var claims = new List<Claim>
             {
-                new Claim("Username", userName),
+                new Claim("Username", user.UserName),
+                new Claim("FirstName", user.FirstName),
+                new Claim("LastName", user.LastName),
                 new Claim("UID", uid.ToString()),
             };
 
@@ -88,16 +103,15 @@ namespace TakeNoteWebsite.Controllers
         }
         public static bool CheckAuthenticationEntry(HttpContext httpContext, int EntryID)
         {
-            int uid = AuthenticationController.GetCurrentUserID(httpContext);
             return true;
         }
         public static bool CheckAuthenticationImage(HttpContext httpContext, int ImageID)
         {
             return true;
         }
-        public static bool SignUp(User user)
+        public static string SignUp(User user)
         {
-            return true;
+            return "Success";
         }
     }
 }

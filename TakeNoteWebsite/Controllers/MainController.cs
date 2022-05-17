@@ -35,6 +35,12 @@ namespace TakeNoteWebsite.Controllers
                 , Path.Combine(Environment.CurrentDirectory, "Images", "download3.jpg"));*/
             ViewData["Tit"] = "Hello!";
 
+                // , Path.Combine(Environment.CurrentDirectory, "Images", "download3.jpg"));
+            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
+            if (currentUser != null)
+                ViewData["Username"] = currentUser.UserName;
+            else
+                ViewData["Username"] = "";
             return View();
         }
 
@@ -45,7 +51,20 @@ namespace TakeNoteWebsite.Controllers
 
         public IActionResult SignIn()
         {
-            return View();
+            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
+            if (currentUser == null)
+                return View();
+            else
+            {
+                //Entry firstEntry = DatabaseQuery.GetFirstEntry(currentUser.ID);
+                return RedirectToAction("Index");//RedirectToAction("Entry", firstEntry.ID);
+            }
+        }
+        
+        public async Task<IActionResult> signOut()
+        {
+            await AuthenticationController.SignOut(HttpContext);
+            return RedirectToAction("SignIn");
         }
 
         public IActionResult SignUp()
@@ -82,16 +101,48 @@ namespace TakeNoteWebsite.Controllers
         //---------------- POST --------------------------
 
         [HttpPost]
-        public IActionResult SignIn(string userName, string password)
+        public async Task<IActionResult> SignIn(string userName, string password)
         {
-            return View();
+            try
+            {
+                if (await AuthenticationController.SignIn(HttpContext, userName, password))
+                {
+                    //sign in successed
+                    User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
+                    //Entry firstEntry = DatabaseQuery.GetFirstEntry(currentUser.ID);
+                    return RedirectToAction("Index"); //RedirectToAction("Entry", firstEntry.ID);
+                }
+                else
+                {
+                    //sign in failed
+                    ViewData["Error"] = "Invalid username or password";
+                    return View();
+                }
+
+            }
+            catch (Exception e)
+            {
+                ViewData["Error"] = e.Message;
+                return View();
+            }
         }
 
         [HttpPost]
         public IActionResult SignUp(User user)
         {
-            return View();
+            string error = AuthenticationController.SignUp(user);
+            if (error == "success")
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewData["Error"] = error;
+                return View();
+            }
+            
         }
+
 
         [HttpPost]
         public IActionResult FilterEntry(Filter filter)

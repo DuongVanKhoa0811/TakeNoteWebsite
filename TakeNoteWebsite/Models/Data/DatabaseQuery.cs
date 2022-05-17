@@ -67,7 +67,7 @@ namespace TakeNoteWebsite.Models.Data
         }
         public static bool signIn(string username, string password)
         {
-            return true;
+                return true;
         }
     }
 }
