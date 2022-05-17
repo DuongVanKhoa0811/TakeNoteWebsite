@@ -30,9 +30,12 @@ namespace TakeNoteWebsite.Controllers
             else
                 ViewData["Tit"] = "Negative";*/
 
-            ViewData["Tit"] = DeepLearningModel.SimilarFeature(
+            /*ViewData["Tit"] = DeepLearningModel.SimilarFeature(
                 Path.Combine(Environment.CurrentDirectory, "Images", "download1.jpg")
-                , Path.Combine(Environment.CurrentDirectory, "Images", "download3.jpg"));
+                , Path.Combine(Environment.CurrentDirectory, "Images", "download3.jpg"));*/
+            ViewData["Tit"] = "Hello!";
+
+                // , Path.Combine(Environment.CurrentDirectory, "Images", "download3.jpg"));
             User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
             if (currentUser != null)
                 ViewData["Username"] = currentUser.UserName;
@@ -71,11 +74,16 @@ namespace TakeNoteWebsite.Controllers
 
         public IActionResult Entry()
         {
-            return View();
+            Entry a = new Entry();
+            a.Star = true;
+            a.Content = "<b><div id=\"diary\" contenteditable=\"true\" role=\"textbox\" style=\"background-color: whitesmoke; \" data-placeholder=\"Note what you want in here ...\"></div></b>";
+            PartialView(a);
+            return View(a);
         }
 
         public IActionResult AllEntry()
         {
+
             return View();
         }
 

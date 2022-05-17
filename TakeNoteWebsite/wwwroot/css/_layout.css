@@ -1,0 +1,90 @@
+﻿body, html {
+    height: 100%;
+}
+
+p {
+    margin: 0px;
+}
+
+#title:hover {
+    opacity: 0.7;
+}
+
+.drop-wrapper:hover #userName {
+    text-decoration: underline;
+}
+
+.drop-wrapper:hover .drop-menu {
+    display: block;
+}
+
+.drop-menu {
+    display: none;
+    position: absolute;
+    width: 150px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 3px 0 #ccc;
+    right: 100%;
+    top: 0%;
+    z-index: 2;
+    background-color: white;
+}
+
+    .drop-menu a {
+        display: block;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        color: #343434;
+    }
+
+        .drop-menu a:hover {
+            background-color: black;
+            color: white;
+        }
+
+.box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#settingButton:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+#homeButton:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.tooltipButton {
+    position: absolute;
+    color: white;
+    /* white-space: nowrap; */
+    padding: 2px 15px;
+    border-radius: 7px;
+    visibility: hidden;
+    z-index: 2;
+}
+
+    .tooltipButton p {
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: block;
+        text-decoration: none;
+        color: black;
+        background-color: white;
+    }
+
+#settingButton:hover .discribleSettingButton {
+    top: 100%;
+    transform: translateX(-35%);
+    visibility: visible;
+}
+
+#homeButton:hover .discribleHomeButton {
+    top: 100%;
+    transform: translateX(-15%);
+    visibility: visible;
+}

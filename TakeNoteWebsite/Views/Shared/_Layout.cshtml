@@ -6,23 +6,39 @@
     <title>@ViewData["Title"] - TakeNoteWebsite</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/myCssForLayout.css" />
+    <link rel="stylesheet" href="~/css/_layout.css" />
     <link rel="stylesheet" href="~/fontawesome/css/all.css" />
 </head>
 <body>
-    <header>
-        <div class="topRightMain" style="width: 100%; height: 10%;">
-            <div style="background-color: orange; padding-left: 2%; padding-right: 2%; height: 100%;" class="box">
-                <div style="display: flex; align-items: center;">
-                    <i class="fa-solid fa-grip fa-3x" id="settingButton"></i> &nbsp;
-                    <i class="fa-solid fa-house-chimney fa-2x" style="cursor: pointer;"></i>
+    <header style="height:7%;" id="header">
+        <div id="navigatorBar" style="width: 100%; height: 100%;  box-shadow:2px 2px 5px 0px rgb(229, 220, 195);">
+            <div style="background-color: #dca772; padding-left: 2%; padding-right: 2%; height: 100%;" class="box">
+                <div style="display: flex; align-items: center; height: 100%;">
+                    <div id="settingButton" style=" position: relative; height: 100%; align-items: center; display: flex;">
+                        <!-- style="visibility: hidden;" -->
+                        <i class="fa-solid fa-bars fa-2x" style="font-size: 20px;"></i> &nbsp;
+                        <div class="tooltipButton discribleSettingButton">
+                            <p>Setting</p>
+                        </div>
+                    </div>
+                    <div id="homeButton" style=" position: relative; height: 100%; align-items: center; display: flex;">
+                        <i class="fa-solid fa-house-chimney fa-2x" style="font-size: 20px; margin-left: 50%;"></i>
+                        <div class="tooltipButton discribleHomeButton">
+                            <p>Home</p>
+                        </div>
+                    </div>
                 </div>
-                <div style="font-family: 'Oleo Script Swash Caps', cursive; font-size: 30px; cursor: pointer;">penzu</div>
-                <div class="drop-wrapper">
-                    <i class="fa-solid fa-user fa-2x" style="cursor: pointer;"></i>
+                <div style="opacity: 0.5;">Dont' trust your memory</div>
+                <div id="title" style="font-family: 'Pacifico', cursive; font-size: 35px; cursor: pointer; margin-bottom: 15px;">penzu</div>
+                <div style="opacity: 0.5;">Take a diary is necessary</div>
+                <div style="position: relative;" class="drop-wrapper">
+                    <div style="display: flex;">
+                        <p id="userName" style="cursor: pointer; padding-right: 10px;">Duong Van Khoa</p>
+                        <i class="fa-solid fa-circle-user fa-2x " style="cursor: pointer; font-size: 25px;"></i>
+                    </div>
                     <div class="drop-menu" id="dropleft">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
+                        <a asp-controller="Main" asp-action="SignIn">Sign in</a>
+                        <a asp-controller="Main" asp-action="SignUp">Sign up</a>
                         <a href="#">Link 3</a>
                         <a href="#">Link 4</a>
                         <a href="#">Link 5</a>
@@ -30,40 +46,24 @@
                 </div>
             </div>
         </div>
-        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TakeNoteWebsite</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>*@
     </header>
-    <div class="container" style="background-color: #FDF1DC">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - TakeNoteWebsite - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
+    @RenderBody()
+@*<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>*@
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        if ($('.leftMain').length) {
+            var tmp = $("#header").remove();
+        }
+    });
+</script>
