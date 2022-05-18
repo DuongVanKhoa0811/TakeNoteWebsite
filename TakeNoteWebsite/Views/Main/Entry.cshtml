@@ -1,8 +1,13 @@
-﻿@model TakeNoteWebsite.Models.Data.Entry
+﻿@*@model TakeNoteWebsite.Models.Data.Entry*@
+@*@using MultipleModelInOneView;*@
+@model dynamic
+
 @{
     ViewData["Title"] = "Entry";
 }
-<link rel="stylesheet" href="~/css/entry1.css" />
+
+<link rel="stylesheet" href="~/css/entry2.css" />
+@{ TakeNoteWebsite.Models.Data.Entry mainEntry = Model.MainEntry; }
 <div class="main" style="width: 100%;height: 100%; display: flex;">
     <div class="leftMain" style="width: 25%; background-color: #353a42;">
         <div style="height: 7%; width: 100%; display: flex; align-items: center; font-size: 20px; color: white;">
@@ -11,24 +16,28 @@
         <div class="browseJournal">
             <i class="fa-solid fa-circle-plus fa-2x" style="font-size: 15px;"></i> &nbsp; <p style="font-size: 15px;">New Entry</p>
         </div>
-        <div class="browseJournal">
+        <a class="browseJournal" asp-action="AllEntry">
             <i class="fa-solid fa-list-ul fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Entries</p>
-        </div>
+        </a>
         <div class="browseJournal">
             <i class="fa-solid fa-star fa-2x" style="font-size: 15px;"></i>&nbsp; <p style="font-size: 15px;">View Starred Entries</p>
         </div>
-        <div class="browseJournal entryBrowse" style="font-size: 15px;">
-            <p>
-                <b>This is the title</b><br>
-                <i class="fa-solid fa-square fa-1x" style="margin-right: 5px;"></i>Mon. 5/9/2022
-            </p>
-        </div>
+        @foreach (TakeNoteWebsite.Models.Data.Entry entry in Model.ListEntry)
+        {
+            var tmp = entry.Date.GetDateTimeFormats()[3];
+            <a class="browseJournal entryBrowse" style="font-size: 15px;">
+                <p>
+                    <b>@entry.Title</b><br>
+                    <i class="fa-solid fa-square fa-1x" style="margin-right: 5px;"></i>@tmp
+                </p>
+            </a>
+        }
     </div>
     <div class="rightMain" style="width: 75%; background-color: rgb(251, 226, 168);">
         <div class="topRightMain" style="width: 100%; height: 7%;  box-shadow:2px 2px 5px 0px rgb(229, 220, 195);">
             <div style="background-color: #dca772; padding-left: 2%; padding-right: 2%; height: 100%;" class="box">
-                <div style="display: flex; align-items: center; height: 100%;">
-                    <div id="settingButton" style=" position: relative; height: 100%; align-items: center; display: flex;">
+                <div style="display: flex; align-items: center; height: 100%; width: 20%;">
+                    <div class="settingButton" style=" position: relative; height: 100%; align-items: center; display: flex;">
                         <i class="fa-solid fa-bars fa-2x" style="font-size: 20px;"></i> &nbsp;
                         <div class="tooltipButton discribleSettingButton">
                             <p>Setting</p>
@@ -41,10 +50,10 @@
                         </div>
                     </div>
                 </div>
-                <div style="opacity: 0.5;">Dont' trust your memory</div>
-                <div id="title" style="font-family: 'Pacifico', cursive; font-size: 35px; cursor: pointer; margin-bottom: 15px;">penzu</div>
-                <div style="opacity: 0.5;">Take a diary is necessary</div>
-                <div style="position: relative;" class="drop-wrapper">
+                <div style="opacity: 0.5; width: 20%;">Dont' trust your memory</div>
+                <div style="font-family: 'Pacifico', cursive; font-size: 35px; cursor: pointer; margin-bottom: 15px; width: 20%; display: flex; justify-content: center;">penzu</div>
+                <div style="opacity: 0.5; width: 20%; display: flex; justify-content: center;">Take a diary is necessary</div>
+                <div style="position: relative; width: 20%; display: flex; justify-content: flex-end;" class="drop-wrapper">
                     <div style="display: flex;">
                         <p id="userName" style="cursor: pointer; padding-right: 10px;">Duong Van Khoa</p>
                         <i class="fa-solid fa-circle-user fa-2x " style="cursor: pointer; font-size: 25px;"></i>
@@ -52,7 +61,7 @@
                     <div class="drop-menu" id="dropleft">
                         <a asp-controller="Main" asp-action="SignIn">Sign in</a>
                         <a asp-controller="Main" asp-action="SignUp">Sign up</a>
-                        <a href="#">Link 3</a>
+                        <a asp-controller="Main" asp-action="SignOut">Sign out</a>
                         <a href="#">Link 4</a>
                         <a href="#">Link 5</a>
                     </div>
@@ -62,15 +71,22 @@
         <div class="belowRightMain" style="height: 94%;">
             <div class="entry" style="height: 10%;">
                 <div style="height: 100%;">
-                    <div style="float: left; align-items: center; text-align: center; display: flex; font-size: 20px; height: 100%;">
-                        <i class="fa-solid fa-star fa" style="color: gray; cursor: pointer;"></i>&nbsp; Mon. 5/9/2022
+                    <div class="starEntry" style="float: left; align-items: center; text-align: center; display: flex; font-size: 20px; height: 100%; " onclick="save_star()">
+                        @if (mainEntry.Star)
+                        {
+                            <i class="fa-solid fa-star fa" style="color: yellow; cursor: pointer;"></i>
+                        }
+                        else
+                        {
+                            <i class="fa-solid fa-star fa" style="color: gray; cursor: pointer;"></i>
+                        }&nbsp; <p id="titleEntry">Title of entry</p>
                     </div>
                     <div style="float: right;">
-                        <div>
+                        <div onclick="save_entry()">
                             <p style="font-style: italic; color: rgba(14, 202, 187, 0.547); font-size: 15px; margin: 0px; float: right; cursor: pointer;">Save now</p>
                         </div>
                         <div style="display: flex; align-items: center; text-align: center; display: flex; float: right;">
-                            <i class="fa-solid fa-check fa-2x" style="color: rgb(16, 212, 16);"></i>
+                            <i class="fa-solid fa-check fa-1x" style="color: rgb(16, 212, 16);"></i>
                             <p style="font-style: italic; font-size: 15px; margin: 0px;">Save 2 day ago</p>
                         </div>
                     </div>
@@ -171,7 +187,7 @@
                 </div>
             </div>
             <div id="note">
-                <div id="controlDiary" style="height: 100%; width: 100%;">
+                <div id="controlDiary" style="height: 100%; width: 100%;" onload="add_diary('@mainEntry.Content')">
                     @* <div id="diary" contenteditable="true" role="textbox" style="background-color: whitesmoke;" data-placeholder="Note what you want in here ..."></div>*@
                 </div>
                 <img height="50" width="40" class="far fa-frown fa-2x emotion" style="position: absolute; bottom: 10px; right: 40px;" onclick="sad_emotion()" />
@@ -181,24 +197,9 @@
         </div>
     </div>
 </div>
-<script src="~/js/Entry.js"></script>
-<script>
-    function add_diary() {
-        var tmp = @Model.Content;
-        alert(tmp);
-        while (tmp.includes("&lt;"))
-            tmp = tmp.replace("&lt;", "<");
-        while (tmp.includes("&gt;"))
-            tmp = tmp.replace("&gt;", ">");
-        $("#controlDiary").html(tmp);
-    }
-    function sad_emotion() {
-        $("#diary").html($("#diary").html() + "😒")
-    }
-    function neural_emotion() {
-        $("#diary").html($("#diary").html() + "😐")
-    }
-    function smile_emotion() {
-        $("#diary").html($("#diary").html() + "😂")
-    }
-</script>
+<div class="alert alert-danger" style="width: 80%; height: 10%; position: fixed; top: 5%; left: 10%; display: flex; justify-content: center; animation-duration: 4s; opacity: 0; visibility: hidden;">
+    <strong>Failed!</strong> Unablle to store the diary!
+</div>
+<div class="alert alert-success" style="width: 80%; height: 10%; position: fixed; top: 5%; left: 10%; display: flex; justify-content: center; animation-duration: 4s; opacity: 0; visibility: hidden;">
+    <strong>Success!</strong> The diary had been store succesfully!
+</div>

@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 
-$("#settingButton").click(function () {
+$(".settingButton").click(function () {
     if ($(".leftMain").css("width") == "0px") {
         $(".leftMain").animate({
             width: "25%"
@@ -55,7 +55,7 @@ $(".strikeThrough").click(function () {
     }
 });
 $(".timestamp").click(function () {
-    $("#diary").html($("#diary").html() + "***" + formatDate(new Date()).toString() + "*** ");
+    $("#diary").html($("#diary").html() + formatDate(new Date()).toString() + " ");
 });
 function formatDate(date) {
     var hours = date.getHours();
@@ -65,7 +65,9 @@ function formatDate(date) {
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = minutes < 10 ? '0' + minutes : minutes;
     var strTime = hours + ':' + minutes + ' ' + ampm;
-    return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+    var day = date.toString().split(" ");
+    var tmp = day[0].toString() + ". ";
+    return (tmp + (date.getMonth() + 1).toString() + "/" + date.getDate() + "/" + date.getFullYear() + " at " + strTime);
 }
 $("#tooltipTextColourRed").click(function () {
     $("#diary").css("color", "red");

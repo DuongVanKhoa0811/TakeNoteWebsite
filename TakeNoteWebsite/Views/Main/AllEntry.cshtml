@@ -1,4 +1,5 @@
-﻿
+﻿@model List<TakeNoteWebsite.Models.Data.Entry>
+
 @{
     ViewData["Title"] = "AllEntry";
 }
@@ -9,33 +10,25 @@
         <div><input type="checkbox" disabled="true" style="cursor: auto;"></div>
         <div id="tmp" style="font-weight: bold;">Entry</div>
         <div style="font-weight: bold; color: #4b5363;">Date created</div>
-        <div style="font-weight: bold;">Delete</i></div>
+        <div style="font-weight: bold;">Delete</div>
     </div>
-    <div class="entry">
-        <div><input type="checkbox"></div>
-        <div style="grid-area: 1/2/2/3;">
-            <div>Title title title</div>
-            <div class="content">Content in title</div>
+    @for (int i = 0; i < Model.Count; i += 1)
+    {
+        <div class="entry @Model[i].IsPositive" id="@Model[i].ID">
+            <div><input type="checkbox" /></div>
+            <div style="grid-area: 1/2/2/3">
+                <div>@Model[i].Title</div>
+                @if (Model[i].Content.Length > 55)
+                {
+                    Model[i].Content = Model[i].Content.Substring(0, 55) + "...";
+                }
+                <div class="content">@Model[i].Content</div>
+            </div>
+            <div>Mon. 5/9/2022 at 7:50pm</div>
+            <div><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></div>
         </div>
-        <div>Mon. 5/9/2022 at 7:50pm</div>
-        <div><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash-can delete"></i></button></div>
-    </div>
-    <div class="entry">
-        <div><input type="checkbox"></div>
-        <div style="grid-area: 1/2/2/3;">
-            <div>Title title title</div>
-            <div class="content">Not sure where to start? Take a few minutes to jot down the reason</div>
-        </div>
-        <div>Mon. 5/9/2022 at 7:50pm</div>
-        <div><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash-can delete"></i></button></div>
-    </div>
-    <div class="entry">
-        <div><input type="checkbox"></div>
-        <div style="grid-area: 1/2/2/3;">
-            <div>Title title title</div>
-            <div class="content">Not sure where to start? Take a few minutes to jot down the reason</div>
-        </div>
-        <div>Mon. 5/9/2022 at 7:50pm</div>
-        <div><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash-can delete"></i></button></div>
-    </div>
+    }
 </div>
+<script>
+</script>
+@*Chúng ta có cần encode id của sản phẩm không*@

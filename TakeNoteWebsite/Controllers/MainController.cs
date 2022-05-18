@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace TakeNoteWebsite.Controllers
                 Path.Combine(Environment.CurrentDirectory, "Images", "download1.jpg")
                 , Path.Combine(Environment.CurrentDirectory, "Images", "download3.jpg"));*/
             ViewData["Tit"] = "Hello!";
+            var a = "fwfawef";
 
                 // , Path.Combine(Environment.CurrentDirectory, "Images", "download3.jpg"));
             User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
@@ -72,19 +74,51 @@ namespace TakeNoteWebsite.Controllers
             return View();
         }
 
-        public IActionResult Entry()
+        public IActionResult Entry(int userID)
         {
             Entry a = new Entry();
             a.Star = true;
             a.Content = "<b><div id=\"diary\" contenteditable=\"true\" role=\"textbox\" style=\"background-color: whitesmoke; \" data-placeholder=\"Note what you want in here ...\"></div></b>";
-            PartialView(a);
-            return View(a);
+            List<Entry> result = new List<Entry>();
+            Entry c = new Entry();
+            c.ID = 10;
+            c.Title = "This is the title of the entry!";
+            c.Date = new DateTime();
+            c.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
+            c.IsPositive = true;
+            result.Add(c);
+            Entry b = new Entry();
+            b.ID = 20;
+            b.Title = "This is the title of the entry!";
+            b.Date = new DateTime();
+            b.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
+            b.IsPositive = false;
+            result.Add(b);
+
+            dynamic mymodel = new ExpandoObject();
+            mymodel.MainEntry = a;
+            mymodel.ListEntry = result;
+            return View(mymodel);
         }
 
         public IActionResult AllEntry()
         {
-
-            return View();
+            List<Entry> result = new List<Entry>();
+            Entry a = new Entry();
+            a.ID = 10;
+            a.Title = "This is the title of the entry!";
+            a.Date = new DateTime();
+            a.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
+            a.IsPositive = true;
+            result.Add(a);
+            Entry b = new Entry();
+            b.ID = 20;
+            b.Title = "This is the title of the entry!";
+            b.Date = new DateTime();
+            b.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
+            b.IsPositive = false;
+            result.Add(b);
+            return View(result);
         }
 
         public IActionResult AllImage()
@@ -151,9 +185,9 @@ namespace TakeNoteWebsite.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveEntry(Entry entry)
+        public bool SaveEntry(string content, string title, bool star)
         {
-            return View();
+            return true;
         }
 
         [HttpPost]
@@ -163,9 +197,10 @@ namespace TakeNoteWebsite.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteEntry(int EntryID)
+        public bool DeleteEntry(int EntryID)
         {
-            return View();
+
+            return true;
         }
 
         [HttpPost]
