@@ -7,24 +7,81 @@
 }
 
 <link rel="stylesheet" href="~/css/entry2.css" />
-@{ TakeNoteWebsite.Models.Data.Entry mainEntry = Model.MainEntry; }
+
+
+@{ TakeNoteWebsite.Models.Data.Entry mainEntry = Model.MainEntry;
+    TakeNoteWebsite.Models.ImageModel imageModel = Model.ImageModel;}
 <div class="main" style="width: 100%;height: 100%; display: flex;">
     <div class="leftMain" style="width: 25%; background-color: #353a42;">
-        <div style="height: 7%; width: 100%; display: flex; align-items: center; font-size: 20px; color: white;">
+        <div style="padding-left: 5%; height: 7%; width: 100%; display: flex; align-items: center; font-size: 20px; color: white;">
             Khoa's Journal
         </div>
-        <div class="browseJournal">
-            <i class="fa-solid fa-circle-plus fa-2x" style="font-size: 15px;"></i> &nbsp; <p style="font-size: 15px;">New Entry</p>
+        <a class="browseJournal" onclick="new_entry()" style="color: white;">
+            <i class="fa-solid fa-circle-plus fa-2x" style="font-size: 15px;"></i> &nbsp; <p>New Entry</p>
+        </a>
+        <div style="height: 10%; padding-left: 0%; font-size: 15px;">
+            <div style="width: 100%; height: 100%; background-color: antiquewhite; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#input-image-folder" 
+                        style="border-radius: 0px; width: 100%; height: 50%; align-items: center; justify-content: center; display: flex; box-shadow: none;">Create new folder for image storage</button>
+                <div style="width: 100%; height: 50%; display: flex; flex-direction: row; ">
+                    <div style="width: 50%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                        <select name="folderSelectName" id="folderSelectName" style="width: 100%; height: 100%;">
+                            <option value="Auto">Auto</option>
+                            <option value="Folder 1">Folder 1</option>
+                            <option value="Folder 2">Folder 2</option>
+                            <option value="Folder 3">Folder 3</option>
+                        </select>
+                    </div>
+                    <button data-bs-toggle="modal" data-bs-target="#save-image-modal" style="width: 50%; height: 100%; display: flex; justify-content: center; align-items: center;">Upload image</button>
+                    <div class="modal fade" id="save-image-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-title">Choose the image from computer</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="top: 20px; margin-right: 20px;"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <label asp-for="@imageModel.ImageFile">Upload files</label>
+                                        <input id="uploadFileModal" asp-for="@imageModel.ImageFile" multiple accept="image/*" />
+                                        <span asp-validation-for="@imageModel.ImageFile" class="text-danger"></span>
+                                    </div>
+                                    <button data-bs-dismiss="modal" type="submit" value="submit" class="btn btn-primary" onclick="save_image()">Save images</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="input-image-folder" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-title">Enter the folder name</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="top: 20px; margin-right: 20px;"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <label for="modal-email" class="form-label">Your folder name: </label>
+                                <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                                    <input type="text" class="form-control" id="folderModalName" placeholder="Flower">
+                                    <button id="saveFolder" data-bs-dismiss="modal" type="submit" value="submit" class="btn btn-primary" style="margin-left: 30px;" onclick="create_new_folder()">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <a class="browseJournal" asp-action="AllEntry">
+        <a class="browseJournal" asp-action="AllEntry" style="color: white;">
             <i class="fa-solid fa-list-ul fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Entries</p>
         </a>
-        <a class="browseJournal">
+        <a class="browseJournal" style="color: white;">
             <i class="fa-solid fa-image fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Images</p>
         </a>
-        <div class="browseJournal">
+        <a class="browseJournal" style="color: white;">
             <i class="fa-solid fa-star fa-2x" style="font-size: 15px;"></i>&nbsp; <p style="font-size: 15px;">View Starred Entries</p>
-        </div>
+        </a>
         @foreach (TakeNoteWebsite.Models.Data.Entry entry in Model.ListEntry)
         {
             var tmp = entry.Date.GetDateTimeFormats()[3];
@@ -74,135 +131,140 @@
         <div class="belowRightMain" style="height: 94%;">
             <div class="entry" style="height: 10%;">
                 <div style="height: 100%;">
-                    <div class="starEntry" style="float: left; align-items: center; text-align: center; display: flex; font-size: 20px; height: 100%; " onclick="save_star()">
+                    <div style="float: left; align-items: center; display: flex; font-size: 20px; height: 100%; width: 80%;">
                         @if (mainEntry.Star)
                         {
-                            <i class="fa-solid fa-star fa" style="color: yellow; cursor: pointer;"></i>
+                            <i class="fa-solid fa-star fa starEntry" style="color: yellow; cursor: pointer;" onclick="save_star()"></i>
                         }
                         else
                         {
-                            <i class="fa-solid fa-star fa" style="color: gray; cursor: pointer;"></i>
-                        }&nbsp; <p id="titleEntry">Title of entry</p>
-                    </div>
-                    <div style="float: right;">
-                        <div onclick="save_entry()">
-                            <p style="font-style: italic; color: rgba(14, 202, 187, 0.547); font-size: 15px; margin: 0px; float: right; cursor: pointer;">Save now</p>
+                            <i class="fa-solid fa-star fa starEntry" style="color: gray; cursor: pointer;" onclick="save_star()"></i>
+                        }&nbsp; <div id="titleEntry" contenteditable="true" role="textbox"
+                                     style="background-color: none; outline: none; width: 90%; float: left; align-items: flex-start;"
+                                     data-placeholder="Input the title in here ..." onkeypress="prevent_long_title(event)">@mainEntry.Title</div>
+                                </div>
+                                <div style="float: right;">
+                                    <div onclick="save_entry()">
+                                        <p style="font-style: italic; color: rgba(14, 202, 187, 0.547); font-size: 15px; margin: 0px; float: right; cursor: pointer;">Save now</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; text-align: center; display: flex; float: right;">
+                                        <i class="fa-solid fa-check fa-1x" style="color: rgb(16, 212, 16);"></i>
+                                        <p style="font-style: italic; font-size: 15px; margin: 0px;">Save 2 day ago</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div style="display: flex; align-items: center; text-align: center; display: flex; float: right;">
-                            <i class="fa-solid fa-check fa-1x" style="color: rgb(16, 212, 16);"></i>
-                            <p style="font-style: italic; font-size: 15px; margin: 0px;">Save 2 day ago</p>
+                        <div class="toolbar" style="height: 5%;">
+                            <div class="font" style="width: 25%; display: flex; justify-content: center; position: relative;">
+                                Font
+                                <div class="tooltipText tooltipTextFont">
+                                    <a href="#" style="font-family: 'Macondo';" id="font1">Macondo</a>
+                                    <a href="#" style="font-family: 'Oleo Script Swash Caps';" id="font2">Oleo Script Swash Caps</a>
+                                    <a href="#" style="font-family: 'Mukta';" id="font3">Mukta</a>
+                                    <a href="#" style="font-family: 'Quicksand';" id="font4">Quicksand</a>
+                                </div>
+                            </div>
+                            <div class="size border-left" style="width: 15%; display: flex; justify-content: space-around; position: relative;">
+                                Size
+                                <div class="tooltipText tooltipTextSize">
+                                    <a href="#" style="font-size: 12px;" id="size12px">Size 12px</a>
+                                    <a href="#" style="font-size: 14px;" id="size14px">Size 14px</a>
+                                    <a href="#" style="font-size: 16px;" id="size16px">Size 16px</a>
+                                    <a href="#" style="font-size: 18px;" id="size18px">Size 18px</a>
+                                </div>
+                            </div>
+                            <div class="border-left" style="display: flex; justify-content: space-around; width: 15%; align-items: center;">
+                                <div class="text-colour" style="position: relative;">
+                                    <i class="fa-solid fa-palette"></i>
+                                    <div class="tooltipText tooltipTextColour" style="transform: translateX(-40%);">
+                                        <a href="#" style="background-color: red;" id="tooltipTextColourRed"></a>
+                                        <a href="#" style="background-color: green;" id="tooltipTextColourGreen"></a>
+                                        <a href="#" style="background-color: blue;" id="tooltipTextColourBlue"></a>
+                                        <a href="#" style="background-color: black;" id="tooltipTextColourBlack"></a>
+                                    </div>
+                                </div>
+                                <div class="background-colour" style="position: relative;">
+                                    <i class="fa-solid fa-paint-roller"></i>
+                                    <div class="tooltipText tooltipBackgroundColour" style="transform: translateX(-40%);">
+                                        <a href="#" style="background-color: red;"></a>
+                                        <a href="#" style="background-color: green;"></a>
+                                        <a href="#" style="background-color: blue;"></a>
+                                        <a href="#" style="background-color: whitesmoke;"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-left" style="display: flex; width: 30%; justify-content: space-around;">
+                                <div class="bold" style="position: relative;padding-left: 5%; padding-right: 5%;">
+                                    B
+                                    <div class="tooltipText tooltipTextBold">
+                                        <span href="#">Bold</span>
+                                    </div>
+                                </div>
+                                <div class="italic" style="position: relative; padding-left: 5%; padding-right: 5%;">
+                                    I
+                                    <div class="tooltipText tooltipTextItalic">
+                                        <span href="#">Italic</span>
+                                    </div>
+                                </div>
+                                <div class="underline" style="position: relative; padding-left: 5%; padding-right: 5%;">
+                                    U
+                                    <div class="tooltipText tooltipTextUnderline">
+                                        <span href="#">Underline</span>
+                                    </div>
+                                </div>
+                                <div class="strikeThrough" style="position: relative; padding-left: 5%; padding-right: 5%;">
+                                    S
+                                    <div class="tooltipText tooltipTextStrikeThrough">
+                                        <span href="#">Strike</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="align border-left" style="display: flex; justify-content: space-around; align-items: center; width: 5%; position: relative;">
+                                <i class="fa-solid fa-align-justify"></i>
+                                <div class="tooltipText tooltipTextAlign">
+                                    <span href="#">Align</span>
+                                </div>
+                            </div>
+                            <div class="list border-left" style="display: flex; justify-content: space-around; width: 15%; align-items: center;">
+                                <div class="numbered-list" style="position: relative;">
+                                    <i class="fa-solid fa-list-ol"></i>
+                                    <div class="tooltipText tooltipTextNumberedList">
+                                        <span href="#">Numbered</span>
+                                    </div>
+                                </div>
+                                <div class="bulleted-list" style="position: relative;">
+                                    <i class="fa-solid fa-list-ul"></i>
+                                    <div class="tooltipText tooltipTextBulletedList">
+                                        <span href="#">Bulleted</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-left" style="display: flex; justify-content: space-around; align-items: center; width: 5%;">
+                                <div class="timestamp" style="position: relative;">
+                                    <i class="fa-solid fa-clock"></i>
+                                    <div class="tooltipText tooltipTextTimeStamp">
+                                        <span href="#">Timestamp</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="note">
+                            <div id="controlDiary" style="height: 100%; width: 100%;" onload="add_diary('@mainEntry.Content')">
+                                @* <div id="diary" contenteditable="true" role="textbox" style="background-color: whitesmoke;" data-placeholder="Note what you want in here ..."></div>*@
+                            </div>
+                            <img height="50" width="40" class="far fa-frown fa-2x emotion" style="position: absolute; bottom: 10px; right: 40px;" onclick="sad_emotion()" />
+                            <img height="50" width="40" class="far fa-meh fa-2x emotion" style="position: absolute; bottom: 10px; right: 80px;" onclick="neural_emotion()" />
+                            <img height="50" width="40" class="far far fa-smile fa-2x emotion" style="position: absolute; bottom: 10px; right: 120px;" onclick="smile_emotion()" />
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="toolbar" style="height: 5%;">
-                <div class="font" style="width: 25%; display: flex; justify-content: center; position: relative;">
-                    Font
-                    <div class="tooltipText tooltipTextFont">
-                        <a href="#" style="font-family: 'Macondo';" id="font1">Macondo</a>
-                        <a href="#" style="font-family: 'Oleo Script Swash Caps';" id="font2">Oleo Script Swash Caps</a>
-                        <a href="#" style="font-family: 'Mukta';" id="font3">Mukta</a>
-                        <a href="#" style="font-family: 'Quicksand';" id="font4">Quicksand</a>
-                    </div>
-                </div>
-                <div class="size border-left" style="width: 15%; display: flex; justify-content: space-around; position: relative;">
-                    Size
-                    <div class="tooltipText tooltipTextSize">
-                        <a href="#" style="font-size: 12px;" id="size12px">Size 12px</a>
-                        <a href="#" style="font-size: 14px;" id="size14px">Size 14px</a>
-                        <a href="#" style="font-size: 16px;" id="size16px">Size 16px</a>
-                        <a href="#" style="font-size: 18px;" id="size18px">Size 18px</a>
-                    </div>
-                </div>
-                <div class="border-left" style="display: flex; justify-content: space-around; width: 15%; align-items: center;">
-                    <div class="text-colour" style="position: relative;">
-                        <i class="fa-solid fa-palette"></i>
-                        <div class="tooltipText tooltipTextColour" style="transform: translateX(-40%);">
-                            <a href="#" style="background-color: red;" id="tooltipTextColourRed"></a>
-                            <a href="#" style="background-color: green;" id="tooltipTextColourGreen"></a>
-                            <a href="#" style="background-color: blue;" id="tooltipTextColourBlue"></a>
-                            <a href="#" style="background-color: black;" id="tooltipTextColourBlack"></a>
-                        </div>
-                    </div>
-                    <div class="background-colour" style="position: relative;">
-                        <i class="fa-solid fa-paint-roller"></i>
-                        <div class="tooltipText tooltipBackgroundColour" style="transform: translateX(-40%);">
-                            <a href="#" style="background-color: red;"></a>
-                            <a href="#" style="background-color: green;"></a>
-                            <a href="#" style="background-color: blue;"></a>
-                            <a href="#" style="background-color: whitesmoke;"></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-left" style="display: flex; width: 30%; justify-content: space-around;">
-                    <div class="bold" style="position: relative;padding-left: 5%; padding-right: 5%;">
-                        B
-                        <div class="tooltipText tooltipTextBold">
-                            <span href="#">Bold</span>
-                        </div>
-                    </div>
-                    <div class="italic" style="position: relative; padding-left: 5%; padding-right: 5%;">
-                        I
-                        <div class="tooltipText tooltipTextItalic">
-                            <span href="#">Italic</span>
-                        </div>
-                    </div>
-                    <div class="underline" style="position: relative; padding-left: 5%; padding-right: 5%;">
-                        U
-                        <div class="tooltipText tooltipTextUnderline">
-                            <span href="#">Underline</span>
-                        </div>
-                    </div>
-                    <div class="strikeThrough" style="position: relative; padding-left: 5%; padding-right: 5%;">
-                        S
-                        <div class="tooltipText tooltipTextStrikeThrough">
-                            <span href="#">Strike</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="align border-left" style="display: flex; justify-content: space-around; align-items: center; width: 5%; position: relative;">
-                    <i class="fa-solid fa-align-justify"></i>
-                    <div class="tooltipText tooltipTextAlign">
-                        <span href="#">Align</span>
-                    </div>
-                </div>
-                <div class="list border-left" style="display: flex; justify-content: space-around; width: 15%; align-items: center;">
-                    <div class="numbered-list" style="position: relative;">
-                        <i class="fa-solid fa-list-ol"></i>
-                        <div class="tooltipText tooltipTextNumberedList">
-                            <span href="#">Numbered</span>
-                        </div>
-                    </div>
-                    <div class="bulleted-list" style="position: relative;">
-                        <i class="fa-solid fa-list-ul"></i>
-                        <div class="tooltipText tooltipTextBulletedList">
-                            <span href="#">Bulleted</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-left" style="display: flex; justify-content: space-around; align-items: center; width: 5%;">
-                    <div class="timestamp" style="position: relative;">
-                        <i class="fa-solid fa-clock"></i>
-                        <div class="tooltipText tooltipTextTimeStamp">
-                            <span href="#">Timestamp</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="alert alert-danger alert-danger-entry" style="width: 80%; height: 10%; position: fixed; top: 5%; left: 10%; display: flex; justify-content: center; animation-duration: 4s; opacity: 0; visibility: hidden;">
+                <strong>Failed!</strong> Unablle to store the diary!
             </div>
-            <div id="note">
-                <div id="controlDiary" style="height: 100%; width: 100%;" onload="add_diary('@mainEntry.Content')">
-                    @* <div id="diary" contenteditable="true" role="textbox" style="background-color: whitesmoke;" data-placeholder="Note what you want in here ..."></div>*@
-                </div>
-                <img height="50" width="40" class="far fa-frown fa-2x emotion" style="position: absolute; bottom: 10px; right: 40px;" onclick="sad_emotion()" />
-                <img height="50" width="40" class="far fa-meh fa-2x emotion" style="position: absolute; bottom: 10px; right: 80px;" onclick="neural_emotion()" />
-                <img height="50" width="40" class="far far fa-smile fa-2x emotion" style="position: absolute; bottom: 10px; right: 120px;" onclick="smile_emotion()" />
+            <div class="alert alert-success alert-success-entry" style="width: 80%; height: 10%; position: fixed; top: 5%; left: 10%; display: flex; justify-content: center; animation-duration: 4s; opacity: 0; visibility: hidden;">
+                <strong>Success!</strong> The diary had been store succesfully!
             </div>
-        </div>
-    </div>
-</div>
-<div class="alert alert-danger" style="width: 80%; height: 10%; position: fixed; top: 5%; left: 10%; display: flex; justify-content: center; animation-duration: 4s; opacity: 0; visibility: hidden;">
-    <strong>Failed!</strong> Unablle to store the diary!
-</div>
-<div class="alert alert-success" style="width: 80%; height: 10%; position: fixed; top: 5%; left: 10%; display: flex; justify-content: center; animation-duration: 4s; opacity: 0; visibility: hidden;">
-    <strong>Success!</strong> The diary had been store succesfully!
-</div>
+            <div class="alert alert-danger alert-danger-forgot-title" style="width: 80%; height: 10%; position: fixed; top: 5%; left: 10%; display: flex; justify-content: center; animation-duration: 4s; opacity: 0; visibility: hidden;">
+                <strong>Failed!</strong> Please fill in the title before save!
+            </div>

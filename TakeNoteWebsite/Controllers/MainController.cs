@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -78,13 +79,23 @@ namespace TakeNoteWebsite.Controllers
         {
             dynamic mymodel = new ExpandoObject();
             Entry a = new Entry();
-            a.Star = true;
-            a.Content = "<b><div id=\"diary\" contenteditable=\"true\" role=\"textbox\" style=\"background-color: whitesmoke; \" data-placeholder=\"Note what you want in here ...\"></div></b>";
+            if (userID == 0) // new entry
+            {
+                a.Title = "";
+                a.Star = false;
+                a.Content = "<div id=\"diary\" contenteditable=\"true\" role=\"textbox\" style=\"background-color: whitesmoke; \" data-placeholder=\"Note what you want in here ...\"></div>";
+            }
+            else
+            {
+                a.Title = "This is the title of entry!";
+                a.Star = true;
+                a.Content = "<b><div id=\"diary\" contenteditable=\"true\" role=\"textbox\" style=\"background-color: whitesmoke; \" data-placeholder=\"Note what you want in here ...\">Content</div></b>";
+            }
             mymodel.MainEntry = a;
             List<Entry> result = new List<Entry>();
             Entry c = new Entry();
             c.ID = 10;
-            c.Title = "This is the title of the entry!";
+            c.Title = "This is the title of the entry 1!";
             c.Date = new DateTime();
             c.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
             c.IsPositive = true;
@@ -93,13 +104,14 @@ namespace TakeNoteWebsite.Controllers
             {
                 Entry b = new Entry();
                 b.ID = 20;
-                b.Title = "This is the title of the entry!";
+                b.Title = "This is the title of the entry 2!";
                 b.Date = new DateTime();
                 b.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
                 b.IsPositive = false;
                 result.Add(b);
             }
             mymodel.ListEntry = result;
+            mymodel.ImageModel = new ImageModel();
             return View(mymodel);
         }
 
@@ -192,11 +204,11 @@ namespace TakeNoteWebsite.Controllers
             return true;
         }
 
-        [HttpPost]
-        public IActionResult NewEntry(Entry entry)
+        /*[HttpPost]
+        public void NewEntry(int userID)
         {
-            return View();
-        }
+            RedirectToAction("Entry", new { userID = 0 });
+        }*/
 
         [HttpPost]
         public bool DeleteEntry(int EntryID)
@@ -218,9 +230,33 @@ namespace TakeNoteWebsite.Controllers
         }
 
         [HttpPost]
-        public IActionResult NewImage(Image image)
+        public bool NewImage(List<IFormFile> files)
         {
-            return View();
+            if(!ModelState.IsValid)
+            {
+                return false;
+            }
+            foreach(IFormFile file in files)
+            {
+                if (file == null)
+                    return false;
+                string solutionPath = Environment.CurrentDirectory;
+                string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                string extension = Path.GetExtension(file.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(solutionPath + "\\Images\\Upload", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(fileStream); // await
+                }
+            }
+            return true;
+        }
+
+        [HttpPost]
+        public bool CreateNewFolder(string folderName)
+        {
+            return true;
         }
 
 

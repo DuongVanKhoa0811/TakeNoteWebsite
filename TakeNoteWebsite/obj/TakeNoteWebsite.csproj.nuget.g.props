@@ -18,7 +18,6 @@
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)scisharp.tensorflow.redist\2.3.1\build\netstandard2.0\SciSharp.TensorFlow.Redist.props" Condition="Exists('$(NuGetPackageRoot)scisharp.tensorflow.redist\2.3.1\build\netstandard2.0\SciSharp.TensorFlow.Redist.props')" />
-    <Import Project="$(NuGetPackageRoot)microsoft.codeanalysis.analyzers\3.0.0\build\Microsoft.CodeAnalysis.Analyzers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codeanalysis.analyzers\3.0.0\build\Microsoft.CodeAnalysis.Analyzers.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.netcore.app\2.1.0\build\netcoreapp2.1\Microsoft.NETCore.App.props" Condition="Exists('$(NuGetPackageRoot)microsoft.netcore.app\2.1.0\build\netcoreapp2.1\Microsoft.NETCore.App.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.ml\1.7.0\build\netstandard2.0\Microsoft.ML.props" Condition="Exists('$(NuGetPackageRoot)microsoft.ml\1.7.0\build\netstandard2.0\Microsoft.ML.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.ml.onnxruntime\1.7.0\build\netstandard1.1\Microsoft.ML.OnnxRuntime.props" Condition="Exists('$(NuGetPackageRoot)microsoft.ml.onnxruntime\1.7.0\build\netstandard1.1\Microsoft.ML.OnnxRuntime.props')" />
