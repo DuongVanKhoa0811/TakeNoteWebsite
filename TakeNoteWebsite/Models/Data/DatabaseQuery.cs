@@ -69,5 +69,14 @@ namespace TakeNoteWebsite.Models.Data
         {
                 return true;
         }
+
+        public List<Image> searchImage(ImageFilter filter)
+        {
+            return new List<Image>();
+        }
+        public List<Folder> getAllImageFolder()
+        {
+            return new List<Folder>();
+        }
     }
 }

@@ -9,6 +9,6 @@ namespace TakeNoteWebsite.Models.Data
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public List<String> RepresentativeImagePaths { get; set; }
+        public string RepresentativeImagePaths { get; set; }
     }
 }
