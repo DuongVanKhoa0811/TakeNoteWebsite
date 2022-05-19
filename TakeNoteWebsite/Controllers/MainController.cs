@@ -76,9 +76,11 @@ namespace TakeNoteWebsite.Controllers
 
         public IActionResult Entry(int userID)
         {
+            dynamic mymodel = new ExpandoObject();
             Entry a = new Entry();
             a.Star = true;
             a.Content = "<b><div id=\"diary\" contenteditable=\"true\" role=\"textbox\" style=\"background-color: whitesmoke; \" data-placeholder=\"Note what you want in here ...\"></div></b>";
+            mymodel.MainEntry = a;
             List<Entry> result = new List<Entry>();
             Entry c = new Entry();
             c.ID = 10;
@@ -87,16 +89,16 @@ namespace TakeNoteWebsite.Controllers
             c.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
             c.IsPositive = true;
             result.Add(c);
-            Entry b = new Entry();
-            b.ID = 20;
-            b.Title = "This is the title of the entry!";
-            b.Date = new DateTime();
-            b.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
-            b.IsPositive = false;
-            result.Add(b);
-
-            dynamic mymodel = new ExpandoObject();
-            mymodel.MainEntry = a;
+            if (userID == 10)
+            {
+                Entry b = new Entry();
+                b.ID = 20;
+                b.Title = "This is the title of the entry!";
+                b.Date = new DateTime();
+                b.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
+                b.IsPositive = false;
+                result.Add(b);
+            }
             mymodel.ListEntry = result;
             return View(mymodel);
         }

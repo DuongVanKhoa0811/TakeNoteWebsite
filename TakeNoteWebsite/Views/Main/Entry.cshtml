@@ -19,13 +19,16 @@
         <a class="browseJournal" asp-action="AllEntry">
             <i class="fa-solid fa-list-ul fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Entries</p>
         </a>
+        <a class="browseJournal">
+            <i class="fa-solid fa-image fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Images</p>
+        </a>
         <div class="browseJournal">
             <i class="fa-solid fa-star fa-2x" style="font-size: 15px;"></i>&nbsp; <p style="font-size: 15px;">View Starred Entries</p>
         </div>
         @foreach (TakeNoteWebsite.Models.Data.Entry entry in Model.ListEntry)
         {
             var tmp = entry.Date.GetDateTimeFormats()[3];
-            <a class="browseJournal entryBrowse" style="font-size: 15px;">
+            <a class="browseJournal entryBrowse" style="font-size: 15px;" id="@entry.ID" asp-action="Entry" asp-route-userID="@entry.ID">
                 <p>
                     <b>@entry.Title</b><br>
                     <i class="fa-solid fa-square fa-1x" style="margin-right: 5px;"></i>@tmp
