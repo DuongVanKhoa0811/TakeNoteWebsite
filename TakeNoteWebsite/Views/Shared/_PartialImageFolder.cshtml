@@ -1,0 +1,13 @@
+﻿
+@model TakeNoteWebsite.Models.Data.Folder
+    <a asp-controller="Main" 
+       asp-action="ImageFolder" 
+       asp-route-folderName="@Model.Name">
+        <div class="folderContainer">
+            <img src="@Model.RepresentativeImagePaths" alt="Norway" class="sampleImage">
+            <div class="folderText">
+                <p class="folderName folderText">@Model.Name</p>
+                <p class="folderInfo folderText">@Model.numImage images</p>
+            </div>
+        </div>
+    </a>

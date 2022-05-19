@@ -1,0 +1,22 @@
+.filterSelectContainer {
+    display: inline-block;
+    margin: 5px;
+}
+
+.filterLabel {
+    font-size:14px;
+    font-weight:bolder;
+    color:grey;
+}
+
+.filterContainer {
+    width:1040px;
+    margin-right:auto;
+    margin-left:auto;
+}
+
+.filterSelect {
+    font-size:15px;
+    height:30px;
+    width: 220px;
+}

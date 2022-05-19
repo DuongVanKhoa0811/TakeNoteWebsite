@@ -1,0 +1,37 @@
+.folderContainer {
+  border-style: solid;
+  border-color: grey;
+  border-width: 1px;
+  border-radius: 4px;
+  position: relative;
+  height: 150px;
+  width: 150px;
+  overflow: hidden;
+  margin: 10px;
+  float: left;
+}
+
+.sampleImage {
+  width: 100%;
+}
+
+.imageBrowsingContainer{
+  margin-left: auto;
+  margin-right: auto;
+  width: 1040px;
+}
+div.folderText {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  background-color: white;
+  color: black;
+  opacity: 0.7;
+}
+
+p.folderText {
+  font-family: arial;
+  font-size: 15px;
+  margin: 0px;
+  padding: 0px;
+}

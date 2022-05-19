@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model TakeNoteWebsite.Models.Data.ImageFilter
+    <link rel="stylesheet" href="~/css/filter.css">
+<div class="filterContainer">
+    <form class="filter" asp-controller="Main" asp-action="ImageFolder" method="get">
+        <span class="filterSelectContainer">
+            <label for="since" class="filterLabel">Since</label>
+            <br/>
+            <select name="since" onchange="this.form.submit()" class="filterSelect">
+                <option value="N/A">N/A</option>
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+                <option value="thisWeek">This week</option>
+                <option value="lastWeek">Last week</option>
+                <option value="last7Days">Last 7 days</option>
+                <option value="thisMonth">This month</option>
+                <option value="lastMonth">Last month</option>
+                <option value="thisYear">This year</option>
+                <option value="lastYear">Last year</option>
+            </select>
+        </span>
+
+        <span class="filterSelectContainer">
+            <label for="sortBy" class="filterLabel">Sort by</label>
+            <br />
+            <select name="sortBy" onchange="this.form.submit()" class="filterSelect">
+                <option value="latest">Latest</option>
+                <option value="oldest">Oldest</option>
+            </select>
+        </span>
+        <span class="filterSelectContainer">
+            <label for="positiveNegative" class="filterLabel">Positive/Negative</label>
+            <br />
+            <select name="positiveNegative" onchange="this.form.submit()" class="filterSelect">
+                <option value="N/A">N/A</option>
+                <option value="positive">Positive</option>
+                <option value="negative">Negative</option>
+            </select>
+        </span>
+
+        <input type ="hidden" value="@Model.Folder" name= "folderID">
+    </form>
+</div>
