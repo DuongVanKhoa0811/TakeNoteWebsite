@@ -87,7 +87,7 @@
         @foreach (TakeNoteWebsite.Models.Data.Entry entry in Model.ListEntry)
         {
             var tmp = entry.Date.GetDateTimeFormats()[3];
-            <a class="browseJournal entryBrowse" style="font-size: 15px;" id="@entry.ID" asp-action="Entry" asp-route-userID="@entry.ID">
+            <a class="browseJournal entryBrowse" style="font-size: 15px;" id="@entry.ID" asp-action="Entry" asp-route-entryID="@entry.ID">
                 <p>
                     <b>@entry.Title</b><br>
                     <i class="fa-solid fa-square fa-1x" style="margin-right: 5px;"></i>@tmp
@@ -146,7 +146,7 @@
                                      data-placeholder="Input the title in here ..." onkeypress="prevent_long_title(event)">@mainEntry.Title</div>
                                 </div>
                                 <div style="float: right;">
-                                    <div onclick="save_entry()">
+                                    <div onclick="save_entry(@mainEntry.ID)">
                                         <p style="font-style: italic; color: rgba(14, 202, 187, 0.547); font-size: 15px; margin: 0px; float: right; cursor: pointer;">Save now</p>
                                     </div>
                                     <div style="display: flex; align-items: center; text-align: center; display: flex; float: right;">

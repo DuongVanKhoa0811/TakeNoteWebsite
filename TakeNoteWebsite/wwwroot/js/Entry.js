@@ -43,22 +43,24 @@ function save_image(entryID) {
         }
     });
 }
-function save_entry() {
+function save_entry(entryID) {
     val1 = $("#controlDiary").html();
     val2 = $("#diary").html();
     val3 = $("#titleEntry").html();
-    val4 = false
-    if ($(this).children().css("color") == "rgb(255, 255, 0)") {
-        val4 = true
-    }
-
     if (val3 == "") {
         $(".alert-danger-forgot-title").css("animation-name", "showandhide");
-    }
-    else {
+    } else {
+        val4 = false
+        if ($(".starEntry").css("color") == "rgb(255, 255, 0)") {
+            val4 = true
+        }
+        var pathURL = "/Main/NewEntry";
+        if (typeof entryID !== "undefined") {
+            pathURL = "/Main/SaveEntry";
+        }
         $.ajax({
             type: "POST",
-            url: "/Main/SaveEntry",
+            url: pathURL,
             data: { contentFormat: val1, content: val2, title: val3, star: val4 },
             dataType: "text",
             success: function (result) {
@@ -78,8 +80,8 @@ function prevent_long_title(event) {
         alert("The title is too long!");
     }
 }
-function new_entry() {
-    location.replace("/Main/Entry/?userID=0");
+function new_entry() {/*0*/
+    location.replace("/Main/Entry/?entryID=");
 }
 function create_new_folder() {
     val1 = $("#folderModalName").val();

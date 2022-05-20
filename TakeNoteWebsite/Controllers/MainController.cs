@@ -75,11 +75,12 @@ namespace TakeNoteWebsite.Controllers
             return View();
         }
 
-        public IActionResult Entry(string userID)
+        public IActionResult Entry(string entryID)
         {
             dynamic mymodel = new ExpandoObject();
             Entry a = new Entry();
-            if (userID == 0) // new entry
+            
+            if (entryID == null || entryID == "") // new entry
             {
                 a.Title = "";
                 a.Star = false;
@@ -87,28 +88,10 @@ namespace TakeNoteWebsite.Controllers
             }
             else
             {
-                a.Title = "This is the title of entry!";
-                a.Star = true;
-                a.Content = "<b><div id=\"diary\" contenteditable=\"true\" role=\"textbox\" style=\"background-color: whitesmoke; \" data-placeholder=\"Note what you want in here ...\">Content</div></b>";
+                a = DatabaseQuery.GetEntry(entryID);
             }
             mymodel.MainEntry = a;
-            List<Entry> result = new List<Entry>();
-            Entry c = new Entry();
-            c.ID = "00001";
-            c.Title = "This is the title of the entry!";
-            c.Date = new DateTime();
-            c.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
-            c.IsPositive = true;
-            result.Add(c);
-            Entry b = new Entry();
-            b.ID = "00001";
-            b.Title = "This is the title of the entry!";
-            b.Date = new DateTime();
-            b.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
-            b.IsPositive = false;
-            result.Add(b);
-
-            dynamic mymodel = new ExpandoObject();
+            List<Entry> result = DatabaseQuery.GetListEntry("00000");
             mymodel.MainEntry = a;
             mymodel.ListEntry = result;
             mymodel.ImageModel = new ImageModel();
@@ -217,7 +200,6 @@ namespace TakeNoteWebsite.Controllers
                 ViewData["Error"] = error;
                 return View();
             }
-            
         }
 
 
@@ -235,16 +217,21 @@ namespace TakeNoteWebsite.Controllers
             tmp.Date = DateTime.Now;
             tmp.Star = star;
             tmp.Title = title;
-            tmp.IsPositive = DeepLearningModel.PositiveNegative("I am very happy.");
-            //DatabaseQuery.SaveEntry()
-            return true;
+            tmp.IsPositive = DeepLearningModel.PositiveNegative(title);
+            return DatabaseQuery.SaveEntry("00000", tmp); //AuthenticationController.GetCurrentUser(HttpContext).ID
         }
 
-        /*[HttpPost]
-        public void NewEntry(int userID)
+        [HttpPost]
+        public bool NewEntry(string contentFormat, string content, string title, bool star)
         {
-            RedirectToAction("Entry", new { userID = 0 });
-        }*/
+            Entry tmp = new Entry();
+            tmp.Content = contentFormat;
+            tmp.Date = DateTime.Now;
+            tmp.Star = star;
+            tmp.Title = title;
+            tmp.IsPositive = DeepLearningModel.PositiveNegative(title);
+            return DatabaseQuery.NewEntry("00000", tmp); //AuthenticationController.GetCurrentUser(HttpContext).ID
+        }
 
         [HttpPost]
         public bool DeleteEntry(string EntryID)
