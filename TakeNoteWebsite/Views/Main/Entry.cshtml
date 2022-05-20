@@ -25,7 +25,7 @@
                         style="border-radius: 0px; width: 100%; height: 50%; align-items: center; justify-content: center; display: flex; box-shadow: none;">Create new folder for image storage</button>
                 <div style="width: 100%; height: 50%; display: flex; flex-direction: row; ">
                     <div style="width: 50%; height: 100%; display: flex; justify-content: center; align-items: center;">
-                        <select name="folderSelectName" id="folderSelectName" style="width: 100%; height: 100%;">
+                        <select name="selectedFolderName" id="selectedFolderName" style="width: 100%; height: 100%;">
                             <option value="Auto">Auto</option>
                             <option value="Folder 1">Folder 1</option>
                             <option value="Folder 2">Folder 2</option>
@@ -42,11 +42,13 @@
                                 </div>
                                 <div class="modal-body">
                                     <div>
-                                        <label asp-for="@imageModel.ImageFile">Upload files</label>
-                                        <input id="uploadFileModal" asp-for="@imageModel.ImageFile" multiple accept="image/*" />
-                                        <span asp-validation-for="@imageModel.ImageFile" class="text-danger"></span>
+                                        <form method="post" enctype="multipart/form-data">
+                                            <label asp-for="@imageModel.ImageFile">Upload files</label>
+                                            <input id="uploadFileModal" asp-for="@imageModel.ImageFile" multiple accept="image/*" />
+                                            <span asp-validation-for="@imageModel.ImageFile" class="text-danger"></span>
+                                        </form>
                                     </div>
-                                    <button data-bs-dismiss="modal" type="submit" value="submit" class="btn btn-primary" onclick="save_image()">Save images</button>
+                                    <button data-bs-dismiss="modal" type="submit" value="submit" class="btn btn-primary" onclick="save_image(@mainEntry.ID)">Save images</button>
                                 </div>
                             </div>
                         </div>

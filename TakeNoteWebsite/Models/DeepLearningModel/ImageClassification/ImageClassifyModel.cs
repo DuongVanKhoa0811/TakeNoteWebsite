@@ -30,8 +30,12 @@ namespace TakeNoteWebsite.Models.DeepLearningModel.ImageClassification
                 var modelScorer = new TFModelScorer(tagsTsv, imagesFolder, inceptionPb, labelsTxt);
                 
                 VariableDictionary result = new VariableDictionary();
-                result["Similar between two images"] = modelScorer.Score((string)input["Image path 1"]
+                var score = modelScorer.Score((string)input["Image path 1"]
                     , (string)input["Image path 2"]);
+                if (score == 0)
+                    result["Similar between two images"] = float.MaxValue;
+                else
+                    result["Similar between two images"] = score;
                 return result;
             }
             catch (Exception ex)

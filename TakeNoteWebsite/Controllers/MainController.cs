@@ -199,8 +199,15 @@ namespace TakeNoteWebsite.Controllers
         }
 
         [HttpPost]
-        public bool SaveEntry(string content, string title, bool star)
+        public bool SaveEntry(string contentFormat, string content, string title, bool star)
         {
+            Entry tmp = new Entry();
+            tmp.Content = contentFormat;
+            tmp.Date = DateTime.Now;
+            tmp.Star = star;
+            tmp.Title = title;
+            tmp.IsPositive = DeepLearningModel.PositiveNegative("I am very happy.");
+            //DatabaseQuery.SaveEntry()
             return true;
         }
 
@@ -230,16 +237,30 @@ namespace TakeNoteWebsite.Controllers
         }
 
         [HttpPost]
-        public bool NewImage(List<IFormFile> files)
+        public bool NewImage(List<IFormFile> files, string folderName, string entryID)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return false;
+            }
+            if (folderName == null)
+                return false;
+            bool auto = (folderName == "Auto");
+            List<string> listFolderName = new List<string>();
+            List<Tuple<string, string>> firstImageOfFolder = new List<Tuple<string, string>>();
+
+            if (auto)
+            {
+                listFolderName.Add("Folder 1"); // GetAllFolderName() 
+                foreach (string _folderName in listFolderName)
+                {
+                    firstImageOfFolder.Add( new Tuple<string, string>("download1.jpg", "folderName")); //GetFirstImageOfFolder(_folderName)
+                }
             }
             foreach(IFormFile file in files)
             {
                 if (file == null)
-                    return false;
+                    continue;
                 string solutionPath = Environment.CurrentDirectory;
                 string fileName = Path.GetFileNameWithoutExtension(file.FileName);
                 string extension = Path.GetExtension(file.FileName);
@@ -247,7 +268,28 @@ namespace TakeNoteWebsite.Controllers
                 string path = Path.Combine(solutionPath + "\\Images\\Upload", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
-                    file.CopyTo(fileStream); // await
+                    file.CopyTo(fileStream);
+                }
+                if (auto)
+                {
+                    float bestFit = float.MaxValue;
+                    string _folderName = "";
+                    for(int i = 0; i < firstImageOfFolder.Count; i++)
+                    {
+                        float similarFeature = DeepLearningModel.SimilarFeature(
+                            Path.Combine(Environment.CurrentDirectory, "Images", "Upload", fileName),
+                            Path.Combine(Environment.CurrentDirectory, "Images", "Upload", firstImageOfFolder[i].Item1));
+                        if (similarFeature < bestFit)
+                        {
+                            _folderName = firstImageOfFolder[i].Item2;
+                            bestFit = similarFeature;
+                        }
+                    }
+                    //SaveImageToFolder(file.FileName, _folderName, entryID);
+                }
+                else
+                {
+                    //SaveImageToFolder(file.FileName, folderName, entryID);
                 }
             }
             return true;
@@ -256,6 +298,7 @@ namespace TakeNoteWebsite.Controllers
         [HttpPost]
         public bool CreateNewFolder(string folderName)
         {
+            //SaveFolder(folderName, userID);
             return true;
         }
 

@@ -14,7 +14,7 @@ function save_star() {
         $(".starEntry").css("color", "yellow");
     }
 }
-function save_image() {
+function save_image(entryID) {
     var files = document.getElementById("uploadFileModal").files;
     var formData = new FormData();
 
@@ -23,17 +23,20 @@ function save_image() {
     }
     var i = 0;
     for (var value of formData.values()) {
-        alert("Value");
         i += 1;
     }
+    val1 = $("#selectedFolderName").children("option:selected").val();
+    formData.append("folderName", val1);
+    formData.append("entryID", entryID);
     $.ajax({
+        type: "POST",
         url: "/Main/NewImage",
         data: formData,
         processData: false,
         contentType: false,
-        type: "POST",
         success: function (data) {
             alert("Success - The image had been save successfully!");
+            alert(data);
         },
         error: function (req, status, error) {
             alert("Failed - The image had not been saved for some reason!")
@@ -42,20 +45,21 @@ function save_image() {
 }
 function save_entry() {
     val1 = $("#controlDiary").html();
-    val2 = $("#titleEntry").html();
-    val3 = false
+    val2 = $("#diary").html();
+    val3 = $("#titleEntry").html();
+    val4 = false
     if ($(this).children().css("color") == "rgb(255, 255, 0)") {
-        val3 = true
+        val4 = true
     }
 
-    if (val2 == "") {
+    if (val3 == "") {
         $(".alert-danger-forgot-title").css("animation-name", "showandhide");
     }
     else {
         $.ajax({
             type: "POST",
             url: "/Main/SaveEntry",
-            data: { content: val1, title: val2, star: val3 },
+            data: { contentFormat: val1, content: val2, title: val3, star: val4 },
             dataType: "text",
             success: function (result) {
                 $(".alert-success-entry").css("animation-name", "showandhide");
