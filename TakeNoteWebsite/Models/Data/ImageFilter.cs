@@ -9,7 +9,7 @@ namespace TakeNoteWebsite.Models.Data
     {
         public string Since { get; set; }
         public string SortBy { get; set; }
-        public int Folder { get; set; }
+        public string Folder { get; set; }
         public string PositiveNegative { get; set; }
     }
 }

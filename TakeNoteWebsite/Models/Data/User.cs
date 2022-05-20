@@ -8,7 +8,7 @@ namespace TakeNoteWebsite.Models.Data
 {
     public class User
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
 
         [DisplayName("User name")]
         public string UserName { get; set; }

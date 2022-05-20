@@ -2,46 +2,50 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace TakeNoteWebsite.Models.Data
 {
     public class DatabaseQuery
     {
-        public static Entry GetFirstEntry(int UserID)
+        private static string connectionString = "";
+        public static Entry GetFirstEntry(string UserID)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("somethinghere", connection);
+            return new Entry();
+        }
+        public static Entry GetEntry(string EntryID)
         {
             return new Entry();
         }
-        public static Entry GetEntry(int EntryID)
-        {
-            return new Entry();
-        }
-        public static List<Entry> GetListEntry(int UserID)
+        public static List<Entry> GetListEntry(string UserID)
         {
             List<Entry> results = new List<Entry>();
             return results;
         }
-        public static bool NewEntry(int UserID, Entry entry)
+        public static bool NewEntry(string UserID, Entry entry)
         {
             return true;
         }
-        public static bool DeleteEntry(int EntryID)
+        public static bool DeleteEntry(string EntryID)
         {
             return true;
         }
-        public static bool SaveEntry(int UserID, Entry entry)
+        public static bool SaveEntry(string UserID, Entry entry)
         {
             return true;
         }
-        public static List<Image> GetListImage(int UserID, string Folder, Filter filter)
+        public static List<Image> GetListImage(string UserID, string Folder, Filter filter)
         {
             List<Image> result = new List<Image>();
             return result;
         }
-        public static bool NewImage(int UserID, Image image)
+        public static bool NewImage(string UserID, Image image)
         {
             return true;
         }
-        public static bool DeleteImage(int ImageID)
+        public static bool DeleteImage(string ImageID)
         {
             return true;
         }
@@ -55,14 +59,14 @@ namespace TakeNoteWebsite.Models.Data
         {
             return 0;
         }
-        public static User GetUser(int UID)
+        public static User GetUser(string UID)
         {
             return new User
             {
                 FirstName = "Tony",
                 LastName = "Stark",
                 UserName = "TonyStark",
-                ID = 123
+                ID = "00123"
             };
         }
         public static bool signIn(string username, string password)

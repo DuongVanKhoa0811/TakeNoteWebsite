@@ -7,8 +7,8 @@ namespace TakeNoteWebsite.Models.Data
 {
     public class Image
     {
-        public int ID { get; set; }
-        public int EntryID { get; set; }
+        public string ID { get; set; }
+        public string EntryID { get; set; }
         public DateTime Date { get; set; }
         public string Path { get; set; }
     }

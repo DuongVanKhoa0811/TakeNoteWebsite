@@ -7,7 +7,7 @@ namespace TakeNoteWebsite.Models.Data
 {
     public class Entry
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }

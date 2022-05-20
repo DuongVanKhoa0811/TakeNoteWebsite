@@ -31,7 +31,7 @@ namespace TakeNoteWebsite.Controllers
                 FirstName = httpContext.User.FindFirst("FirstName")?.Value,
                 LastName = httpContext.User.FindFirst("LastName")?.Value,
                 UserName = httpContext.User.FindFirst("UserName")?.Value,
-                ID = Int32.Parse(httpContext.User.FindFirst("UID")?.Value)
+                ID = httpContext.User.FindFirst("UID")?.Value
             };
             return user;
         }
@@ -49,7 +49,7 @@ namespace TakeNoteWebsite.Controllers
             {
                 FirstName = "Tony",
                 LastName = "Stark",
-                ID = 1,
+                ID = "00001",
                 UserName = userName
             };
             int uid = 1;
