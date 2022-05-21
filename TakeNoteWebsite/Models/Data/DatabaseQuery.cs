@@ -256,7 +256,7 @@ namespace TakeNoteWebsite.Models.Data
                 }
 
                 Since = StartDate.ToString("yyyy’-‘MM’-‘dd");
-                query = query + "and " + StartDate + " <= e.DateOfEntry ";
+                query = query + "and '" + StartDate + "' <= e.DateOfEntry ";
             }
                 
 				
@@ -344,7 +344,7 @@ namespace TakeNoteWebsite.Models.Data
                     StartDate = new DateTime(localDate.Year - 1, 1, 1);
 
                 Since = StartDate.ToString("yyyy’-‘MM’-‘dd");
-                query = query + "and " + StartDate + " <= e.DateOfEntry ";
+                query = query + "and '" + StartDate + "' <= e.DateOfEntry ";
             }
 
 				
