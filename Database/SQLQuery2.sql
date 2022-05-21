@@ -4,7 +4,6 @@ go
 use PenZu
 go
 
-select i.ImagePath from Img as i where i.EntryID = '00000' 
 
 create table UserAccount(
 	UserID char(5),
@@ -30,7 +29,6 @@ create table EntryTable(
 	TextFont nvarchar(100),
 	FontStyle nvarchar(100),
 	SizeOfText float,
-	TextColour nvarchar(100),
 	CONSTRAINT PK_Entry PRIMARY KEY (EntryID)
 );
 GO
@@ -56,15 +54,15 @@ go
 
 insert into UserAccount
 values 
-	('00000','Khoa','Duong','dvkhoa19@apcs.fitus.edu.vn','dvkhoa19','crushh10nam'),
+	('00000','Khoa','Duong','dvkhoa19@apcs.fitus.edu.vn','dvkhoa19','voicanui'),
 	('00001','Tuan','Vo','vntuan19@apcs.fitus.edu.vn','vntuan19','khongcocrush'),
 	('00002','Tri','Cao','cttri19@apcs.fitus.edu.vn','cttri19','crushn10nam');
 
 insert into EntryTable
 values
-	('00000','Happy day','Today is a great day.',0 ,Null,'2022-05-11','2022-05-11','00000','Times New Roman','Bold',12,Null),
-	('00001','Sad day','Today is a desperate day.',0 ,Null,'2022-05-12','2022-05-12','00000','Times New Roman','Bold',12,Null),
-	('00002','Love day','Today Khoa confessed his crush.',0 ,Null,'2022-05-11','2022-05-11','00000','Times New Roman','Bold',12,Null);
+	('00000','Happy day','<div id=\"diary\" contenteditable=\"true\" role=\"textbox\" style=\"background-color: whitesmoke; \" data-placeholder=\"Note what you want in here ...\">Today is a great day.</div>',0 ,Null,'2022-05-11','2022-05-11','00000','Times New Roman','Bold',12),
+	('00001','Sad day','<div id=\"diary\" contenteditable=\"true\" role=\"textbox\" style=\"background-color: whitesmoke; \" data-placeholder=\"Note what you want in here ...\">Today is a desperate day.</div>',0 ,Null,'2022-05-12','2022-05-12','00000','Times New Roman','Bold',12),
+	('00002','Love day','<div id=\"diary\" contenteditable=\"true\" role=\"textbox\" style=\"background-color: whitesmoke; \" data-placeholder=\"Note what you want in here ...\">I just want to sleep.</div>',0 ,Null,'2022-05-11','2022-05-11','00000','Times New Roman','Bold',12);
 
 insert into Folder
 values
@@ -74,14 +72,9 @@ values
 
 insert into Img
 values
-	('00000','Image0.img','00000','00000','00000'),
-	('00001','Image1.img','00001','00001','00000'),
-	('00002','Image2.img','00002','00002','00000'),
-	('00003','Image3.img','00000','00000','00000'),
-	('00004','Image4.img','00001','00001','00000'),
-	('00005','Image5.img','00002','00002','00000'),
-	('00006','Image6.img','00000','00000','00000'),
-	('00007','Image7.img','00001','00001','00000');
+	('00000','Image12224717477.jpg','00000','00000','00000'),
+	('00001','Image12224717478.jpg','00001','00000','00000'),
+	('00002','Image12224717479.jpg','00002','00000','00000');
 
 
 GO
@@ -131,7 +124,7 @@ RETURN
 (
     select e.NameEntry, e.DateOfEntry, e.Emotion, e.Star
 	from EntryTable as e
-	where e.UserID =@userid and @startdate <= e.DateOfEntry and e.DateOfEntry<= @enddate and e.Emotion=@Emotion 
+	where e.UserID =@userid and @startdate <= e.DateOfEntry and e.DateOfEntry<= @enddate and e.Emotion=@Emotion
 )
 GO
 
@@ -145,11 +138,6 @@ RETURN
 	from Img as i join EntryTable as e on i.EntryID=e.EntryID
 	where i.UserID =@userid and @startdate <= e.DateOfEntry and e.DateOfEntry<= @enddate
 )
-GO
-
-select i.EntryID, i.FolderID, i.ImagePath
-from Img as i join EntryTable as e on i.EntryID=e.EntryID
-where i.UserID ='00000' and '1999-01-01' <= e.DateOfEntry 
 GO
 
 CREATE OR ALTER FUNCTION getImageByFolder(@userID char(5), @FolderName nvarchar(200))
@@ -249,8 +237,8 @@ BEGIN TRANSACTION
 			Set @count=@count+1
 			Declare @tmp char(5)
 			Set @tmp=RIGHT('00000'+CAST(@count as varchar(5)) ,5)
-			insert into EntryTable(EntryID, NameEntry ,Content , Star, Emotion, DateOfEntry, DateUpload, UserID, TextFont, FontStyle, SizeOfText, TextColour)
-			values (@tmp, @nameEntry, @content, @star,@emotion,@dateofentry,@dateupload,@userid, @textfont, @fontstyle, @sizeoftext, null);
+			insert into EntryTable(EntryID, NameEntry ,Content , Star, Emotion, DateOfEntry, DateUpload, UserID, TextFont, FontStyle, SizeOfText)
+			values (@tmp, @nameEntry, @content, @star,@emotion,@dateofentry,@dateupload,@userid, @textfont, @fontstyle, @sizeoftext);
 			Set @result=1
 
         END
@@ -263,7 +251,6 @@ COMMIT TRANSACTION
     
 GO
 
-
 --------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE sp_DeleteEntry(@entryID char(5), @result INT OUT)
 AS
@@ -274,6 +261,7 @@ BEGIN TRANSACTION
             where EntryID = @entryID
         )
         BEGIN
+			delete from Img where EntryID = @entryID
 			DELETE FROM EntryTable WHERE EntryID = @entryID 
 			Set @result=1
 
@@ -328,7 +316,7 @@ GO
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 
-CREATE OR ALTER PROCEDURE sp_NewImage(@UserID char(5), @FolderName char(5), @EntryID char(5), @ImagePath char(100), @result INT OUT)
+CREATE OR ALTER PROCEDURE sp_NewImage(@UserID nvarchar(100), @FolderName nvarchar(100), @EntryID char(5), @ImagePath char(100), @result INT OUT)
 AS
 BEGIN TRANSACTION
 			Declare @count int
@@ -344,7 +332,7 @@ BEGIN TRANSACTION
 
 			Declare @FolderID char(5)
 			Set @FolderID=(
-				select f.FolderID
+				select top(1) f.FolderID
 				from Folder as f
 				where f.UserID=@UserID and f.FolderName=@FolderName
 			)
@@ -546,6 +534,7 @@ COMMIT TRANSACTION
     
 GO
 
+
 CREATE OR ALTER FUNCTION GetFirstImageOfFolder(@userID char(5), @FolderName nvarchar(200))
 RETURNS TABLE
 AS
@@ -557,8 +546,18 @@ RETURN
 )
 GO
 
+CREATE OR ALTER FUNCTION GetListFolderNameByUserID(@UserID char(5))
+RETURNS TABLE
+AS
+RETURN
+(
+    select top(100) FolderName
+	from Folder as f
+	where f.UserID =@UserID
+)
+GO
 /*
 use master
-drop database Penzu
+drop database BookHouse
 
 */
