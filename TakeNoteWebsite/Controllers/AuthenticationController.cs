@@ -38,7 +38,7 @@ namespace TakeNoteWebsite.Controllers
         public static async Task<bool> SignIn(HttpContext httpContext, string userName, string password)
         {
             //check if the username and password is correct
-            if (!DatabaseQuery.signIn(userName, password))
+            if (!DatabaseQuery.SignIn(userName, password))
             {
                 return false;
             }

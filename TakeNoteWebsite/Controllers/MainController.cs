@@ -79,9 +79,9 @@ namespace TakeNoteWebsite.Controllers
         {
             dynamic mymodel = new ExpandoObject();
             Entry a = new Entry();
-            
             if (entryID == null || entryID == "") // new entry
             {
+                a.ID = "";
                 a.Title = "";
                 a.Star = false;
                 a.Content = "<div id=\"diary\" contenteditable=\"true\" role=\"textbox\" style=\"background-color: whitesmoke; \" data-placeholder=\"Note what you want in here ...\"></div>";
@@ -89,9 +89,17 @@ namespace TakeNoteWebsite.Controllers
             else
             {
                 a = DatabaseQuery.GetEntry(entryID);
+                a.ID = entryID;
             }
             mymodel.MainEntry = a;
             List<Entry> result = DatabaseQuery.GetListEntry("00000");
+            for(int i = 0; i < result.Count; i++)
+                if(result[i].ID == entryID)
+                {
+                    result.RemoveAt(i);
+                    break;
+                }
+            
             mymodel.MainEntry = a;
             mymodel.ListEntry = result;
             mymodel.ImageModel = new ImageModel();
@@ -131,6 +139,7 @@ namespace TakeNoteWebsite.Controllers
             */
             ViewData["filter"] = filter;
             List<Entry> result = DatabaseQuery.searchEntry(currentUser.ID, filter);
+            // List<Entry> result = DatabaseQuery.GetListEntry("00000");
             return View(result);
         }
 
@@ -233,9 +242,10 @@ namespace TakeNoteWebsite.Controllers
         }
 
         [HttpPost]
-        public bool SaveEntry(string contentFormat, string content, string title, bool star)
+        public bool SaveEntry(string entryID, string contentFormat, string content, string title, bool star)
         {
             Entry tmp = new Entry();
+            tmp.ID = entryID;
             tmp.Content = contentFormat;
             tmp.Date = DateTime.Now;
             tmp.Star = star;
@@ -257,10 +267,9 @@ namespace TakeNoteWebsite.Controllers
         }
 
         [HttpPost]
-        public bool DeleteEntry(string EntryID)
+        public bool DeleteEntry(string entryID)
         {
-
-            return true;
+            return DatabaseQuery.DeleteEntry(entryID);
         }
 
         [HttpPost]
@@ -282,18 +291,23 @@ namespace TakeNoteWebsite.Controllers
             {
                 return false;
             }
-            if (folderName == null)
+            if (folderName == null) // || typeof entryID === "undefined" || entryID == null
                 return false;
             bool auto = (folderName == "Auto");
             List<string> listFolderName = new List<string>();
             List<Tuple<string, string>> firstImageOfFolder = new List<Tuple<string, string>>();
-
+            Image imageTmp = new Image();
+            imageTmp.EntryID = entryID;
             if (auto)
             {
-                listFolderName.Add("Folder 1"); // GetAllFolderName() 
+                listFolderName = DatabaseQuery.GetAllFolderName("00000"); 
                 foreach (string _folderName in listFolderName)
                 {
-                    firstImageOfFolder.Add( new Tuple<string, string>("download1.jpg", "folderName")); //GetFirstImageOfFolder(_folderName)
+                    var imageName = DatabaseQuery.GetFirstImageOfFolder("00000", _folderName).Path;
+                    if (imageName == null)
+                        return false;
+                    firstImageOfFolder.Add( 
+                        new Tuple<string, string>(imageName, _folderName));
                 }
             }
             foreach(IFormFile file in files)
@@ -304,6 +318,7 @@ namespace TakeNoteWebsite.Controllers
                 string fileName = Path.GetFileNameWithoutExtension(file.FileName);
                 string extension = Path.GetExtension(file.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                imageTmp.Path = fileName;
                 string path = Path.Combine(solutionPath + "\\Images\\Upload", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
@@ -324,11 +339,13 @@ namespace TakeNoteWebsite.Controllers
                             bestFit = similarFeature;
                         }
                     }
-                    //SaveImageToFolder(file.FileName, _folderName, entryID);
+                    if (!DatabaseQuery.NewImage("00000", imageTmp, _folderName))
+                        return false;
                 }
                 else
                 {
-                    //SaveImageToFolder(file.FileName, folderName, entryID);
+                    if (!DatabaseQuery.NewImage("00000", imageTmp, folderName))
+                        return false;
                 }
             }
             return true;
@@ -337,8 +354,7 @@ namespace TakeNoteWebsite.Controllers
         [HttpPost]
         public bool CreateNewFolder(string folderName)
         {
-            //SaveFolder(folderName, userID);
-            return true;
+            return DatabaseQuery.CreaetNewFolder("00000", folderName);
         }
 
 

@@ -15,6 +15,8 @@ function save_star() {
     }
 }
 function save_image(entryID) {
+    if (typeof entryID !== "undefined") 
+        entryID = preprocessEntryID(entryID);
     var files = document.getElementById("uploadFileModal").files;
     var formData = new FormData();
 
@@ -25,25 +27,31 @@ function save_image(entryID) {
     for (var value of formData.values()) {
         i += 1;
     }
-    val1 = $("#selectedFolderName").children("option:selected").val();
-    formData.append("folderName", val1);
-    formData.append("entryID", entryID);
-    $.ajax({
-        type: "POST",
-        url: "/Main/NewImage",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (data) {
-            alert("Success - The image had been save successfully!");
-            alert(data);
-        },
-        error: function (req, status, error) {
-            alert("Failed - The image had not been saved for some reason!")
-        }
-    });
+    if (i == 0)
+        alert("You haven't selected any files yet!")
+    else {
+        val1 = $("#selectedFolderName").children("option:selected").val();
+        formData.append("folderName", val1);
+        formData.append("entryID", entryID);
+        $.ajax({
+            type: "POST",
+            url: "/Main/NewImage",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                alert("Success - The image had been save successfully!");
+            },
+            error: function (req, status, error) {
+                alert("Failed - The image had not been saved for some reason!")
+            }
+        });
+    }
 }
 function save_entry(entryID) {
+    if (typeof entryID !== "undefined")
+        entryID = preprocessEntryID(entryID);
+    var formData = new FormData();
     val1 = $("#controlDiary").html();
     val2 = $("#diary").html();
     val3 = $("#titleEntry").html();
@@ -57,12 +65,18 @@ function save_entry(entryID) {
         var pathURL = "/Main/NewEntry";
         if (typeof entryID !== "undefined") {
             pathURL = "/Main/SaveEntry";
+            formData.append("entryID", entryID);
         }
+        formData.append("contentFormat", val1);
+        formData.append("content", val2);
+        formData.append("title", val3);
+        formData.append("star", val4);
         $.ajax({
             type: "POST",
             url: pathURL,
-            data: { contentFormat: val1, content: val2, title: val3, star: val4 },
-            dataType: "text",
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function (result) {
                 $(".alert-success-entry").css("animation-name", "showandhide");
             },
@@ -97,6 +111,9 @@ function create_new_folder() {
             alert("Failed - The folder had not been saved for some reasons!");
         }
     });
+}
+function preprocessEntryID(entryID) {
+    return ("0000" + entryID).slice(-5);
 }
 function sad_emotion() {
     $("#diary").html($("#diary").html() + "😒")

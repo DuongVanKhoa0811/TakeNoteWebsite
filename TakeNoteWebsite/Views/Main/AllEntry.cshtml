@@ -59,8 +59,8 @@
     </div>
     @for (int i = 0; i < Model.Count; i += 1)
     {
-        <div class="entry @Model[i].IsPositive" id="@Model[i].ID">
-            <div><input type="checkbox" /></div>
+        <a class="entry @Model[i].IsPositive" id="@Model[i].ID" asp-action="Entry" asp-route-entryID="@Model[i].ID">
+            <div><input type="checkbox" disabled="true" style="cursor: context-menu;"/></div>
             <div style="grid-area: 1/2/2/3">
                 <div>@Model[i].Title</div>
                 @if (Model[i].Content.Length > 55)
@@ -70,10 +70,10 @@
                 <div class="content">@Model[i].Content</div>
             </div>
             <div>Mon. 5/9/2022 at 7:50pm</div>
-            <div><button type="button" class="btn btn-danger buttonDeleteEntry"><i class="fa-solid fa-trash-can"></i></button></div>
-        </div>
+            <div><button type="button" class="btn btn-danger buttonDeleteEntry" style="cursor: pointer;"><i class="fa-solid fa-trash-can"></i></button></div>
+        </a>
     }
 </div>
 <script>
 </script>
-@*Chúng ta có cần encode id của sản phẩm không*@
+@*Chúng ta có cần encode id của entry không*@

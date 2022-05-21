@@ -84,16 +84,18 @@
         <a class="browseJournal" style="color: white;">
             <i class="fa-solid fa-star fa-2x" style="font-size: 15px;"></i>&nbsp; <p style="font-size: 15px;">View Starred Entries</p>
         </a>
-        @foreach (TakeNoteWebsite.Models.Data.Entry entry in Model.ListEntry)
-        {
-            var tmp = entry.Date.GetDateTimeFormats()[3];
-            <a class="browseJournal entryBrowse" style="font-size: 15px;" id="@entry.ID" asp-action="Entry" asp-route-entryID="@entry.ID">
-                <p>
-                    <b>@entry.Title</b><br>
-                    <i class="fa-solid fa-square fa-1x" style="margin-right: 5px;"></i>@tmp
-                </p>
-            </a>
-        }
+        <div style="overflow: scroll; width: 100%; height: 52%;">
+            @foreach (TakeNoteWebsite.Models.Data.Entry entry in Model.ListEntry)
+            {
+                var tmp = entry.Date.GetDateTimeFormats()[3];
+                <a class="browseJournal entryBrowse" style="height: 14%; font-size: 15px;" id="@entry.ID" asp-action="Entry" asp-route-entryID="@entry.ID">
+                    <p>
+                        <b>@entry.Title</b><br>
+                        <i class="fa-solid fa-square fa-1x" style="margin-right: 5px;"></i>@tmp
+                    </p>
+                </a>
+            }
+        </div>
     </div>
     <div class="rightMain" style="width: 75%; background-color: rgb(251, 226, 168);">
         <div class="topRightMain" style="width: 100%; height: 7%;  box-shadow:2px 2px 5px 0px rgb(229, 220, 195);">
@@ -107,7 +109,7 @@
                     </div>
                     <div id="homeButton" style=" position: relative; height: 100%; align-items: center; display: flex;">
                         <i class="fa-solid fa-house-chimney fa-2x" style="font-size: 20px; margin-left: 50%;"></i>
-                        <div class="tooltipButton discribleHomeButton">
+                        <div class="tooltipButton discribleHomeButton" onclick="tmppp()">
                             <p>Home</p>
                         </div>
                     </div>
@@ -116,16 +118,16 @@
                 <div style="font-family: 'Pacifico', cursive; font-size: 35px; cursor: pointer; margin-bottom: 15px; width: 20%; display: flex; justify-content: center;">penzu</div>
                 <div style="opacity: 0.5; width: 20%; display: flex; justify-content: center;">Take a diary is necessary</div>
                 <div style="position: relative; width: 20%; display: flex; justify-content: flex-end;" class="drop-wrapper">
-                    <div style="display: flex;">
+                    <div style="display: flex; position: relative;">
                         <p id="userName" style="cursor: pointer; padding-right: 10px;">Duong Van Khoa</p>
                         <i class="fa-solid fa-circle-user fa-2x " style="cursor: pointer; font-size: 25px;"></i>
-                    </div>
-                    <div class="drop-menu" id="dropleft">
-                        <a asp-controller="Main" asp-action="SignIn">Sign in</a>
-                        <a asp-controller="Main" asp-action="SignUp">Sign up</a>
-                        <a asp-controller="Main" asp-action="SignOut">Sign out</a>
-                        <a href="#">Link 4</a>
-                        <a href="#">Link 5</a>
+                        <div class="drop-menu" id="dropleft">
+                            <a asp-controller="Main" asp-action="SignIn">Sign in</a>
+                            <a asp-controller="Main" asp-action="SignUp">Sign up</a>
+                            <a asp-controller="Main" asp-action="SignOut">Sign out</a>
+                            <a href="#">Link 4</a>
+                            <a href="#">Link 5</a>
+                        </div>
                     </div>
                 </div>
             </div>
