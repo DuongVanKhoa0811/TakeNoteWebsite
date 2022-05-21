@@ -98,8 +98,15 @@ namespace TakeNoteWebsite.Controllers
             return View(mymodel);
         }
 
-        public IActionResult AllEntry()
+        public IActionResult AllEntry(string keyword = "",  string positiveNegative = "N/A", string starred = "N/A", string since = "N/A")
         {
+            Filter filter = new Filter
+            {
+                KeyWord = keyword,
+                PositiveNegative = positiveNegative,
+                Starred = starred,
+                Since = since
+            };
             List<Entry> result = new List<Entry>();
             Entry a = new Entry();
             a.ID = "00001";
