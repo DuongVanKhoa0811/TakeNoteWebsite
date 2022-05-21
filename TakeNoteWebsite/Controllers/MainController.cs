@@ -100,6 +100,11 @@ namespace TakeNoteWebsite.Controllers
 
         public IActionResult AllEntry(string keyword = "",  string positiveNegative = "N/A", string starred = "N/A", string since = "N/A")
         {
+            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
+            if (currentUser == null)
+            {
+                return RedirectToAction("SignIn");
+            }
             Filter filter = new Filter
             {
                 KeyWord = keyword,
@@ -107,6 +112,7 @@ namespace TakeNoteWebsite.Controllers
                 Starred = starred,
                 Since = since
             };
+            /*
             List<Entry> result = new List<Entry>();
             Entry a = new Entry();
             a.ID = "00001";
@@ -122,11 +128,18 @@ namespace TakeNoteWebsite.Controllers
             b.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
             b.IsPositive = false;
             result.Add(b);
+            */
+            List<Entry> result = DatabaseQuery.searchEntry(currentUser.ID, filter);
             return View(result);
         }
 
-        public IActionResult ImageFolder(string folderID, string since = "N/A", string sortBy = "Latest", string positiveNegative = "N/A")
+        public IActionResult ImageFolder(string folderID, string since = "N/A", string sortBy = "latest", string positiveNegative = "N/A")
         {
+            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
+            if (currentUser == null)
+            {
+                return RedirectToAction("SignIn");
+            }
             ImageFilter filter = new ImageFilter()
             {
                 Folder = folderID,
@@ -134,7 +147,7 @@ namespace TakeNoteWebsite.Controllers
                 SortBy = sortBy,
                 PositiveNegative = positiveNegative
             };
-            
+            /*
             List<Image> imageList = new List<Image>
             {
                 new Image
@@ -145,6 +158,8 @@ namespace TakeNoteWebsite.Controllers
                     ID = "00001"
                 }
             };
+            */
+            List<Image> imageList = DatabaseQuery.searchImage(currentUser.ID, filter);
             ViewData["Filter"] = filter;
             return View(imageList);
         }

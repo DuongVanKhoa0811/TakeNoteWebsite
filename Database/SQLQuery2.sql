@@ -149,6 +149,7 @@ GO
 select i.EntryID, i.FolderID, i.ImagePath
 from Img as i join EntryTable as e on i.EntryID=e.EntryID
 where i.UserID ='00000' and '1999-01-01' <= e.DateOfEntry 
+GO
 
 CREATE OR ALTER FUNCTION getImageByFolder(@userID char(5), @FolderName nvarchar(200))
 RETURNS TABLE

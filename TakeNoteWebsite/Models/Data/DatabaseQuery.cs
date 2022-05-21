@@ -9,7 +9,9 @@ namespace TakeNoteWebsite.Models.Data
 {
     public class DatabaseQuery
     {
-        private static string connectionString = "Data Source=LAPTOP-OKIJ6G4N\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True";
+        //Tuan: Data Source=LAPTOP-HSGL6DT0\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
+        //Khoa: Data Source=LAPTOP-OKIJ6G4N\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True
+        private static string connectionString = "Data Source=LAPTOP-HSGL6DT0\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public static Entry GetFirstEntry(string UserID)
         {
             Entry result = new Entry();
@@ -191,55 +193,85 @@ namespace TakeNoteWebsite.Models.Data
                 return true;
         }
 
-        public List<Image> searchImage(string UserID, ImageFilter filter)
+        public static List<Image> searchImage(string UserID, ImageFilter filter)
         {
-			DateTime localDate = DateTime.Now;
-			DateTime StartDate;
-			List<Image> results = new List<Image>();
+            DateTime localDate = DateTime.Now;
+            DateTime StartDate;
+            TimeSpan timeSpan;
+
+            List<Image> results = new List<Image>();
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-			string Since;
-            string query = "select i.ImageID, i.EntryID, e.DateOfEntry, i.ImagePath from Img as i join EntryTable as e on i.EntryID=e.EntryID join Folder as f on i.FolderID=f.FolderID where i.UserID ="+UserID+" ";
-			if Filter.Since != 'N/A'
-				if Filter.Since == "yesterday"
-					TimeSpan timeSpan = new System.TimeSpan(1, 0, 0, 0); 
-					StartDate = localDate - timeSpan;
-				if Filter.Since == "thisWeek"
-					TimeSpan timeSpan = new System.TimeSpan((int)localDate.DayOfWeek, 0, 0, 0);
-					StartDate = localDate - timeSpan;
-				if Filter.Since =="lastWeek" 
-					TimeSpan timeSpan = new System.TimeSpan((int)localDate.DayOfWeek+7, 0, 0, 0);
-					StartDate = localDate - timeSpan;
-				if Filter.Since =="last7Days"
-					TimeSpan timeSpan = new System.TimeSpan(7, 0, 0, 0)
-				if Filter.Since =="thisMonth"
-					TimeSpan timeSpan = new System.TimeSpan(localDate.Day, 0, 0, 0);
-					StartDate = localDate - timeSpan;
-				if Filter.Since =="lastMonth"
-					if localDate.Month!=1
-						StartDate = new DateTime(localDate.Year, localDate.Month-1, 1);
-					else
-						StartDate = new DateTime(localDate.Year-1, 12, 1)
-				if Filter.Since =="thisYear" 
-					StartDate = new DateTime(localDate.Year, 1, 1);
-				if Filter.Since =="lastYear"
-					StartDate = new DateTime(localDate.Year-1, 1, 1);
+            string Since;
+            string query = "select i.ImageID, i.EntryID, e.DateOfEntry, i.ImagePath from Img as i join EntryTable as e on i.EntryID=e.EntryID join Folder as f on i.FolderID=f.FolderID where i.UserID =" + UserID + " ";
+            if (filter.Since != "N/A")
+            {
+                if (filter.Since == "yesterday")
+                {
+                    timeSpan = new System.TimeSpan(1, 0, 0, 0);
+                    StartDate = localDate - timeSpan;
+                }
+
+                if (filter.Since == "thisWeek")
+                {
+                    timeSpan = new System.TimeSpan((int)localDate.DayOfWeek, 0, 0, 0);
+                    StartDate = localDate - timeSpan;
+                }
+
+                if (filter.Since == "lastWeek")
+                {
+                    timeSpan = new System.TimeSpan((int)localDate.DayOfWeek + 7, 0, 0, 0);
+                    StartDate = localDate - timeSpan;
+                }
+
+                if (filter.Since == "last7Days")
+                {
+                    timeSpan = new System.TimeSpan(7, 0, 0, 0);
+                    StartDate = localDate - timeSpan;
+                }
+
+                if (filter.Since == "thisMonth")
+                {
+                    timeSpan = new System.TimeSpan(localDate.Day, 0, 0, 0);
+                    StartDate = localDate - timeSpan;
+                }
+
+                if (filter.Since == "lastMonth")
+                {
+                    if (localDate.Month != 1)
+
+                        StartDate = new DateTime(localDate.Year, localDate.Month - 1, 1);
+                    else
+                        StartDate = new DateTime(localDate.Year - 1, 12, 1);
+                }
+
+                if (filter.Since == "thisYear")
+                {
+                    StartDate = new DateTime(localDate.Year, 1, 1);
+                }
+
+                else
+                {
+                    StartDate = new DateTime(localDate.Year - 1, 1, 1);
+                }
+
+                Since = StartDate.ToString("yyyy’-‘MM’-‘dd");
+                query = query + "and " + StartDate + " <= e.DateOfEntry ";
+            }
+                
 				
-				
-				Since = StartDate.ToString("yyyy’-‘MM’-‘dd");
-				query = query + "and "+StartDate+" <= e.DateOfEntry ";
-				
-			if Filter.PositiveNegative != 'N/A'
-				query = query + "and e.Emotion="+ Filter.PositiveNegative+" ";
+			if (filter.PositiveNegative != "N/A")
+				query = query + "and e.Emotion="+ filter.PositiveNegative+" ";
 					
-			if Filter.Folder != ""
-				query = query + "and f.FolderID="+ Filter.Folder+ " ";
-				
-			if Filter.SortBy == "latest"
-				query = query + "Order by e.DateOfEntry DESC "
-			else
-				if Filter.SortBy =="oldest"
-					query = query + "Order by e.DateOfEntry "
+			if (filter.Folder != "")
+				query = query + "and f.FolderID="+ filter.Folder+ " ";
+
+            if (filter.SortBy == "latest")
+                query = query + "Order by e.DateOfEntry DESC ";
+
+            else
+                if (filter.SortBy == "oldest")
+                query = query + "Order by e.DateOfEntry ";
 					
 			
             SqlCommand cmd = new SqlCommand(query, connection);
@@ -258,67 +290,76 @@ namespace TakeNoteWebsite.Models.Data
             connection.Close();
             return results;
         }
-		
-        public List<Entry> searchEntry(string UserID, Filter filter)
+
+        public static List<Entry> searchEntry(string UserID, Filter filter)
         {
-			DateTime localDate = DateTime.Now;
-			DateTime StartDate;
-			List<Entry> results = new List<Entry>();
+            DateTime localDate = DateTime.Now;
+            DateTime StartDate;
+            TimeSpan timeSpan;
+            List<Entry> results = new List<Entry>();
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-			string Since;
-            string query = "select e.EntryID, e.NameEntry, e.DateOfEntry, e.Emotion, e.Star from EntryTable as e where e.UserID ="+UserID+" ";
-			if Filter.Since != 'N/A'
-				if Filter.Since == "yesterday"
-					TimeSpan timeSpan = new System.TimeSpan(1, 0, 0, 0); 
-					StartDate = localDate - timeSpan;
-				if Filter.Since == "thisWeek"
-					TimeSpan timeSpan = new System.TimeSpan((int)localDate.DayOfWeek, 0, 0, 0);
-					StartDate = localDate - timeSpan;
-				if Filter.Since =="lastWeek" 
-					TimeSpan timeSpan = new System.TimeSpan((int)localDate.DayOfWeek+7, 0, 0, 0);
-					StartDate = localDate - timeSpan;
-				if Filter.Since =="last7Days"
-					TimeSpan timeSpan = new System.TimeSpan(7, 0, 0, 0)
-				if Filter.Since =="thisMonth"
-					TimeSpan timeSpan = new System.TimeSpan(localDate.Day, 0, 0, 0);
-					StartDate = localDate - timeSpan;
-				if Filter.Since =="lastMonth"
-					if localDate.Month!=1
-						StartDate = new DateTime(localDate.Year, localDate.Month-1, 1);
-					else
-						StartDate = new DateTime(localDate.Year-1, 12, 1)
-				if Filter.Since =="thisYear" 
-					StartDate = new DateTime(localDate.Year, 1, 1);
-				if Filter.Since =="lastYear"
-					StartDate = new DateTime(localDate.Year-1, 1, 1);
+            string Since;
+            string query = "select e.EntryID, e.NameEntry, e.DateOfEntry, e.Emotion, e.Star from EntryTable as e where e.UserID =" + UserID + " ";
+            if (filter.Since != "N/A")
+            {
+                if (filter.Since == "yesterday")
+                {
+                    timeSpan = new TimeSpan(1, 0, 0, 0);
+                    StartDate = localDate - timeSpan;
+                }
+
+                if (filter.Since == "thisWeek")
+                {
+                    timeSpan = new System.TimeSpan((int)localDate.DayOfWeek, 0, 0, 0);
+                    StartDate = localDate - timeSpan;
+                }
+
+                if (filter.Since == "lastWeek")
+                {
+                    timeSpan = new System.TimeSpan((int)localDate.DayOfWeek + 7, 0, 0, 0);
+                    StartDate = localDate - timeSpan;
+                }
+
+                if (filter.Since == "last7Days")
+                {
+                    timeSpan = new System.TimeSpan(7, 0, 0, 0);
+                    StartDate = localDate - timeSpan;
+                }
+                     
+                if (filter.Since == "thisMonth")
+                {
+                    timeSpan = new System.TimeSpan(localDate.Day, 0, 0, 0);
+                    StartDate = localDate - timeSpan;
+                }
+
+                if (filter.Since == "lastMonth")
+                    if (localDate.Month != 1)
+                        StartDate = new DateTime(localDate.Year, localDate.Month - 1, 1);
+                    else
+                        StartDate = new DateTime(localDate.Year - 1, 12, 1);
+                if (filter.Since == "thisYear")
+                    StartDate = new DateTime(localDate.Year, 1, 1);
+                else //lastYear
+                    StartDate = new DateTime(localDate.Year - 1, 1, 1);
+
+                Since = StartDate.ToString("yyyy’-‘MM’-‘dd");
+                query = query + "and " + StartDate + " <= e.DateOfEntry ";
+            }
+
 				
 				
-				Since = StartDate.ToString("yyyy’-‘MM’-‘dd");
-				query = query + "and "+StartDate+" <= e.DateOfEntry ";
 				
-			if Filter.PositiveNegative != 'N/A'
-				query = query + "and e.Emotion="+ Filter.PositiveNegative+ " ";
 				
+			if (filter.PositiveNegative != "N/A")
+				query = query + "and e.Emotion="+ filter.PositiveNegative+ " ";
 			
-			if Filter.Starred != 'N/A'
+			if (filter.Starred != "N/A")
 				query = query + "and e.Star=1 ";
+
+            if (filter.KeyWord != "")
+                query = query + "and e.TEXT like '%" + filter.KeyWord + "%' ";
 				
-			if Filter.Keyword != ''
-				query = query + "and e.TEXT like '%"+Filter.Keyword+"%' "
-				
-					
-					
-			public string ID { get; set; }
-			public string Title { get; set; }
-			public string Content { get; set; }
-			public DateTime Date { get; set; }
-			public string TextFont { get; set; }
-			public string TextSize { get; set; }
-			public string TextColour { get; set; }
-			public bool Star { get; set; }
-			public bool IsPositive { get; set; }
-			public List<String> ImagePaths { get; set; }
 			
             SqlCommand cmd = new SqlCommand(query, connection);
             using (SqlDataReader oReader = cmd.ExecuteReader())
@@ -333,9 +374,9 @@ namespace TakeNoteWebsite.Models.Data
 					result.TextSize = oReader["SizeOfText"].ToString();
 					result.TextColour = oReader["TextColour"].ToString();
 					result.Star = (bool)oReader["Star"];
-					if oReader["Emotion"]=="Positive"
-						result.IsPositive = 1;
-					else result.IsPositive = 0;
+					if (oReader["Emotion"].ToString()=="Positive")
+						result.IsPositive = true;
+					else result.IsPositive = false;
 					
 					string queryForEachEntry = "select i.ImagePath from Img as i where i.EntryIDID ="+result.ID+" ";
 					SqlCommand cmd1 = new SqlCommand(queryForEachEntry, connection);
@@ -354,7 +395,7 @@ namespace TakeNoteWebsite.Models.Data
             return results;
         }
 		
-        public List<Folder> getAllImageFolder()
+        public static List<Folder> getAllImageFolder()
         {
             return new List<Folder>();
         }
