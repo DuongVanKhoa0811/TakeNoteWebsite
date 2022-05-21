@@ -11,7 +11,7 @@ namespace TakeNoteWebsite.Models.DeepLearningModel
         ModelStorage modelStorage = new ModelStorage();
         public static bool PositiveNegative(string title)
         {
-            if (title == null)
+            if (title == null || title == "")
                 return true;
             MyModel myModel = ModelStorage.GetModel("Sentiment analysis model");
             if (myModel == null)

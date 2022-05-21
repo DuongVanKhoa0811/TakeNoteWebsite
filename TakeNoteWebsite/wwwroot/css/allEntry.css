@@ -28,9 +28,9 @@
         background-color: gray;
     }
 
-        .entry div input:hover {
+        /*.entry div input:hover {
             cursor: pointer;
-        }
+        }*/
 
     .entry div:nth-child(2) {
         grid-area: 1/2/2/3;
@@ -55,6 +55,7 @@
         grid-area: 1/4/2/5;
         align-items: center;
     }
+
 
 .True {
     background-color: #f7c88a;

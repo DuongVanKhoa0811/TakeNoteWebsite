@@ -1,7 +1,7 @@
 ﻿$(".buttonDeleteEntry").click(function () {
     var idEntry = $(this).parent().parent().attr("id");
-    $("#" + idEntry).remove();
     val1 = idEntry;
+    $("#" + idEntry).remove();
 
     $.ajax({
         type: "POST",
