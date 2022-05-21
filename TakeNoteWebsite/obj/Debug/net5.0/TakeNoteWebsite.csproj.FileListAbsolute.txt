@@ -87,6 +87,7 @@ C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\System.Composition.Hosting.dll
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\System.Composition.Runtime.dll
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\System.Composition.TypedParts.dll
+C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\System.Data.SqlClient.dll
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\TensorFlow.NET.dll
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.resources.dll
@@ -163,11 +164,17 @@ C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win10-arm64\native\onnxruntime.pdb
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
+C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
+C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\linux-x64\native\libtensorflow.so
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\linux-x64\native\libtensorflow_framework.so.2
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\osx-x64\native\libtensorflow.dylib
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\osx-x64\native\libtensorflow_framework.2.dylib
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win-x64\native\tensorflow.dll
+C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.csproj.AssemblyReference.cache
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.AssemblyInfoInputs.cache
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.AssemblyInfo.cs
@@ -205,10 +212,3 @@ C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\ref\TakeNoteWebsite.dll
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.pdb
 C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.genruntimeconfig.cache
-C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\obj\Debug\net5.0\TakeNoteWebsite.csproj.AssemblyReference.cache
-C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\System.Data.SqlClient.dll
-C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
-C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
-C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
-C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\Users\vntua\Documents\GitHub\TakeNoteWebsite\TakeNoteWebsite\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
