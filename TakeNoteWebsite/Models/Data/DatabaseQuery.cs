@@ -261,7 +261,7 @@ namespace TakeNoteWebsite.Models.Data
                 
 				
 			if (filter.PositiveNegative != "N/A")
-				query = query + "and e.Emotion="+ filter.PositiveNegative+" ";
+				query = query + "and e.Emotion= '"+ filter.PositiveNegative+"' ";
 					
 			if (filter.Folder != "")
 				query = query + "and f.FolderID="+ filter.Folder+ " ";
@@ -275,7 +275,7 @@ namespace TakeNoteWebsite.Models.Data
 					
 			
             SqlCommand cmd = new SqlCommand(query, connection);
-            using (SqlDataReader oReader = cmd.ExecuteReader())
+            using ( SqlDataReader oReader = cmd.ExecuteReader())
             {
                 while (oReader.Read())
                 {
@@ -352,7 +352,7 @@ namespace TakeNoteWebsite.Models.Data
 				
 				
 			if (filter.PositiveNegative != "N/A")
-				query = query + "and e.Emotion="+ filter.PositiveNegative+ " ";
+				query = query + "and e.Emotion= '"+ filter.PositiveNegative+ "' ";
 			
 			if (filter.Starred != "N/A")
 				query = query + "and e.Star=1 ";
