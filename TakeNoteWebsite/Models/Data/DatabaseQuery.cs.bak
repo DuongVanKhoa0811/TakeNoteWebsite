@@ -351,9 +351,8 @@ namespace TakeNoteWebsite.Models.Data
                 }
             }
             connection.Close();
-            return results;
+            return new List<Entry>();
         }
-		
         public List<Folder> getAllImageFolder()
         {
             return new List<Folder>();
