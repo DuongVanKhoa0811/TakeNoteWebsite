@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="~/css/filter.css" />
 
 <div class="filterContainer">
-    <form class="filter" asp-controller="Main" asp-action="ImageFolder" method="get">
+    <form class="filter" asp-controller="Main" asp-action="AllEntry" method="get">
         <span class="filterSelectContainer">
             <label for="since" class="filterLabel">Since</label>
             <br />
@@ -44,7 +44,7 @@
         </span>
 
         <span class="filterSelectContainer">
-            <label for="positiveNegative" class="filterLabel">Positive/Negative</label>
+            <label for="keyword" class="filterLabel">Keyword</label>
             <br />
             <input type ="text" name="keyword">
         </span>

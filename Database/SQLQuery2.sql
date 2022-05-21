@@ -4,6 +4,7 @@ go
 use PenZu
 go
 
+select i.ImagePath from Img as i where i.EntryID = '00000' 
 
 create table UserAccount(
 	UserID char(5),
@@ -61,9 +62,9 @@ values
 
 insert into EntryTable
 values
-	('00000','Happy day','Today is a great day.',Null,Null,'2022-05-11','2022-05-11','00000','Times New Roman','Bold',12,Null),
-	('00001','Sad day','Today is a desperate day.',Null,Null,'2022-05-12','2022-05-12','00000','Times New Roman','Bold',12,Null),
-	('00002','Love day','Today Khoa confessed his crush.',Null,Null,'2022-05-11','2022-05-11','00000','Times New Roman','Bold',12,Null);
+	('00000','Happy day','Today is a great day.',0 ,Null,'2022-05-11','2022-05-11','00000','Times New Roman','Bold',12,Null),
+	('00001','Sad day','Today is a desperate day.',0 ,Null,'2022-05-12','2022-05-12','00000','Times New Roman','Bold',12,Null),
+	('00002','Love day','Today Khoa confessed his crush.',0 ,Null,'2022-05-11','2022-05-11','00000','Times New Roman','Bold',12,Null);
 
 insert into Folder
 values

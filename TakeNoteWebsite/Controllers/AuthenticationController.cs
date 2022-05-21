@@ -49,17 +49,16 @@ namespace TakeNoteWebsite.Controllers
             {
                 FirstName = "Tony",
                 LastName = "Stark",
-                ID = "00001",
+                ID = "00000",
                 UserName = userName
             };
-            int uid = 1;
 
             var claims = new List<Claim>
             {
                 new Claim("Username", user.UserName),
                 new Claim("FirstName", user.FirstName),
                 new Claim("LastName", user.LastName),
-                new Claim("UID", uid.ToString()),
+                new Claim("UID", user.ID),
             };
 
             var claimsIdentity = new ClaimsIdentity(

@@ -129,6 +129,7 @@ namespace TakeNoteWebsite.Controllers
             b.IsPositive = false;
             result.Add(b);
             */
+            ViewData["filter"] = filter;
             List<Entry> result = DatabaseQuery.searchEntry(currentUser.ID, filter);
             return View(result);
         }

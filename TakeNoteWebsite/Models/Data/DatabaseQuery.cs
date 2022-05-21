@@ -203,7 +203,7 @@ namespace TakeNoteWebsite.Models.Data
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
             string Since;
-            string query = "select i.ImageID, i.EntryID, e.DateOfEntry, i.ImagePath from Img as i join EntryTable as e on i.EntryID=e.EntryID join Folder as f on i.FolderID=f.FolderID where i.UserID =" + UserID + " ";
+            string query = "select i.ImageID, i.EntryID, e.DateOfEntry, i.ImagePath from Img as i join EntryTable as e on i.EntryID=e.EntryID join Folder as f on i.FolderID=f.FolderID where i.UserID = '" + UserID + "' ";
             if (filter.Since != "N/A")
             {
                 if (filter.Since == "yesterday")
@@ -264,7 +264,7 @@ namespace TakeNoteWebsite.Models.Data
 				query = query + "and e.Emotion= '"+ filter.PositiveNegative+"' ";
 					
 			if (filter.Folder != "")
-				query = query + "and f.FolderID="+ filter.Folder+ " ";
+				query = query + "and f.FolderID= '"+ filter.Folder+ "' ";
 
             if (filter.SortBy == "latest")
                 query = query + "Order by e.DateOfEntry DESC ";
@@ -277,6 +277,7 @@ namespace TakeNoteWebsite.Models.Data
             SqlCommand cmd = new SqlCommand(query, connection);
             using ( SqlDataReader oReader = cmd.ExecuteReader())
             {
+                cmd.Dispose();
                 while (oReader.Read())
                 {
                     Image result = new Image();
@@ -300,7 +301,7 @@ namespace TakeNoteWebsite.Models.Data
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
             string Since;
-            string query = "select e.EntryID, e.NameEntry, e.DateOfEntry, e.Emotion, e.Star from EntryTable as e where e.UserID =" + UserID + " ";
+            string query = "select e.EntryID, e.NameEntry, e.DateOfEntry, e.Emotion, e.Star, e.Content from EntryTable as e where e.UserID = '" + UserID + "' ";
             if (filter.Since != "N/A")
             {
                 if (filter.Since == "yesterday")
@@ -358,7 +359,7 @@ namespace TakeNoteWebsite.Models.Data
 				query = query + "and e.Star=1 ";
 
             if (filter.KeyWord != "")
-                query = query + "and e.TEXT like '%" + filter.KeyWord + "%' ";
+                query = query + "and e.Content like '%" + filter.KeyWord + "%' ";
 				
 			
             SqlCommand cmd = new SqlCommand(query, connection);
@@ -370,27 +371,38 @@ namespace TakeNoteWebsite.Models.Data
                     result.ID = oReader["EntryID"].ToString();
                     result.Title = oReader["NameEntry"].ToString();
                     result.Date = (DateTime)oReader["DateOfEntry"];
-					result.TextFont = oReader["TextFont"].ToString();
-					result.TextSize = oReader["SizeOfText"].ToString();
-					result.TextColour = oReader["TextColour"].ToString();
+                    result.Content = oReader["Content"].ToString();
+					result.TextFont = "";
+					result.TextSize = "";
+					result.TextColour = "";
 					result.Star = (bool)oReader["Star"];
-					if (oReader["Emotion"].ToString()=="Positive")
+					if (oReader["Emotion"].ToString()=="P")
 						result.IsPositive = true;
 					else result.IsPositive = false;
-					
-					string queryForEachEntry = "select i.ImagePath from Img as i where i.EntryIDID ="+result.ID+" ";
-					SqlCommand cmd1 = new SqlCommand(queryForEachEntry, connection);
-					result.ImagePaths = new List<string>();
-					using (SqlDataReader oReader1 = cmd1.ExecuteReader())
-					{
-						while (oReader.Read())
-						{
-								result.ImagePaths.Add(oReader1["ImagePath"].ToString());
-						}
-					}
+
                     results.Add(result);
                 }
             }
+
+            string queryForEachEntry;
+            SqlCommand cmd1;
+            foreach (Entry entry in results)
+            {
+                queryForEachEntry = "select i.ImagePath from Img as i where i.EntryID = '" + entry.ID + "' ";
+                cmd1 = new SqlCommand(queryForEachEntry, connection);
+                using (SqlDataReader oReader1 = cmd1.ExecuteReader())
+                {
+                    
+                    entry.ImagePaths = new List<string>();
+
+                    while (oReader1.Read())
+                    {
+                        entry.ImagePaths.Add(oReader1["ImagePath"].ToString());
+                    }
+                }
+            }
+
+            
             connection.Close();
             return results;
         }
