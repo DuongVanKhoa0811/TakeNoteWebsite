@@ -36,7 +36,6 @@ namespace TakeNoteWebsite.Controllers
                 Path.Combine(Environment.CurrentDirectory, "Images", "download1.jpg")
                 , Path.Combine(Environment.CurrentDirectory, "Images", "download3.jpg"));*/
             ViewData["Tit"] = "Hello!";
-            var a = "fwfawef";
 
                 // , Path.Combine(Environment.CurrentDirectory, "Images", "download3.jpg"));
             User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
@@ -188,6 +187,14 @@ namespace TakeNoteWebsite.Controllers
 
             List<Folder> folderList = DatabaseQuery.getAllImageFolder(currentUser.ID);
             return View(folderList);
+        }
+        public IActionResult AllImageEntry(string entryID)
+        {
+            var relativePath = Environment.CurrentDirectory + "\\Images\\Upload";
+            List<Image> imageList = DatabaseQuery.GetListImageByEntry("00000", entryID);
+            for (int i = 0; i < imageList.Count; i++)
+                imageList[i].Path = Path.Combine(relativePath, imageList[i].Path);
+            return View(imageList);
         }
 
         //---------------- POST --------------------------

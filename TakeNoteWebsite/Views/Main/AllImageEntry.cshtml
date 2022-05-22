@@ -1,0 +1,10 @@
+﻿@using TakeNoteWebsite.Models.Data
+@model List<Image>
+
+<link rel="stylesheet" href="~/css/Image.css">
+<div class="imageBrowsingContainer">
+    @foreach (Image image in Model)
+    {
+        @Html.Partial("_PartialImage", image)
+    }
+</div>
