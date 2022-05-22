@@ -490,9 +490,29 @@ namespace TakeNoteWebsite.Models.Data
             return results;
         }
 		
-        public static List<Folder> getAllImageFolder()
+        public static List<Folder> getAllImageFolder(string UserID)
         {
-            return new List<Folder>();
+            List<Folder> result = new List<Folder>();
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string query = "select* from getAllImageFolderByUserID(@UserID)";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@UserID", UserID);
+
+            using (SqlDataReader oReader = cmd.ExecuteReader())
+            {
+                while (oReader.Read())
+                {
+                    Folder tmp = new Folder
+                    {
+                        ID = oReader["FolderID"].ToString(),
+                        Name = oReader["FolderName"].ToString(),
+                        numImage = (int)oReader["NumberOfImage"]
+                    };
+                }
+            }
+
+            return result;
         }
         public static List<string> GetAllFolderName(string UserID)
         {

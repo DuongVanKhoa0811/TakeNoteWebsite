@@ -78,7 +78,7 @@
         <a class="browseJournal" asp-action="AllEntry" style="color: white;">
             <i class="fa-solid fa-list-ul fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Entries</p>
         </a>
-        <a class="browseJournal" style="color: white;">
+        <a class="browseJournal" style="color: white;" asp-controller="Main" asp-action="AllImageFolder">
             <i class="fa-solid fa-image fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Images</p>
         </a>
         <a class="browseJournal" style="color: white;">
@@ -129,10 +129,7 @@
                         }
                         <i class="fa-solid fa-circle-user fa-2x " style="cursor: pointer; font-size: 25px;"></i>
                         <div class="drop-menu" id="dropleft">
-                            <a asp-controller="Main" asp-action="SignIn">Sign in</a>
-                            <a asp-controller="Main" asp-action="SignUp">Sign up</a>
                             <a asp-controller="Main" asp-action="SignOut">Sign out</a>
-                            <a href="#">Link 4</a>
                         </div>
                     </div>
                 </div>

@@ -59,8 +59,8 @@ namespace TakeNoteWebsite.Controllers
                 return View();
             else
             {
-                //Entry firstEntry = DatabaseQuery.GetFirstEntry(currentUser.ID);
-                return RedirectToAction("Index");//RedirectToAction("Entry", firstEntry.ID);
+                Entry firstEntry = DatabaseQuery.GetFirstEntry(currentUser.ID);
+                return RedirectToAction("Entry", firstEntry.ID);
             }
         }
         
@@ -82,7 +82,7 @@ namespace TakeNoteWebsite.Controllers
             {
                 return RedirectToAction("SignIn");
             }
-            ViewData["Username"] = "Do Thanh Tung";
+            ViewData["Username"] = currentUser.FirstName + " " + currentUser.LastName;
             dynamic mymodel = new ExpandoObject();
             Entry a = new Entry();
             if (entryID == null || entryID == "") // new entry
@@ -171,6 +171,7 @@ namespace TakeNoteWebsite.Controllers
             {
                 return RedirectToAction("SignIn");
             }
+            /*
             List<Folder> folderList = new List<Folder>
             {
                 new Folder 
@@ -182,6 +183,9 @@ namespace TakeNoteWebsite.Controllers
                     
                 }
             };
+            */
+
+            List<Folder> folderList = DatabaseQuery.getAllImageFolder(currentUser.ID);
             return View(folderList);
         }
 
@@ -196,9 +200,13 @@ namespace TakeNoteWebsite.Controllers
                 if (await AuthenticationController.SignIn(HttpContext, userName, password))
                 {
                     //sign in successed
-                    User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
-                    //Entry firstEntry = DatabaseQuery.GetFirstEntry(currentUser.ID);
-                    return RedirectToAction("Index"); //RedirectToAction("Entry", firstEntry.ID);
+                    string userID = DatabaseQuery.GetUserID(userName);
+                    Entry firstEntry = DatabaseQuery.GetFirstEntry(userID);
+                    if (firstEntry.ID == null)
+                    {
+                        return RedirectToAction("Entry");
+                    }
+                    return RedirectToAction("Entry", firstEntry.ID);
                 }
                 else
                 {
@@ -247,7 +255,9 @@ namespace TakeNoteWebsite.Controllers
             tmp.Star = star;
             tmp.Title = title;
             tmp.IsPositive = DeepLearningModel.PositiveNegative(title);
-            return DatabaseQuery.SaveEntry("00000", tmp); //AuthenticationController.GetCurrentUser(HttpContext).ID
+            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
+
+            return DatabaseQuery.SaveEntry(currentUser.ID, tmp); //AuthenticationController.GetCurrentUser(HttpContext).ID
         }
 
         [HttpPost]
