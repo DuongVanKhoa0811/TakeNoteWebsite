@@ -176,7 +176,7 @@ RETURNS TABLE
 AS
 RETURN
 (
-    select top(1) e.NameEntry, e.DateOfEntry, e.Emotion, e.Star
+    select top(1) e.EntryID, e.NameEntry, e.DateOfEntry, e.Emotion, e.Star
 	from EntryTable as e
 	where e.UserID =@userid 
 	order by e.DateOfEntry desc
@@ -558,6 +558,5 @@ RETURN
 GO
 /*
 use master
-drop database BookHouse
-
+drop database PenZu
 */
