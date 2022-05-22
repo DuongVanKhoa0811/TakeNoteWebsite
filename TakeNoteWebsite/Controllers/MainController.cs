@@ -184,7 +184,7 @@ namespace TakeNoteWebsite.Controllers
                         return RedirectToAction("Entry");
                     }
                     string firstID = firstEntry.ID;
-                    return RedirectToAction("Entry", "Main", firstID);
+                    return RedirectToAction("Entry", "Main", new { entryID = firstID });
                 }
                 else
                 {
