@@ -42,21 +42,24 @@
                 <div style="opacity: 0.5; width: 20%; display: flex; justify-content: center;">Take a diary is necessary</div>
                 <div style="position: relative; width: 20%; display: flex; justify-content: flex-end;" class="drop-wrapper">
                     <div style="position: relative; display: flex;">
-                        @if (ViewData["Username"] == "")
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <p id="userName" style="cursor: pointer; padding-right: 10px;">Unknow user</p>
+                            string userName = User.FindFirst("FirstName")?.Value + " " +  User.FindFirst("LastName")?.Value;
+                            <p id="userName" style="cursor: pointer; padding-right: 10px;">@userName</p>
+                            <i class="fa-solid fa-circle-user fa-2x " style="cursor: pointer; font-size: 25px;"></i>
+                            <div class="drop-menu" id="dropleft">
+                                <a asp-controller="Main" asp-action="SignOut">Sign out</a>
+                            </div>
                         }
                         else
                         {
-                            <p id="userName" style="cursor: pointer; padding-right: 10px;">@ViewData["Username"]</p>
+                            <p id="userName" style="cursor: pointer; padding-right: 10px;">Guest</p>
+                            <i class="fa-solid fa-circle-user fa-2x " style="cursor: pointer; font-size: 25px;"></i>
+                            <div class="drop-menu" id="dropleft">
+                                <a asp-controller="Main" asp-action="SignIn">Sign in</a>
+                                <a asp-controller="Main" asp-action="SignUp">Sign up</a>
+                            </div>
                         }
-                        <i class="fa-solid fa-circle-user fa-2x " style="cursor: pointer; font-size: 25px;"></i>
-                        <div class="drop-menu" id="dropleft">
-                            <a asp-controller="Main" asp-action="SignIn">Sign in</a>
-                            <a asp-controller="Main" asp-action="SignUp">Sign up</a>
-                            <a asp-controller="Main" asp-action="SignOut">Sign out</a>
-                            <a href="#">Link 4</a>
-                        </div>
                     </div>
                 </div>
             </div>

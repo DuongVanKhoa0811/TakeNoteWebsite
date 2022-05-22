@@ -77,6 +77,11 @@ namespace TakeNoteWebsite.Controllers
 
         public IActionResult Entry(string entryID)
         {
+            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
+            if (currentUser == null)
+            {
+                return RedirectToAction("SignIn");
+            }
             ViewData["Username"] = "Do Thanh Tung";
             dynamic mymodel = new ExpandoObject();
             Entry a = new Entry();
@@ -104,11 +109,6 @@ namespace TakeNoteWebsite.Controllers
             mymodel.MainEntry = a;
             mymodel.ListEntry = result;
             mymodel.ImageModel = new ImageModel();
-            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
-            if (currentUser != null)
-                ViewData["Username"] = currentUser.UserName;
-            else
-                ViewData["Username"] = "";
             return View(mymodel);
         }
 
@@ -166,6 +166,11 @@ namespace TakeNoteWebsite.Controllers
         }
         public IActionResult AllImageFolder()
         {
+            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
+            if (currentUser == null)
+            {
+                return RedirectToAction("SignIn");
+            }
             List<Folder> folderList = new List<Folder>
             {
                 new Folder 
