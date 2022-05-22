@@ -32,7 +32,7 @@ namespace TakeNoteWebsite.Models.DeepLearningModel
             input["Image path 1"] = imagePath1;
             input["Image path 2"] = imagePath2;
             var tmp = myModel.Predict(input)["Similar between two images"];
-            float result = float.MaxValue;
+            float result = float.MaxValue - 10;
             if (tmp.ToString() != "")
                 result = (float)tmp;
             return result;

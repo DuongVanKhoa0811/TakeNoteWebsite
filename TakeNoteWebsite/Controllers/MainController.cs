@@ -184,7 +184,7 @@ namespace TakeNoteWebsite.Controllers
                         return RedirectToAction("Entry");
                     }
                     string firstID = firstEntry.ID;
-                    return RedirectToAction("Entry", "Main", firstID);;
+                    return RedirectToAction("Entry", "Main", firstID);
                 }
                 else
                 {
@@ -286,7 +286,7 @@ namespace TakeNoteWebsite.Controllers
                 string extension = Path.GetExtension(file.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                 imageTmp.Path = fileName;
-                string path = Path.Combine(solutionPath + "wwwroot\\Images\\Upload", fileName);
+                string path = Path.Combine(solutionPath + "\\wwwroot\\Images\\Upload", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     file.CopyTo(fileStream);
@@ -298,8 +298,8 @@ namespace TakeNoteWebsite.Controllers
                     for(int i = 0; i < firstImageOfFolder.Count; i++)
                     {
                         float similarFeature = DeepLearningModel.SimilarFeature(
-                            Path.Combine(Environment.CurrentDirectory, "Images", "Upload", fileName),
-                            Path.Combine(Environment.CurrentDirectory, "Images", "Upload", firstImageOfFolder[i].Item1));
+                            Path.Combine(Environment.CurrentDirectory, "wwwroot", "Images", "Upload", fileName),
+                            Path.Combine(Environment.CurrentDirectory , "wwwroot", "Images", "Upload", firstImageOfFolder[i].Item1));
                         if (similarFeature < bestFit)
                         {
                             _folderName = firstImageOfFolder[i].Item2;
