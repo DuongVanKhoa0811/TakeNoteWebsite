@@ -112,7 +112,14 @@ namespace TakeNoteWebsite.Controllers
         }
         public static string SignUp(User user)
         {
-            return "Success";
+            if (user.Password != user.ConfirmPassword)
+            {
+                return "Password and Confirm password must be the same";
+            }
+            if (DatabaseQuery.NewUser(user))
+                return "Success";
+            else
+                return "Something's wrong, please try again";
         }
     }
 }

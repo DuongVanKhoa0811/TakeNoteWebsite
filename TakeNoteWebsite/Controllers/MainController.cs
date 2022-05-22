@@ -207,7 +207,7 @@ namespace TakeNoteWebsite.Controllers
             string error = AuthenticationController.SignUp(user);
             if (error == "Success")
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("SignIn");
             }
             else
             {

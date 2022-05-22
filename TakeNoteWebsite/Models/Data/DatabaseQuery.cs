@@ -11,7 +11,7 @@ namespace TakeNoteWebsite.Models.Data
     {
         //Tuan: Data Source=LAPTOP-HSGL6DT0\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
         //Khoa: Data Source=LAPTOP-OKIJ6G4N\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True
-        private static string connectionString = "Data Source=LAPTOP-OKIJ6G4N\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True";
+        private static string connectionString = "Data Source=LAPTOP-HSGL6DT0\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public static Entry GetFirstEntry(string UserID)
         {
             Entry result = new Entry();
@@ -249,6 +249,24 @@ namespace TakeNoteWebsite.Models.Data
 
         public static bool NewUser(User user)
         {
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand("sp_createAccountUser", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@firstname", user.FirstName);
+            cmd.Parameters.AddWithValue("@lastname", user.LastName);
+            cmd.Parameters.AddWithValue("@username", user.UserName);
+            cmd.Parameters.AddWithValue("@pass", user.Password);
+            cmd.Parameters.AddWithValue("@email", "");
+            cmd.Parameters.Add("@result", SqlDbType.Int);
+            cmd.Parameters["@result"].Direction = ParameterDirection.Output;
+            cmd.ExecuteReader();
+            if (cmd.Parameters["@result"].Value.ToString() == "0")
+            {
+                connection.Close();
+                return false;
+            }
+            connection.Close();
             return true;
         }
 
@@ -537,11 +555,27 @@ namespace TakeNoteWebsite.Models.Data
                         Name = oReader["FolderName"].ToString(),
                         numImage = (int)oReader["NumberOfImage"]
                     };
+                    result.Add(tmp);
+                }
+            }
+
+            foreach (Folder folder in result)
+            { 
+                query = "select* from getRepresentativeImagePathOfFolder(@FolderID)";
+                cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@FolderID", folder.ID);
+                using (SqlDataReader oReader = cmd.ExecuteReader())
+                {
+                    while (oReader.Read())
+                    {
+                        folder.RepresentativeImagePaths = oReader["ImagePath"].ToString();
+                    }
                 }
             }
 
             return result;
         }
+
         public static List<string> GetAllFolderName(string UserID)
         {
             List<string> results = new List<string>();
