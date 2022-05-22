@@ -58,7 +58,7 @@ namespace TakeNoteWebsite.Controllers
             {
                 Entry firstEntry = DatabaseQuery.GetFirstEntry(currentUser.ID);
                 string firstID = firstEntry.ID;
-                return RedirectToAction("Entry", "Main", firstID);
+                return RedirectToAction("Entry", "Main", new {EntryID = firstID });
             }
         }
         
@@ -235,12 +235,13 @@ namespace TakeNoteWebsite.Controllers
         public bool NewEntry(string contentFormat, string content, string title, bool star)
         {
             Entry tmp = new Entry();
+            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
             tmp.Content = contentFormat;
             tmp.Date = DateTime.Now;
             tmp.Star = star;
             tmp.Title = title;
             tmp.IsPositive = DeepLearningModel.PositiveNegative(title);
-            return DatabaseQuery.NewEntry("00000", tmp); //AuthenticationController.GetCurrentUser(HttpContext).ID
+            return DatabaseQuery.NewEntry(currentUser.ID, tmp); //AuthenticationController.GetCurrentUser(HttpContext).ID
         }
 
         [HttpPost]
@@ -254,6 +255,7 @@ namespace TakeNoteWebsite.Controllers
         [HttpPost]
         public bool NewImage(List<IFormFile> files, string folderName, string entryID)
         {
+            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
             if (!ModelState.IsValid)
             {
                 return false;
@@ -267,10 +269,10 @@ namespace TakeNoteWebsite.Controllers
             imageTmp.EntryID = entryID;
             if (auto)
             {
-                listFolderName = DatabaseQuery.GetAllFolderName("00000"); 
+                listFolderName = DatabaseQuery.GetAllFolderName(currentUser.ID); 
                 foreach (string _folderName in listFolderName)
                 {
-                    var imageName = DatabaseQuery.GetFirstImageOfFolder("00000", _folderName).Path;
+                    var imageName = DatabaseQuery.GetFirstImageOfFolder(currentUser.ID, _folderName).Path;
                     if (imageName == null)
                         return false;
                     firstImageOfFolder.Add( 
@@ -306,12 +308,12 @@ namespace TakeNoteWebsite.Controllers
                             bestFit = similarFeature;
                         }
                     }
-                    if (!DatabaseQuery.NewImage("00000", imageTmp, _folderName))
+                    if (!DatabaseQuery.NewImage(currentUser.ID, imageTmp, _folderName))
                         return false;
                 }
                 else
                 {
-                    if (!DatabaseQuery.NewImage("00000", imageTmp, folderName))
+                    if (!DatabaseQuery.NewImage(currentUser.ID, imageTmp, folderName))
                         return false;
                 }
             }
@@ -321,7 +323,8 @@ namespace TakeNoteWebsite.Controllers
         [HttpPost]
         public bool CreateNewFolder(string folderName)
         {
-            return DatabaseQuery.CreaetNewFolder("00000", folderName);
+            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
+            return DatabaseQuery.CreaetNewFolder(currentUser.ID, folderName);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
