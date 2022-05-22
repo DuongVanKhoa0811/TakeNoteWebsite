@@ -92,8 +92,8 @@
         if ($('.leftMain').length) {
             var tmp = $("#header").remove();
         }
-        if ($(".filterSince").length) {
-            $(".filterSince").val("@ViewData["FilterSince"]");
+        if ($("#filterSince").length) {
+            $("#filterSince").val("@ViewData["FilterSince"]");
             $("#filterStarred").val("@ViewData["FilterStarred"]");
             $("#filterPositiveNegative").val("@ViewData["FilterPositiveNegative"]");
             $("#filterKeyword").val("@ViewData["FilterKeyword"]");

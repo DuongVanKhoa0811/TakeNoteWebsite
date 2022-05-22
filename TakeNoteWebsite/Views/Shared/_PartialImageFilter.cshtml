@@ -8,7 +8,7 @@
         <span class="filterSelectContainer">
             <label for="since" class="filterLabel">Since</label>
             <br/>
-            <select name="since" onchange="this.form.submit()" class="filterSelect">
+            <select id="filterSince" name="since" onchange="this.form.submit()" class="filterSelect">
                 <option value="N/A">N/A</option>
                 <option value="today">Today</option>
                 <option value="yesterday">Yesterday</option>
@@ -25,7 +25,7 @@
         <span class="filterSelectContainer">
             <label for="sortBy" class="filterLabel">Sort by</label>
             <br />
-            <select name="sortBy" onchange="this.form.submit()" class="filterSelect">
+            <select id="filterStarred" name="sortBy" onchange="this.form.submit()" class="filterSelect">
                 <option value="latest">Latest</option>
                 <option value="oldest">Oldest</option>
             </select>
@@ -33,7 +33,7 @@
         <span class="filterSelectContainer">
             <label for="positiveNegative" class="filterLabel">Positive/Negative</label>
             <br />
-            <select name="positiveNegative" onchange="this.form.submit()" class="filterSelect">
+            <select id="filterPositiveNegative" name="positiveNegative" onchange="this.form.submit()" class="filterSelect">
                 <option value="N/A">N/A</option>
                 <option value="P">Positive</option>
                 <option value="N">Negative</option>
