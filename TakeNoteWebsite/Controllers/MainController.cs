@@ -148,6 +148,9 @@ namespace TakeNoteWebsite.Controllers
             };
             List<Image> imageList = DatabaseQuery.searchImage(currentUser.ID, filter);
             ViewData["Filter"] = filter;
+            ViewData["FilterSince"] = filter.Since;
+            ViewData["FilterSortBy"] = filter.SortBy;
+            ViewData["FilterPositiveNegative"] = filter.PositiveNegative;
             return View(imageList);
         }
         public IActionResult AllImageFolder()
