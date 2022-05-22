@@ -77,6 +77,7 @@ namespace TakeNoteWebsite.Controllers
 
         public IActionResult Entry(string entryID)
         {
+            ViewData["Username"] = "Do Thanh Tung";
             dynamic mymodel = new ExpandoObject();
             Entry a = new Entry();
             if (entryID == null || entryID == "") // new entry
@@ -103,6 +104,11 @@ namespace TakeNoteWebsite.Controllers
             mymodel.MainEntry = a;
             mymodel.ListEntry = result;
             mymodel.ImageModel = new ImageModel();
+            User currentUser = AuthenticationController.GetCurrentUser(HttpContext);
+            if (currentUser != null)
+                ViewData["Username"] = currentUser.UserName;
+            else
+                ViewData["Username"] = "";
             return View(mymodel);
         }
 
@@ -120,26 +126,11 @@ namespace TakeNoteWebsite.Controllers
                 Starred = starred,
                 Since = since
             };
-            /*
-            List<Entry> result = new List<Entry>();
-            Entry a = new Entry();
-            a.ID = "00001";
-            a.Title = "This is the title of the entry!";
-            a.Date = new DateTime();
-            a.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
-            a.IsPositive = true;
-            result.Add(a);
-            Entry b = new Entry();
-            b.ID = "00001";
-            b.Title = "This is the title of the entry!";
-            b.Date = new DateTime();
-            b.Content = "Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do! Noi dung gi do!";
-            b.IsPositive = false;
-            result.Add(b);
-            */
-            ViewData["filter"] = filter;
+            ViewData["FilterSince"] = filter.Since;
+            ViewData["FilterStarred"] = filter.Starred;
+            ViewData["FilterPositiveNegative"] = filter.PositiveNegative;
+            ViewData["FilterKeyword"] = filter.KeyWord;
             List<Entry> result = DatabaseQuery.searchEntry(currentUser.ID, filter);
-            // List<Entry> result = DatabaseQuery.GetListEntry("00000");
             return View(result);
         }
 

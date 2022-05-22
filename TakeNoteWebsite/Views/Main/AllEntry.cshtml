@@ -11,7 +11,7 @@
         <span class="filterSelectContainer">
             <label for="since" class="filterLabel">Since</label>
             <br />
-            <select name="since" onchange="this.form.submit()" class="filterSelect">
+            <select name="since" onchange="this.form.submit()" class="filterSelect filterSince">
                 <option value="N/A">N/A</option>
                 <option value="today">Today</option>
                 <option value="yesterday">Yesterday</option>
@@ -28,7 +28,7 @@
         <span class="filterSelectContainer">
             <label for="starred" class="filterLabel">Starred</label>
             <br />
-            <select name="starred" onchange="this.form.submit()" class="filterSelect">
+            <select id="filterStarred" name="starred" onchange="this.form.submit()" class="filterSelect">
                 <option value="N/A">N/A</option>
                 <option value="starred">Starred</option>
             </select>
@@ -36,7 +36,7 @@
         <span class="filterSelectContainer">
             <label for="positiveNegative" class="filterLabel">Positive/Negative</label>
             <br />
-            <select name="positiveNegative" onchange="this.form.submit()" class="filterSelect">
+            <select id="filterPositiveNegative" name="positiveNegative" onchange="this.form.submit()" class="filterSelect">
                 <option value="N/A">N/A</option>
                 <option value="P">Positive</option>
                 <option value="N">Negative</option>
@@ -46,7 +46,7 @@
         <span class="filterSelectContainer">
             <label for="keyword" class="filterLabel">Keyword</label>
             <br />
-            <input type ="text" name="keyword">
+            <input id="filterKeyword" type ="text" name="keyword">
         </span>
     </form>
 </div>
@@ -59,15 +59,19 @@
     </div>
     @for (int i = 0; i < Model.Count; i += 1)
     {
+        var content = Model[i].Content;
+        var indexOfContent = content.IndexOf("...\">") + 5;
+        var indexEndOfContent = content.IndexOf("</div>", indexOfContent);
+        content = Model[i].Content.Substring(indexOfContent, indexEndOfContent - indexOfContent);
         <a class="entry @Model[i].IsPositive" id="@Model[i].ID" asp-action="Entry" asp-route-entryID="@Model[i].ID">
             <div><input type="checkbox" disabled="true" style="cursor: context-menu;"/></div>
             <div style="grid-area: 1/2/2/3">
                 <div>@Model[i].Title</div>
-                @if (Model[i].Content.Length > 55)
+                @if (content.Length > 55)
                 {
-                    Model[i].Content = Model[i].Content.Substring(0, 55) + "...";
+                    content = content.Substring(0, 55) + "...";
                 }
-                <div class="content">@Model[i].Content</div>
+                <div class="content">@content</div>
             </div>
             <div>Mon. 5/9/2022 at 7:50pm</div>
             <div><button type="button" class="btn btn-danger buttonDeleteEntry" style="cursor: pointer;"><i class="fa-solid fa-trash-can"></i></button></div>
@@ -76,4 +80,3 @@
 </div>
 <script>
 </script>
-@*Chúng ta có cần encode id của entry không*@

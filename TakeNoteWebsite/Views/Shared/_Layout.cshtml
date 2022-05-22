@@ -41,16 +41,22 @@
                 <div id="title" style="font-family: 'Pacifico', cursive; font-size: 35px; cursor: pointer; margin-bottom: 15px; width: 20%; display: flex; justify-content: center;">penzu</div>
                 <div style="opacity: 0.5; width: 20%; display: flex; justify-content: center;">Take a diary is necessary</div>
                 <div style="position: relative; width: 20%; display: flex; justify-content: flex-end;" class="drop-wrapper">
-                    <div style="display: flex;">
-                        <p id="userName" style="cursor: pointer; padding-right: 10px;">Duong Van Khoa</p>
+                    <div style="position: relative; display: flex;">
+                        @if (ViewData["Username"] == "")
+                        {
+                            <p id="userName" style="cursor: pointer; padding-right: 10px;">Unknow user</p>
+                        }
+                        else
+                        {
+                            <p id="userName" style="cursor: pointer; padding-right: 10px;">@ViewData["Username"]</p>
+                        }
                         <i class="fa-solid fa-circle-user fa-2x " style="cursor: pointer; font-size: 25px;"></i>
-                    </div>
-                    <div class="drop-menu" id="dropleft">
-                        <a asp-controller="Main" asp-action="SignIn">Sign in</a>
-                        <a asp-controller="Main" asp-action="SignUp">Sign up</a>
-                        <a href="#">Link 3</a>
-                        <a href="#">Link 4</a>
-                        <a href="#">Link 5</a>
+                        <div class="drop-menu" id="dropleft">
+                            <a asp-controller="Main" asp-action="SignIn">Sign in</a>
+                            <a asp-controller="Main" asp-action="SignUp">Sign up</a>
+                            <a asp-controller="Main" asp-action="SignOut">Sign out</a>
+                            <a href="#">Link 4</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,6 +88,13 @@
     $(document).ready(function () {
         if ($('.leftMain').length) {
             var tmp = $("#header").remove();
+        }
+        if ($(".filterSince").length) {
+            alert("something");
+            $(".filterSince").val("@ViewData["FilterSince"]");
+            $("#filterStarred").val("@ViewData["FilterStarred"]");
+            $("#filterPositiveNegative").val("@ViewData["FilterPositiveNegative"]");
+            $("#filterKeyword").val("@ViewData["FilterKeyword"]");
         }
     });
 </script>
