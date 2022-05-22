@@ -115,9 +115,10 @@ namespace TakeNoteWebsite.Models.Data
             cmd.Parameters.AddWithValue("@textfont", DBNull.Value);
             cmd.Parameters.AddWithValue("@fontstyle", DBNull.Value);
             cmd.Parameters.AddWithValue("@sizeoftext", DBNull.Value);
-            cmd.Parameters.AddWithValue("@result", DBNull.Value);
+            cmd.Parameters.Add("@result", SqlDbType.Int);
+            cmd.Parameters["@result"].Direction = ParameterDirection.Output;
             cmd.ExecuteReader();
-            if (cmd.Parameters["@result"].ToString() == "0")
+            if (cmd.Parameters["@result"].Value.ToString() == "0")
             {
                 connection.Close();
                 return false;
@@ -132,9 +133,10 @@ namespace TakeNoteWebsite.Models.Data
             SqlCommand cmd = new SqlCommand("sp_DeleteEntry", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@entryID", entryID);
-            cmd.Parameters.AddWithValue("@result", DBNull.Value);
+            cmd.Parameters.Add("@result", SqlDbType.Int);
+            cmd.Parameters["@result"].Direction = ParameterDirection.Output;
             cmd.ExecuteReader();
-            if (cmd.Parameters["@result"].ToString() == "0")
+            if (cmd.Parameters["@result"].Value.ToString() == "0")
             {
                 connection.Close();
                 return false;
@@ -159,15 +161,40 @@ namespace TakeNoteWebsite.Models.Data
             cmd.Parameters.AddWithValue("@textfont", DBNull.Value);
             cmd.Parameters.AddWithValue("@fontstyle", DBNull.Value);
             cmd.Parameters.AddWithValue("@sizeoftext", DBNull.Value);
-            cmd.Parameters.AddWithValue("@result", DBNull.Value);
+            cmd.Parameters.Add("@result", SqlDbType.Int);
+            cmd.Parameters["@result"].Direction = ParameterDirection.Output;
             cmd.ExecuteReader();
-            if (cmd.Parameters["@result"].ToString() == "0")
+            if (cmd.Parameters["@result"].Value.ToString() == "0")
             {
                 connection.Close();
                 return false;
             }
             connection.Close();
             return true;
+        }
+        public static List<Image> GetListImageByEntry(string userID, string entryID)
+        {
+            List<Image> results = new List<Image>();
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string query = "select* from GetListImageByEntryID(@userid, @entryid)";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@userID", userID);
+            cmd.Parameters.AddWithValue("@entryID", entryID);
+            using (SqlDataReader oReader = cmd.ExecuteReader())
+            {
+                while (oReader.Read())
+                {
+                    Image result = new Image();
+                    result.ID = oReader["ImageID"].ToString();
+                    result.EntryID = oReader["EntryID"].ToString();
+                    result.Path = oReader["ImagePath"].ToString();
+                    results.Add(result);
+                }
+            }
+            connection.Close();
+
+            return results;
         }
         public static List<Image> GetListImage(string UserID, string Folder, Filter filter)
         {
@@ -203,9 +230,10 @@ namespace TakeNoteWebsite.Models.Data
             cmd.Parameters.AddWithValue("@FolderName", FolderName);
             cmd.Parameters.AddWithValue("@EntryID", image.EntryID);
             cmd.Parameters.AddWithValue("@ImagePath", image.Path);
-            cmd.Parameters.AddWithValue("@result", DBNull.Value);
+            cmd.Parameters.Add("@result", SqlDbType.Int);
+            cmd.Parameters["@result"].Direction = ParameterDirection.Output;
             cmd.ExecuteReader();
-            if (cmd.Parameters["@result"].ToString() == "0")
+            if (cmd.Parameters["@result"].Value.ToString() == "0")
             {
                 connection.Close();
                 return false;
@@ -487,9 +515,10 @@ namespace TakeNoteWebsite.Models.Data
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@userID", userID);
             cmd.Parameters.AddWithValue("@folderName", folderName);
-            cmd.Parameters.AddWithValue("@result", DBNull.Value);
+            cmd.Parameters.Add("@result", SqlDbType.Int);
+            cmd.Parameters["@result"].Direction = ParameterDirection.Output;
             cmd.ExecuteReader();
-            if (cmd.Parameters["@result"].ToString() == "0")
+            if (cmd.Parameters["@result"].Value.ToString() == "0")
             {
                 connection.Close();
                 return false;

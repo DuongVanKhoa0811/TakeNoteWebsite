@@ -78,7 +78,7 @@
         <a class="browseJournal" asp-action="AllEntry" style="color: white;">
             <i class="fa-solid fa-list-ul fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Entries</p>
         </a>
-        <a class="browseJournal" style="color: white;">
+        <a class="browseJournal" style="color: white;" asp-action="AllImageEntry" asp-route-entryID="@mainEntry.ID">
             <i class="fa-solid fa-image fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Images</p>
         </a>
         <a class="browseJournal" style="color: white;">
