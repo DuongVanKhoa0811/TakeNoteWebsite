@@ -54,7 +54,7 @@ namespace TakeNoteWebsite
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Main}/{action=Index}/{id?}");
+                    pattern: "{controller=Main}/{action=SignIn}/{id?}");
             });
         }
     }
