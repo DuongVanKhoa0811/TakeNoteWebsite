@@ -21,15 +21,21 @@
         </a>
         <div style="height: 10%; padding-left: 0%; font-size: 15px;">
             <div style="width: 100%; height: 100%; background-color: antiquewhite; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#input-image-folder" 
-                        style="border-radius: 0px; width: 100%; height: 50%; align-items: center; justify-content: center; display: flex; box-shadow: none;">Create new folder for image storage</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#input-image-folder"
+                        style="border-radius: 0px; width: 100%; height: 50%; align-items: center; justify-content: center; display: flex; box-shadow: none;">
+                    Create new folder for image storage
+                </button>
                 <div style="width: 100%; height: 50%; display: flex; flex-direction: row; ">
                     <div style="width: 50%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                        @{ 
+                            var listFolderName = Model.ListFolderName;
+                        }
                         <select name="selectedFolderName" id="selectedFolderName" style="width: 100%; height: 100%;">
                             <option value="Auto">Auto</option>
-                            <option value="Folder 1">Folder 1</option>
-                            <option value="Folder 2">Folder 2</option>
-                            <option value="Folder 3">Folder 3</option>
+                            @foreach (string folderName in listFolderName)
+                            {
+                                <option value="@folderName">@folderName</option>
+                            }
                         </select>
                     </div>
                     <button data-bs-toggle="modal" data-bs-target="#save-image-modal" style="width: 50%; height: 100%; display: flex; justify-content: center; align-items: center;">Upload image</button>
@@ -78,8 +84,11 @@
         <a class="browseJournal" asp-action="AllEntry" style="color: white;">
             <i class="fa-solid fa-list-ul fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Entries</p>
         </a>
-        <a class="browseJournal" style="color: white;" asp-action="AllImageEntry" asp-route-entryID="@mainEntry.ID">
+        <a class="browseJournal" style="color: white;" asp-action="AllImageFolder" asp-route-entryID="@mainEntry.ID">
             <i class="fa-solid fa-image fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Images</p>
+        </a>
+        <a class="browseJournal" style="color: white;" asp-action="AllImageEntry" asp-route-entryID="@mainEntry.ID">
+            <i class="fa-solid fa-image fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">Images of this entry</p>
         </a>
         <a class="browseJournal" style="color: white;">
             <i class="fa-solid fa-star fa-2x" style="font-size: 15px;"></i>&nbsp; <p style="font-size: 15px;">View Starred Entries</p>

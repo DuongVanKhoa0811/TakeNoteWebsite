@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Images\Upload\download222148781.jpg" />
+    <None Include="wwwroot\Images\Upload\download224636906.jpg" />
+    <None Include="wwwroot\Images\Upload\Image12224717477.jpg" />
+    <None Include="wwwroot\Images\Upload\Image12224717478.jpg" />
+    <None Include="wwwroot\Images\Upload\Image12224717479.jpg" />
+    <None Include="wwwroot\Images\Upload\Image12224717479220702590.jpg" />
+    <None Include="wwwroot\Images\Upload\Untitled220619882.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

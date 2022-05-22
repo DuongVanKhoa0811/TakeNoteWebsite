@@ -1,7 +1,7 @@
 ﻿.entry {
     display: grid;
-    grid-template-columns: 5% 55% 30% 10%;
-    width: 70%;
+    grid-template-columns: 8% 59% 33%;
+    width: 64%;
     margin-left: 15%;
     padding-left: 3%;
     border-bottom: 0.5px solid rgb(194, 190, 190);
@@ -28,7 +28,7 @@
         background-color: gray;
     }
 
-        /*.entry div input:hover {
+    /*.entry div input:hover {
             cursor: pointer;
         }*/
 
@@ -50,16 +50,20 @@
         color: gray;
     }
 
-    .entry div:nth-child(4) {
-        padding-left: 10%;
-        grid-area: 1/4/2/5;
-        align-items: center;
-    }
+.buttonDeleteEntry {
+    align-items: center;
+    cursor: pointer;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
 
 
 .True {
     background-color: #f7c88a;
 }
+
 .False {
     background-color: #5bbfea;
 }

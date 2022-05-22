@@ -1,7 +1,6 @@
-﻿$(".buttonDeleteEntry").click(function () {
-    var idEntry = $(this).parent().parent().attr("id");
-    val1 = idEntry;
-    $("#" + idEntry).remove();
+﻿function delete_entry(entryID) {
+    val1 = entryID;
+    $("." + val1).remove();
 
     $.ajax({
         type: "POST",
@@ -15,4 +14,7 @@
             alert("Failed to delete the diary for some reason!");
         }
     });
-});
+};
+function preprocessEntryID(entryID) {
+    return ("0000" + entryID).slice(-5);
+}

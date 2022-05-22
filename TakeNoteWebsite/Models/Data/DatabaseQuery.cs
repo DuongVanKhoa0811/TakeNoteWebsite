@@ -11,7 +11,7 @@ namespace TakeNoteWebsite.Models.Data
     {
         //Tuan: Data Source=LAPTOP-HSGL6DT0\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
         //Khoa: Data Source=LAPTOP-OKIJ6G4N\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True
-        private static string connectionString = "Data Source=LAPTOP-HSGL6DT0\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private static string connectionString = "Data Source=LAPTOP-OKIJ6G4N\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True";
         public static Entry GetFirstEntry(string UserID)
         {
             Entry result = new Entry();

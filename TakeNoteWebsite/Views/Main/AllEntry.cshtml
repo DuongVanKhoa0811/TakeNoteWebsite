@@ -51,11 +51,15 @@
     </form>
 </div>
 <div style="margin-top: 20px;">
-    <div class="entry" style="border-bottom: 0.5px solid gray; box-shadow: 1px 1px 3px 0 #ccc; margin-bottom: 2px;">
-        <div><input type="checkbox" disabled="true" style="cursor: auto;"></div>
-        <div id="tmp" style="font-weight: bold;">Entry</div>
-        <div style="font-weight: bold; color: #4b5363;">Date created</div>
-        <div style="font-weight: bold;">Delete</div>
+    <div style="display: flex; flex-direction: row;">
+        <div class="entry" style="border-bottom: 0.5px solid gray; box-shadow: 1px 1px 3px 0 #ccc; margin-bottom: 2px;">
+            <div><input type="checkbox" disabled="true" style="cursor: auto;"></div>
+            <div id="tmp" style="font-weight: bold;">Entry</div>
+            <div style="font-weight: bold; color: #4b5363;">Date created</div>
+        </div>
+        <div style="width: 6%; display: flex; align-items: center; justify-content: center; border-bottom: 0.5px solid rgb(194, 190, 190); border-bottom: 0.5px solid gray; box-shadow: 1px 1px 3px 0 #ccc; margin-bottom: 2px;">
+            Delete
+        </div>
     </div>
     @for (int i = 0; i < Model.Count; i += 1)
     {
@@ -63,19 +67,29 @@
         var indexOfContent = content.IndexOf("...\">") + 5;
         var indexEndOfContent = content.IndexOf("</div>", indexOfContent);
         content = Model[i].Content.Substring(indexOfContent, indexEndOfContent - indexOfContent);
-        <a class="entry @Model[i].IsPositive" id="@Model[i].ID" asp-action="Entry" asp-route-entryID="@Model[i].ID">
-            <div><input type="checkbox" disabled="true" style="cursor: context-menu;"/></div>
-            <div style="grid-area: 1/2/2/3">
-                <div>@Model[i].Title</div>
-                @if (content.Length > 55)
-                {
-                    content = content.Substring(0, 55) + "...";
-                }
-                <div class="content">@content</div>
+        <div class="@Model[i].ID" style="display: flex; flex-direction: row;">
+            <a class="entry @Model[i].IsPositive" id="@Model[i].ID" asp-action="Entry" asp-route-entryID="@Model[i].ID">
+                <div><input type="checkbox" disabled="true" style="cursor: context-menu;" /></div>
+                <div style="grid-area: 1/2/2/3">
+                    <div>@Model[i].Title</div>
+                    @if (content.Length > 55)
+                    {
+                        content = content.Substring(0, 55) + "...";
+                    }
+                    @if (content == "")
+                    {
+                        content = "Empty";
+                    }
+                    <div class="content">@content</div>
+                </div>
+                <div>@Model[i].Date</div>
+            </a>
+            <div class="@Model[i].IsPositive" onclick="delete_entry('@Model[i].ID')" style="width: 6%; display: flex; align-items: center; justify-content: center; border-bottom: 0.5px solid rgb(194, 190, 190);">
+                <button type="button" class="btn btn-danger buttonDeleteEntry">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
             </div>
-            <div>Mon. 5/9/2022 at 7:50pm</div>
-            <div><button type="button" class="btn btn-danger buttonDeleteEntry" style="cursor: pointer;"><i class="fa-solid fa-trash-can"></i></button></div>
-        </a>
+        </div>
     }
 </div>
 <script>
