@@ -203,7 +203,7 @@ namespace TakeNoteWebsite.Controllers
                 else
                 {
                     //sign in failed
-                    ViewData["Error"] = "Invalid username or password";
+                    ViewData["Error"] = "Something's wrong, please check your username and password again";
                     return View();
                 }
 
@@ -352,10 +352,6 @@ namespace TakeNoteWebsite.Controllers
         {
             return DatabaseQuery.CreaetNewFolder("00000", folderName);
         }
-
-
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

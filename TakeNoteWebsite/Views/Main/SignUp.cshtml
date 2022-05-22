@@ -12,29 +12,29 @@
             <p class="authenticateError">@ViewData["Error"]</p>
         </div>
         <span>
-            <input asp-for="@Model.FirstName" type="text" class="authenticateFormInput" id="FirstNameInput">
+            <input asp-for="@Model.FirstName" type="text" class="authenticateFormInput" id="FirstNameInput" required>
             <br />
             <label class="authenticateFormLabel">FIRSTNAME </label>
         </span>
 
         <span>
-            <input asp-for="@Model.LastName" type="text" class="authenticateFormInput" id="LastNameInput">
+            <input asp-for="@Model.LastName" type="text" class="authenticateFormInput" id="LastNameInput" required>
             <br />
             <label class="authenticateFormLabel">LASTNAME </label>
         </span>
         <br />
 
-        <input asp-for="@Model.UserName" type="text" class="authenticateFormInput" id="signInUsernameInput">
+        <input asp-for="@Model.UserName" type="text" class="authenticateFormInput" id="signInUsernameInput" required>
         <br />
         <label class="authenticateFormLabel">USERNAME </label>
         <br />
 
-        <input asp-for="@Model.Password" type="password" class="authenticateFormInput" id="signInPasswordInput">
+        <input asp-for="@Model.Password" type="password" class="authenticateFormInput" id="signInPasswordInput" required>
         <br />
         <label class="authenticateFormLabel">PASSWORD </label>
         <br />
 
-        <input asp-for="@Model.ConfirmPassword" type="password" class="authenticateFormInput" id="signInPasswordInput">
+        <input asp-for="@Model.ConfirmPassword" type="password" class="authenticateFormInput" id="signInPasswordInput" required>
         <br />
         <label class="authenticateFormLabel">CONFIRM PASSWORD </label>
         <br />

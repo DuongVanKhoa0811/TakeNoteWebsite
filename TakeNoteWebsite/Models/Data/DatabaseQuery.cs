@@ -9,9 +9,9 @@ namespace TakeNoteWebsite.Models.Data
 {
     public class DatabaseQuery
     {
-        //Tuan: Data Source=LAPTOP-HSGL6DT0\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
+        //Tuan: Data Source=LAPTOP-HSGL6DT0\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
         //Khoa: Data Source=LAPTOP-OKIJ6G4N\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True
-        private static string connectionString = "Data Source=LAPTOP-OKIJ6G4N\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True";
+        private static string connectionString = "Data Source=LAPTOP-HSGL6DT0\\SQLEXPRESS;Initial Catalog=PenZu;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public static Entry GetFirstEntry(string UserID)
         {
             Entry result = new Entry();
@@ -117,7 +117,8 @@ namespace TakeNoteWebsite.Models.Data
             cmd.Parameters.AddWithValue("@sizeoftext", DBNull.Value);
             cmd.Parameters.AddWithValue("@result", DBNull.Value);
             cmd.ExecuteReader();
-            if (cmd.Parameters["@result"].ToString() == "0")
+            string check = cmd.Parameters["@result"].Value.ToString();
+            if (check == "0")
             {
                 connection.Close();
                 return false;
@@ -223,23 +224,56 @@ namespace TakeNoteWebsite.Models.Data
             return true;
         }
 
-        public static int GetUserID(string username)
+        public static string GetUserID(string username)
         {
-            return 0;
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string query = "select* from GetUserID(@userName)";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@UserName", username);
+
+            using (SqlDataReader oReader = cmd.ExecuteReader())
+            {
+                while (oReader.Read())
+                {
+                    return oReader["UserID"].ToString();
+                }
+            }
+            return "";
         }
         public static User GetUser(string UID)
         {
-            return new User
+            User result = new User();
+            
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand("select u.UserID, u.LastName, u.FirstName, u.UserName from UserAccount as u where u.UserID = '" + UID  +"'", connection);
+            using (SqlDataReader oReader = cmd.ExecuteReader())
             {
-                FirstName = "Tony",
-                LastName = "Stark",
-                UserName = "TonyStark",
-                ID = "00123"
-            };
+                while (oReader.Read())
+                {
+                    result.ID = oReader["UserID"].ToString();
+                    result.LastName = oReader["LastName"].ToString();
+                    result.FirstName = oReader["FirstName"].ToString();
+                    result.UserName = oReader["UserName"].ToString();
+                }
+            }
+
+            return result;
         }
         public static bool SignIn(string username, string password)
         {
-            return true;
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand("select u.UserID from UserAccount as u where u.UserName = '" + username +"' and u.Pass = '" +password +"'", connection);
+            using (SqlDataReader oReader = cmd.ExecuteReader())
+            {
+                while (oReader.Read())
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static List<Image> searchImage(string UserID, ImageFilter filter)

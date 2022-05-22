@@ -43,8 +43,9 @@ namespace TakeNoteWebsite.Controllers
                 return false;
             }
             //sign in if correct
-            //int uid = DatabaseQuery.getUserID(userName);
-            //User user = DatabaseQuery.getUser(uid);
+            string uid = DatabaseQuery.GetUserID(userName);
+            User user = DatabaseQuery.GetUser(uid);
+            /*
             User user = new User
             {
                 FirstName = "Tony",
@@ -52,6 +53,7 @@ namespace TakeNoteWebsite.Controllers
                 ID = "00000",
                 UserName = userName
             };
+            */
 
             var claims = new List<Claim>
             {
