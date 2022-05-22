@@ -60,7 +60,8 @@ namespace TakeNoteWebsite.Controllers
             else
             {
                 Entry firstEntry = DatabaseQuery.GetFirstEntry(currentUser.ID);
-                return RedirectToAction("Entry", firstEntry.ID);
+                string firstID = firstEntry.ID;
+                return RedirectToAction("Entry", "Main", firstID);
             }
         }
         
@@ -206,7 +207,8 @@ namespace TakeNoteWebsite.Controllers
                     {
                         return RedirectToAction("Entry");
                     }
-                    return RedirectToAction("Entry", firstEntry.ID);
+                    string firstID = firstEntry.ID;
+                    return RedirectToAction("Entry", "Main", firstID);;
                 }
                 else
                 {

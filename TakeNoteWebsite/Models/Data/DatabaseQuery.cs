@@ -24,6 +24,7 @@ namespace TakeNoteWebsite.Models.Data
             {
                 while (oReader.Read())
                 {
+                    result.ID = oReader["EntryID"].ToString();
                     result.Title = oReader["NameEntry"].ToString();
                     result.Date = (DateTime)oReader["DateOfEntry"];
                     if (oReader["Emotion"] == DBNull.Value || oReader["Emotion"].ToString() == "P") 
