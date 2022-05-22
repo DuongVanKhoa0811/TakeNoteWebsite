@@ -106,6 +106,7 @@ function create_new_folder() {
         dataType: "text",
         success: function (result) {
             alert("Success - The folder had been saved successfully!");
+            location.replace("/Main/Entry/?entryID=");
         },
         error: function (req, status, error) {
             alert("Failed - The folder had not been saved for some reasons!");
