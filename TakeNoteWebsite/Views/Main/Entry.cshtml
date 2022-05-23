@@ -84,20 +84,25 @@
         <a class="browseJournal" asp-action="AllEntry" style="color: white;">
             <i class="fa-solid fa-list-ul fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Entries</p>
         </a>
-        <a class="browseJournal" style="color: white;" asp-action="AllImageFolder" asp-route-entryID="@mainEntry.ID">
+        <a class="browseJournal" style="color: white;" asp-action="AllImageFolder">
             <i class="fa-solid fa-image fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">View All Images</p>
         </a>
-        <a class="browseJournal" style="color: white;" asp-action="AllImageEntry" asp-route-entryID="@mainEntry.ID">
-            <i class="fa-solid fa-image fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">Images of this entry</p>
+        <a class="browseJournal" style="color: white;" asp-action="AllImageEntry" asp-route-entryID="@mainEntry.ID" onclick="new_entry_or_not(@mainEntry.ID)">
+            <i class="fa-solid fa-image fa-2x" style="font-size: 15px;"></i> &nbsp;<p style="font-size: 15px;">Images Of This Entry</p>
         </a>
-        <a class="browseJournal" style="color: white;">
+        <a class="browseJournal" style="color: white;" onclick="view_star_entry()">
             <i class="fa-solid fa-star fa-2x" style="font-size: 15px;"></i>&nbsp; <p style="font-size: 15px;">View Starred Entries</p>
         </a>
         <div style="overflow: scroll; width: 100%; height: 47%;">
             @foreach (TakeNoteWebsite.Models.Data.Entry entry in Model.ListEntry)
             {
                 var tmp = entry.Date.GetDateTimeFormats()[3];
-                <a class="browseJournal entryBrowse" style="height: 14%; font-size: 15px;" id="@entry.ID" asp-action="Entry" asp-route-entryID="@entry.ID">
+                var tmpp = "";
+                if (!entry.Star)
+                {
+                    tmpp = "notStarEntry";
+                }
+                <a class="browseJournal entryBrowse @tmpp" style="height: 14%; font-size: 15px;" id="@entry.ID" asp-action="Entry" asp-route-entryID="@entry.ID">
                     <p>
                         <b>@entry.Title</b><br>
                         <i class="fa-solid fa-square fa-1x" style="margin-right: 5px;"></i>@tmp
@@ -276,11 +281,11 @@
                 </div>
             </div>
             <div class="alert alert-danger alert-danger-entry" style="width: 80%; height: 10%; position: fixed; top: 5%; left: 10%; display: flex; justify-content: center; animation-duration: 4s; opacity: 0; visibility: hidden;">
-                <strong>Failed!</strong> Unablle to store the diary!
+                <strong>Failed! </strong> Unablle to store the diary!
             </div>
             <div class="alert alert-success alert-success-entry" style="width: 80%; height: 10%; position: fixed; top: 5%; left: 10%; display: flex; justify-content: center; animation-duration: 4s; opacity: 0; visibility: hidden;">
-                <strong>Success!</strong> The diary had been store succesfully!
+                <strong>Success! </strong> The diary had been store succesfully!
             </div>
             <div class="alert alert-danger alert-danger-forgot-title" style="width: 80%; height: 10%; position: fixed; top: 5%; left: 10%; display: flex; justify-content: center; animation-duration: 4s; opacity: 0; visibility: hidden;">
-                <strong>Failed!</strong> Please fill in the title before save!
+                <strong>Failed! </strong> Please fill in the title before save!
             </div>

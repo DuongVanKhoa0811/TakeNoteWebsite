@@ -165,7 +165,9 @@ namespace TakeNoteWebsite.Controllers
         }
         public IActionResult AllImageEntry(string entryID)
         {
-            List<Image> imageList = DatabaseQuery.GetListImageByEntry("00000", entryID);
+            List<Image> imageList = new List<Image>();
+            if(entryID != null)
+                imageList = DatabaseQuery.GetListImageByEntry("00000", entryID);
             return View(imageList);
         }
 

@@ -316,6 +316,18 @@ GO
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 
+CREATE OR ALTER FUNCTION GetListImageByEntryID(@userid char(5), @entryid char(5))
+RETURNS TABLE
+AS
+RETURN
+(
+    select i.ImageID, i.EntryID, i.FolderID, i.ImagePath, i.UserID
+	from Img as i 
+	where i.UserID=@userid and i.EntryID=@entryid
+)
+GO
+---------------------------------------------------------------------------------------------------------------------------------------
+
 CREATE OR ALTER PROCEDURE sp_NewImage(@UserID nvarchar(100), @FolderName nvarchar(100), @EntryID char(5), @ImagePath char(100), @result INT OUT)
 AS
 BEGIN TRANSACTION

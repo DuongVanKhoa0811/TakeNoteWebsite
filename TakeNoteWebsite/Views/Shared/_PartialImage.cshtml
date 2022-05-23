@@ -3,7 +3,7 @@
 *@
 @model TakeNoteWebsite.Models.Data.Image
 
-<a asp-controller="Main" asp-action="Entry" asp-route-id="@Model.EntryID">
+<a asp-controller="Main" asp-action="Entry" asp-route-entryID="@Model.EntryID">
     <div class="folderContainer">
         <img src="/Images/Upload/@Model.Path" class="sampleImage">
     </div>

@@ -113,6 +113,15 @@ function create_new_folder() {
         }
     });
 }
+function view_star_entry() {
+    $(".notStarEntry").remove();
+}
+function new_entry_or_not(entryID) {
+    if (entryID != 0)
+        if (typeof entryID == "undefined" || typeof entryID == null || entryID == "")
+            alert("The entry had not been save yet!");
+    
+}
 function preprocessEntryID(entryID) {
     return ("0000" + entryID).slice(-5);
 }
