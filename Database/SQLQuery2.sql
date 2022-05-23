@@ -20,7 +20,7 @@ GO
 create table EntryTable(
 	EntryID char(5),
 	NameEntry nvarchar(500),
-	Content TEXT,
+	Content nvarchar(4000),
 	Star bit,
 	Emotion nvarchar(50),
 	DateOfEntry date,
@@ -218,7 +218,7 @@ GO
 select* from GetListEntryByUserID('00000')
 */
 
-CREATE OR ALTER PROCEDURE sp_NewEntry(@nameEntry nvarchar(500), @content TEXT, @star bit, @emotion nvarchar(50), @dateofentry date, @dateupload date, @userid char(5), @textfont nvarchar(100), @fontstyle nvarchar(100),@sizeoftext float, @result INT OUT)
+CREATE OR ALTER PROCEDURE sp_NewEntry(@nameEntry nvarchar(500), @content nvarchar(4000), @star bit, @emotion nvarchar(50), @dateofentry date, @dateupload date, @userid char(5), @textfont nvarchar(100), @fontstyle nvarchar(100),@sizeoftext float, @result INT OUT)
 AS
 BEGIN TRANSACTION
         if exists(
@@ -238,7 +238,7 @@ BEGIN TRANSACTION
 			Declare @tmp char(5)
 			Set @tmp=RIGHT('00000'+CAST(@count as varchar(5)) ,5)
 			insert into EntryTable(EntryID, NameEntry ,Content , Star, Emotion, DateOfEntry, DateUpload, UserID, TextFont, FontStyle, SizeOfText)
-			values (@tmp, @nameEntry, @content, @star,@emotion,@dateofentry,@dateupload,@userid, @textfont, @fontstyle, @sizeoftext);
+			values (@tmp, @nameEntry, N''+@content+'', @star,@emotion,@dateofentry,@dateupload,@userid, @textfont, @fontstyle, @sizeoftext);
 			Set @result=1
 
         END
@@ -276,7 +276,7 @@ COMMIT TRANSACTION
 GO
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-CREATE OR ALTER PROCEDURE sp_SaveEntry(@userid char(5), @entryid char(5), @nameEntry nvarchar(500), @content TEXT, @star bit, @emotion nvarchar(50), @dateofentry date, @dateupload date, @textfont nvarchar(100), @fontstyle nvarchar(100),@sizeoftext float, @result INT OUT)
+CREATE OR ALTER PROCEDURE sp_SaveEntry(@userid char(5), @entryid char(5), @nameEntry nvarchar(500), @content nvarchar(4000), @star bit, @emotion nvarchar(50), @dateofentry date, @dateupload date, @textfont nvarchar(100), @fontstyle nvarchar(100),@sizeoftext float, @result INT OUT)
 AS
 BEGIN TRANSACTION
         if exists(
@@ -286,7 +286,7 @@ BEGIN TRANSACTION
         )
         BEGIN
 			Update EntryTable
-			set NameEntry=@nameEntry, Content=@content, Star=@star, Emotion=@emotion, DateOfEntry=@dateofentry, TextFont=@textfont, FontStyle=@fontstyle, SizeOfText=@sizeoftext
+			set NameEntry=@nameEntry, Content=N''+@content+'', Star=@star, Emotion=@emotion, DateOfEntry=@dateofentry, TextFont=@textfont, FontStyle=@fontstyle, SizeOfText=@sizeoftext
 			where EntryID=@entryid
 		Set @result=1
 
